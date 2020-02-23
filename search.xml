@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>NUC505 - HS USB</title>
+      <link href="/2020/02/21/NUC505/"/>
+      <url>/2020/02/21/NUC505/</url>
+      
+        <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>本来做的是M484，看好了它的片上高速USB、双SDHC、QSPI FLash等，结果入了新塘第一坑：LQFP64封装是.4间距的，偶直接拖了个STM32F205的封装过来，.5间距的，结果就是下面这样：<br><img src="../../../../medias/boardPic/2020/M484.jpg" alt="M484 -&gt; NUC505"></p><p>无意间于Whycan论坛（原填坑网）上发现了这款神U：NUC505：</p><ul><li>高速USB Device，USB2.0 USBHost. SD Host.</li><li>128 KSRAM，512KB/2MB SPI Flash（片上无flash）</li><li>含有浮点运算单元和DSP的ARM® Cortex®-M4内核，最高可运行至100MHz</li><li>内建双声道24位音频解码器（某些型号）</li><li>封装友好：LQFP48、QFN48、LQFP64、QFN88.</li></ul><p>相见恨晚啊，这不就是我一直想要的嘛.. 天猫Nuvoton旗舰店一查价格：NUC505DL13Y（2MB SPI FLASH）才￥7.60！便宜的令人发指！！！  那还等什么？立马画板打板，开启了我的“坑”中之旅~~</p><p>先记录下官网用到的软件及文档：</p><ul><li>BSP：NUC505_Series_BSP_CMSIS_V3.03.001.zip</li><li>MDK Pack：Nuvoton.NuMicro_DFP.1.3.5.pack</li><li>AN_0011_NUC505_Series_Improving_Execution_Performance_on_SPI_Flash_EN_Rev1.00.pdf</li><li>AN_0010_ICP_Programming_Guide_EN_Rev1.00.pdf</li></ul><h3 id="坑一：J-Link不支持？"><a href="#坑一：J-Link不支持？" class="headerlink" title="坑一：J-Link不支持？"></a>坑一：J-Link不支持？</h3><p>明明是CortexM4核，明明也支持SWD模式，结果JLink无法识别，打开J-Link commander也没NUC505系列，估计是没给Segger付费吧，可惜了我的MiniJlink和RTT，好用的工具只能暂时放一边了，好在之前参加过几次Nuvoton的研讨会，大方的新塘送的demo板上都有NuLinkMe调试器，暴力掰下来，然后杜邦线连之。</p><p><img src="../../../../medias/boardPic/2020/NDemo.jpg" alt="Nuvoton Demo Board"></p><h3 id="坑二：片内SPI-Flash-And-Boot"><a href="#坑二：片内SPI-Flash-And-Boot" class="headerlink" title="坑二：片内SPI Flash And Boot"></a>坑二：片内SPI Flash And Boot</h3><p>前面多次提到过2MB的片内SPI Flash，2MB看上去很美，但是封的是SPI FLash，虽然支持片上运行，但是速度相比SRAM中运行慢了100倍！没错，是100倍！星爷的那句 “我奶奶骂他欺善民，反被他捉进了<strong>唐府</strong>，xx了一百遍 ！一百遍！！！” 在耳边飘荡…， Github中看到了下面的描述：</p><blockquote><p><em>“ Although code can run directly out of the SPI flash, <strong>execution is understandably SLOOOW</strong>. For this reason, the default Section Placement setting provided for new projects by this package is “Flash Copy to RAM”; however, the usual “Flash” and “RAM” options are provided for completeness as well.</em></p><p><em>The NUC505 has a “Boot from USB” mode where the device appears <strong>as a USB Mass Storage device. A .bin binary image copied to the device is programmed to the internal SPI memory at 0x0.</strong> When the NUC505 is then returned to the “Boot from Internal MCP SPI flash” and restarted, it will attempt to boot from that image. HOWEVER, the “Boot from USB” USB Mass Storage implementation appears to only work in Windows; Linux detects the emulated volume as having corruption and will refuse to mount it for write access.</em></p><p><em>When the NUC505 is set to its “<strong>SWD/ICE Mode with Internal SPI Flash</strong>“ mode, <strong>the NUC505 will NOT execute user code upon hardware reset.</strong> Instead, it runs from its internal mask ROM code and execution eventually reaches an endless loop. This boot mode seems to be intended exclusively for using an IDE to both program memory and specifically initiate debugging execution of the user application.”</em></p></blockquote><p>片上的spi flash看来只能用于代码的存储和boot了，（还可以用于存储一些数据，省了外部的存储了）然后将代码copy到ram里运行，也行，谁让它便宜来，128KB SRAM，分了4个bank，每个32KB，这样就可以作为<u>32K RAM/96 K Flash</u> 或者 <u>64K RAM/64 K Flash</u>的配置来用了，紧着这128K 来回蹂躏吧~</p><p>But，在“SWD/ICE with Internal SPI Flash”模式下无法运行用户代码是什么鬼？尝试了才知道：在这种模式下，可以通过MDK的debug进行程序下载、debug、查看变量、全速运行等等，但是退出debug模式，这货就不跑了！即使按reset也不行，想让它从能从spi flash中自举运行？那得改变它的硬件boot模式才行！真是反人类的设计！！不服？咬他？当心被捉进<strong>唐府</strong>…</p><p>记NUC505的启动配置：（在复位时默认上拉，所以如需配置为0，则相应管脚需加10KR电阻下拉）</p><table><thead><tr><th>PB.4</th><th>PB.3</th><th>PA.10</th><th>PA.9</th><th>描述</th><th>寄存器映射</th></tr></thead><tbody><tr><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>内部MCP SPI FLash启动</strong></td><td>SYS_BOOTSET[3:0]</td></tr><tr><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>0</strong></td><td><strong>USB启动</strong></td><td>SYS_BOOTSET[3:0]</td></tr><tr><td>1</td><td>1</td><td>0</td><td>1</td><td>外部SPI Flash启动</td><td>SYS_BOOTSET[3:0]</td></tr><tr><td>1</td><td>0</td><td>1</td><td>1</td><td>ICP模式启动</td><td>SYS_BOOTSET[3:0]</td></tr><tr><td><strong>0</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>1</strong></td><td><strong>SWD/ICE + 内部SPI Flash</strong></td><td>SYS_BOOTSET[3:0]</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td><td>SWD/ICE + 外部SPI Flash</td><td>SYS_BOOTSET[3:0]</td></tr></tbody></table><p>记录我的板子上的调试：</p><ul><li>电阻全都不焊，默认 1111 ： 从片上SPI Flash中启动</li><li><strong>R13 = 10KR， PB4=0， SWD/ICE + 内部SPI Flash ，调试时使用这种模式。</strong></li><li>R3 = 10KR， PA9=0， USB启动。</li></ul><h3 id="坑三：未完待续…"><a href="#坑三：未完待续…" class="headerlink" title="坑三：未完待续…"></a>坑三：未完待续…</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> ARM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NUC505 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>上师微博(backup) - 2020年2月份</title>
       <link href="/2020/02/13/sswb_02/"/>
       <url>/2020/02/13/sswb_02/</url>
