@@ -569,7 +569,24 @@
 <p>注：默认配置该工程是使用的SPI FLASH的，需要先设置成“<strong>SWD/ICE + 内部SPI Flash</strong>”模式下，debug下可以运行，也可以下载，然后把启动模式更改为“<strong>内部MCP SPI FLash启动</strong>”，上电即可运行。</p>
 <p>在SampleCode\BootTemplate下有几个例程，参考来实现如何使用SPI Flash和SRAM，目前使用MainOnSram例程，就是启动代码在spi flash中，然后其他大部分程序都是在ram中执行。直接用该例程的ld文件就可以。另外程序稍作配置，将主频配到180M，96M太对不起这内存了。顺便移植了下新塘的NuConsole，跟Segger的RTT类似，在debug模式下打开即可，再插上shell的翅膀，可以起飞啦！</p>
 <p><img src="../../../../medias/boardPic/2020/NuConsole.png" alt="NuConsole"></p>
-<h3 id="坑四：开始USB-CDC通信"><a href="#坑四：开始USB-CDC通信" class="headerlink" title="坑四：开始USB CDC通信"></a>坑四：开始USB CDC通信</h3>
+<p>顺便再吐槽下他家的NuConsole，虽然功能跟RTT相似，结果请看上图：不支持最大化！只能这么小窗口显示，真是小气的很~</p>
+<h3 id="坑四：新鲜出炉的M484-NUC505"><a href="#坑四：新鲜出炉的M484-NUC505" class="headerlink" title="坑四：新鲜出炉的M484+NUC505"></a>坑四：新鲜出炉的M484+NUC505</h3><p>之前由于封装画错了的M484只能含泪默默重新改版，顺便把NUC505也改了改，加上了oled和按键。</p>
+<p><img src="../../../../medias/boardPic/2020/M484Nuc505.jpg" alt="M484Nuc505"></p>
+<p>NUC505 LQFP封装的可用IO 还是比较少的，目前几乎全用上了，于是在按键输入上又掉坑里了！</p>
+<p>PA0 - 看上去是GPIO管脚，结果该脚使能上拉读出来的值始终为0，查了下手册才发现PA0-ADC_CH0，<strong>内建10KR电阻分压用作电池检测</strong>！内贱啊！！！也没个电路看看如果要测电池电压该怎么接…顺便看了下它的ADC，虽然只有一个ADC，可是玩出了很多花样：</p>
+<ul>
+<li><p>ADC_CH1通道最高可达1MSPS的采样率。</p>
+</li>
+<li><p>ADC_CH2~ADC_CH7:最高200KSPS采样率。</p>
+</li>
+<li><p>ADC_CH2：支持键盘比较器。</p>
+</li>
+<li><p>ADC_CH0：内建10KR电阻分压用作电池检测。</p>
+</li>
+</ul>
+<p>好在OLED一把就点亮了，SPI代码配置真是简洁。</p>
+<h3 id="坑五：VCP-512整数倍发送的问题"><a href="#坑五：VCP-512整数倍发送的问题" class="headerlink" title="坑五：VCP 512整数倍发送的问题"></a>坑五：VCP 512整数倍发送的问题</h3><p>老生常谈的话题了，早在STM32上就有这问题，结果在505上又遇到了，说白了就是在发完整数倍数据包如果还有要发的数据就接着发数据，没有要发的数据了就发个空包就行，在这一点上Nuvoton设计的还是比较人性化的：<br><code>USBD-&gt;EP[EPA].EPRSPCTL = USB_EP_RSPCTL_ZEROLEN;</code><br>对EPRSPCTL的ZERO位置1就会发送一个空包了。至于为啥是512，因为是高速USB嘛，还有一点：可以配置缓冲区为1024，然后收发 一包就是1024Byte，真爽~</p>
+
             </div>
             <hr/>
 
