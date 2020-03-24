@@ -586,6 +586,13 @@
 </ul>
 <p>好在OLED一把就点亮了，SPI代码配置真是简洁。</p>
 <h3 id="坑五：VCP-512整数倍发送的问题"><a href="#坑五：VCP-512整数倍发送的问题" class="headerlink" title="坑五：VCP 512整数倍发送的问题"></a>坑五：VCP 512整数倍发送的问题</h3><p>老生常谈的话题了，早在STM32上就有这问题，结果在505上又遇到了，说白了就是在发完整数倍数据包如果还有要发的数据就接着发数据，没有要发的数据了就发个空包就行，在这一点上Nuvoton设计的还是比较人性化的：<br><code>USBD-&gt;EP[EPA].EPRSPCTL = USB_EP_RSPCTL_ZEROLEN;</code><br>对EPRSPCTL的ZERO位置1就会发送一个空包了。至于为啥是512，因为是高速USB嘛，还有一点：可以配置缓冲区为1024，然后收发 一包就是1024Byte，真爽~</p>
+<h3 id="坑六：UART的接收超时中断"><a href="#坑六：UART的接收超时中断" class="headerlink" title="坑六：UART的接收超时中断"></a>坑六：UART的接收超时中断</h3><p>之前用stm32F072时使用串口空闲中断作为接收成帧判断，看NUC505的手册看到UART_TOUT寄存器中的TOIC：当RX FIFO接收到一个新的数据时，定时溢出计数器开始计数，超时后如果RXTOINT为使能，则接收超时中断RXTOINT产生。要求设置为40~255之间，如TOIC为40，则在4个字符时间长度后还没收到新数据，则超时中断产生。看这个描述正正合我的心意！UART1设置46字节fifo的阈值中断，这样使用也可以很大的减轻CPU的负担又能再收到一帧数据后 延时4个字符给出中断，测试时也是OK的，蛋蛋蛋但是：</p>
+<p>当正好发送46字节时，则无超时中断产生，只有UART_INTSTS_RDAINT_Msk中断产生，从此读出数据后，UART_INTSTS_RXTOINT_Msk并未置位，而无论少一个或多一个，都是OK的！</p>
+<p>what’s the ~！M48x的用户别偷笑，你们也有同样的问题！</p>
+<p>查看UART_INTSTS寄存器中<strong>RXTOINT：如果TOUTIEN和RXTOIF都被置1，该位置1.</strong> 跟着看<strong>RXTOIF</strong>的描述：</p>
+<p><strong>当RX FIFO非空且RX FIFO无活动发生，定时溢出计数器等于TOIC时，该位置位</strong>。</p>
+<p>总和之即：超时中断要产生，需要RX FIFO非空，并且TOIC超时溢出并使能。那么问题就在于当正好到RX FIFO阈值中断时，在中断服务函数把数据全都读出来了导致RX FIFO空了，所以就不满足了，自然就无法产生超时溢出中断了！真是蛋疼的设计，那怎么解决呢？解决方法很简单，在阈值中断中让rx fifo不空就完事了。<strong>留一个字节在fifo里！</strong>问题完美解决！</p>
+<p>顺便再吐槽一下：UART0的RX和TX FIFO是16， UART1和UART2的RX TX FIFO是64！就三个UART还整的不一样~~以及赞一下：RS485模式，使用RTS控制485的换向端，真心好用！</p>
 
             </div>
             <hr/>
