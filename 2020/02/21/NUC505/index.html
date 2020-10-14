@@ -592,7 +592,16 @@
 <p>查看UART_INTSTS寄存器中<strong>RXTOINT：如果TOUTIEN和RXTOIF都被置1，该位置1.</strong> 跟着看<strong>RXTOIF</strong>的描述：</p>
 <p><strong>当RX FIFO非空且RX FIFO无活动发生，定时溢出计数器等于TOIC时，该位置位</strong>。</p>
 <p>总和之即：超时中断要产生，需要RX FIFO非空，并且TOIC超时溢出并使能。那么问题就在于当正好到RX FIFO阈值中断时，在中断服务函数把数据全都读出来了导致RX FIFO空了，所以就不满足了，自然就无法产生超时溢出中断了！真是蛋疼的设计，那怎么解决呢？解决方法很简单，在阈值中断中让rx fifo不空就完事了。<strong>留一个字节在fifo里！</strong>问题完美解决！</p>
-<p>顺便再吐槽一下：UART0的RX和TX FIFO是16， UART1和UART2的RX TX FIFO是64！就三个UART还整的不一样~~以及赞一下：RS485模式，使用RTS控制485的换向端，真心好用！</p>
+<p>顺便再吐槽一下：UART0的RX和TX FIFO是16， UART1和UART2的RX TX FIFO是64！就三个UART还整的不一样，顺便赞一下：RS485模式，使用RTS控制485的换向端，真香！</p>
+<h3 id="坑七：NuLink-VS-JLink"><a href="#坑七：NuLink-VS-JLink" class="headerlink" title="坑七：NuLink VS JLink"></a>坑七：<del>NuLink</del> VS <strong>JLink</strong></h3><p>忍受了这么久的NULink，现在终于可以用JLink来欢快的仿真下载调试NUC505了，爽的不要不要的，实现方式很简单，就是在<strong>JLinkDevices.xml</strong>中添加上NUC505的型号就可以了，如下：</p>
+<pre><code>&lt;Device&gt;
+    &lt;ChipInfo Vendor=&quot;Nuvoton&quot; Name=&quot;NUC505YO13Y&quot; WorkRAMAddr=&quot;0x20000000&quot; WorkRAMSize=&quot;0x00020000&quot; Core=&quot;JLINK_CORE_CORTEX_M4&quot; Aliases=&quot;NUC505DL13Y; NUC505DS13Y&quot;/&gt;
+    &lt;FlashBankInfo Name=&quot;SPI Flash&quot; BaseAddr=&quot;0x00000000&quot; MaxSize=&quot;0x00200000&quot; Loader=&quot;Devices/Nuvoton/NUC505_SPIFLASH.FLM&quot; LoaderType=&quot;FLASH_ALGO_TYPE_OPEN&quot; /&gt;
+&lt;/Device&gt;</code></pre><p>然后从keil目录下找到NUC505_SPIFLASH.FLM拷贝到 .\SEGGER\JLink\Devices\Nuvoton目录下即可，就能成功的读到芯片的ID。剩下的跟普通的仿真调试一样了。</p>
+<p>顺便记一下解决仿真时弹出Verification 的ERROR:</p>
+<p><img src="../../../../medias/boardPic/2020/debugError.png" alt="Verification of application image failed."></p>
+<p>先看下下面的 “Download to flash” 是否√了。</p>
+<p><img src="../../../../medias/boardPic/2020/checkDownloadFlash.png" alt="checkDownloadFlash."></p>
 
             </div>
             <hr/>
@@ -608,7 +617,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://kmcu.gitee.io" rel="external nofollow noreferrer">KMCU</a>
+                    <a href="https://ilpp.gitee.io" rel="external nofollow noreferrer">KMCU</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -618,7 +627,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://kmcu.gitee.io/2020/02/21/NUC505/">https://kmcu.gitee.io/2020/02/21/NUC505/</a>
+                    <a href="https://ilpp.gitee.io/2020/02/21/NUC505/">https://ilpp.gitee.io/2020/02/21/NUC505/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -631,7 +640,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://kmcu.gitee.io" target="_blank">KMCU</a>
+                    <a href="https://ilpp.gitee.io" target="_blank">KMCU</a>
                     !
                 </span>
             </div>
@@ -1063,7 +1072,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://kmcu.gitee.io" target="_blank">KMCU</a>
+            <a href="https://ilpp.gitee.io" target="_blank">iLpp</a>
             |&nbsp;Powered by&nbsp;Hexo
             |&nbsp;Theme&nbsp; Matery 
             <br>
