@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/03/04/hello-world/"/>
+      <url>/2021/03/04/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="One-Key-for-test"><a href="#One-Key-for-test" class="headerlink" title="One Key for test"></a>One Key for test</h3><pre class=" language-bash"><code class="language-bash">$ hexo clean <span class="token operator">&amp;</span> hexo g <span class="token operator">&amp;</span> hexo s</code></pre><h3 id="One-Key-for-publish"><a href="#One-Key-for-publish" class="headerlink" title="One Key for publish"></a>One Key for publish</h3><pre class=" language-bash"><code class="language-bash">$ hexo clean <span class="token operator">&amp;</span> hexo g <span class="token operator">&amp;</span> hexo d</code></pre><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> GIT </tag>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CH569 第一篇：GPIO</title>
+      <link href="/2020/10/15/CH569_01GPIO/"/>
+      <url>/2020/10/15/CH569_01GPIO/</url>
+      
+        <content type="html"><![CDATA[<h3 id="第一篇：GPIO"><a href="#第一篇：GPIO" class="headerlink" title="第一篇：GPIO"></a>第一篇：GPIO</h3><p>先从嵌入式的“Hello World！” – GPIO点灯开始：</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RiscV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CH569 </tag>
+            
+            <tag> Risc-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CH569 开篇</title>
+      <link href="/2020/10/15/CH569/"/>
+      <url>/2020/10/15/CH569/</url>
+      
+        <content type="html"><![CDATA[<p>终于等到了你：CH569！早早的看到过CH569的介绍，觉得强悍的一批，特别适合搭配一个小FPGA干事，而且价格还不贵，又是国产芯，准备一步一步开始进坑了，先copy一份官网的介绍。</p><h3 id="CH569概述："><a href="#CH569概述：" class="headerlink" title="CH569概述："></a>CH569概述：</h3><p>CH569/565 微控制器使用 RISC-V3A 内核， 支持 RISC-V 指令的 IMAC 子集。 片上集成超高速USB3.0主机和设备控制器（内置 PHY）、千兆以太网控制器、专用高速 SerDes 控制器（内置 PHY，可直接驱动光纤）、高速并行接口HSPI、数字视频接口（DVP）、 SD/EMMC 接口控制器、加解密模块 ， 片上 128 位宽 DMA设计可保障大数据量的高速传输， 可广泛应用于流媒体、即时存储、超高速USB3.0 FIFO、通讯延长、安防监控等应用场景。</p><p><img src="http://www.wch.cn/uploads/image/20200721/Sl2mLGuKpXycnwjU9IlD1ydCxfdKedAORUW3l4BS.png" alt="img"></p><p>功能</p><ul><li>RISC-V内核，120MHz系统主频，支持单周期乘法和硬件除法、可编程中断控制器、低功耗两级流水线</li><li>448KB CodeFlash，32KB DataFlash，16KB的32位宽SRAM，32/64/96KB可配置的128位宽SRAM</li><li>内置超高速USB3.0控制及收发器（内置PHY），支持USB3.0 主机Host/设备Device模式、OTG功能，支持USB3.0 HUB</li><li>内置高速USB2.0控制及收发器（内置PHY），支持USB2.0 主机Host/设备Device模式，支持控制/批量/中断/同步传输</li><li>内置千兆以太网控制器（Ethernet），提供RGMII和RMII PHY接口，支持10/100/1000Mbps的传输速率</li><li>内置数字视频接口DVP，可配置8/10/12位数据宽度，支持YUV、RGB、JPEG压缩数据</li><li>内置高速并行接口HSPI，可配置8/16/32位数据宽度，内置FIFO，支持DMA，最快传输速度约为3.8Gbps</li><li>内置SerDes控制及收发器（内置PHY，可直接驱动光纤），支持网线（仅使用1组差分线）传输90米，支持1.25Gbps高速差分信号通讯</li><li>内置EMMC控制器，支持单线、4线、8线数据通讯模式，符合EMMC卡4.4和4.5.1规范，兼容5.0规范</li><li>支持AES/SM4算法，8种组合加解密模式，支持SRAM/EMMC/HSPI外设接口数据加解密</li><li>4组UART，最高波特率6Mbps，兼容16C550，内置FIFO，多个触发级</li><li>2组SPI接口，支持主从(Master/Slave)模式，内置FIFO，支持DMA</li><li>主动并口：8位数据，15位地址总线</li><li>3组26位定时器，支持定时、计数、信号捕捉、PWM调制输出，4组扩展PWM输出，占空比可调</li><li>49个通用IO，8个可设置电平/边沿中断，部分引脚具有复用及映射功能</li><li>内置看门狗，集成2线调试接口，支持在线仿真</li><li>支持低功耗模式，支持部分GPIO、USB、以太网信号唤醒</li><li>芯片ID号：唯一64bit ID识别号</li><li>封装：QFN68,QFN40</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> RiscV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CH569 </tag>
+            
+            <tag> Risc-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>NUC505 - HS USB</title>
+      <link href="/2020/02/21/NUC505/"/>
+      <url>/2020/02/21/NUC505/</url>
+      
+        <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>本来做的是M484，看好了它的片上高速USB、双SDHC、QSPI FLash等，结果入了新塘第一坑：LQFP64封装是.4间距的，偶直接拖了个STM32F205的封装过来，.5间距的，结果就是下面这样：<br><img src="../../../../medias/boardPic/2020/M484.jpg" alt="M484 -&gt; NUC505"></p><p>无意间于Whycan论坛（原填坑网）上发现了这款神U：NUC505：</p><ul><li>高速USB Device，USB2.0 USBHost. SD Host.</li><li>128 KSRAM，512KB/2MB SPI Flash（片上无flash）</li><li>含有浮点运算单元和DSP的ARM® Cortex®-M4内核，最高可运行至100MHz</li><li>内建双声道24位音频解码器（某些型号）</li><li>封装友好：LQFP48、QFN48、LQFP64、QFN88.</li></ul><p>相见恨晚啊，这不就是我一直想要的嘛.. 天猫Nuvoton旗舰店一查价格：NUC505DL13Y（2MB SPI FLASH）才￥7.60！便宜的令人发指！！！  那还等什么？立马画板打板，开启了我的“坑”中之旅~~</p><p>先记录下官网用到的软件及文档：</p><ul><li>BSP：NUC505_Series_BSP_CMSIS_V3.03.001.zip</li><li>MDK Pack：Nuvoton.NuMicro_DFP.1.3.5.pack</li></ul><h3 id="坑一：J-Link不支持？"><a href="#坑一：J-Link不支持？" class="headerlink" title="坑一：J-Link不支持？"></a>坑一：J-Link不支持？</h3><p>明明是CortexM4核，明明也支持SWD模式，结果JLink无法识别，打开J-Link commander也没NUC505系列，估计是没给Segger付费吧，可惜了我的MiniJlink和RTT，好用的工具只能暂时放一边了，好在之前参加过几次Nuvoton的研讨会，大方的新塘送的demo板上都有NuLinkMe调试器，暴力掰下来，然后杜邦线连之。</p><p><img src="../../../../medias/boardPic/2020/NDemo.jpg" alt="Nuvoton Demo Board"></p><h3 id="坑二：片内SPI-Flash-And-Boot"><a href="#坑二：片内SPI-Flash-And-Boot" class="headerlink" title="坑二：片内SPI Flash And Boot"></a>坑二：片内SPI Flash And Boot</h3><p>前面多次提到过2MB的片内SPI Flash，2MB看上去很美，但是封的是SPI FLash，虽然支持片上运行，但是速度相比SRAM中运行慢了100倍！没错，是100倍！星爷的那句 “我奶奶骂他欺善民，反被他捉进了<strong>唐府</strong>，xx了一百遍 ！一百遍！！！” 在耳边飘荡…， Github中看到了下面的描述：</p><blockquote><p><em>“ Although code can run directly out of the SPI flash, <strong>execution is understandably SLOOOW</strong>. For this reason, the default Section Placement setting provided for new projects by this package is “Flash Copy to RAM”; however, the usual “Flash” and “RAM” options are provided for completeness as well.</em></p><p><em>The NUC505 has a “Boot from USB” mode where the device appears <strong>as a USB Mass Storage device. A .bin binary image copied to the device is programmed to the internal SPI memory at 0x0.</strong> When the NUC505 is then returned to the “Boot from Internal MCP SPI flash” and restarted, it will attempt to boot from that image. HOWEVER, the “Boot from USB” USB Mass Storage implementation appears to only work in Windows; Linux detects the emulated volume as having corruption and will refuse to mount it for write access.</em></p><p><em>When the NUC505 is set to its “<strong>SWD/ICE Mode with Internal SPI Flash</strong>“ mode, <strong>the NUC505 will NOT execute user code upon hardware reset.</strong> Instead, it runs from its internal mask ROM code and execution eventually reaches an endless loop. This boot mode seems to be intended exclusively for using an IDE to both program memory and specifically initiate debugging execution of the user application.”</em></p></blockquote><p>片上的spi flash看来只能用于代码的存储和boot了，（还可以用于存储一些数据，省了外部的存储了）然后将代码copy到ram里运行，也行，谁让它便宜来，128KB SRAM，分了4个bank，每个32KB，这样就可以作为<u>32K RAM/96 K Flash</u> 或者 <u>64K RAM/64 K Flash</u>的配置来用了，紧着这128K 来回蹂躏吧~</p><p>But，在“SWD/ICE with Internal SPI Flash”模式下无法运行用户代码是什么鬼？尝试了才知道：在这种模式下，可以通过MDK的debug进行程序下载、debug、查看变量、全速运行等等，但是退出debug模式，这货就不跑了！即使按reset也不行，想让它从能从spi flash中自举运行？那得改变它的硬件boot模式才行！只有1111模式下可以直接从内部SPI Flash启动，但是<strong>在这种模式下，仿真器无法连接！！！</strong>真是反人类的设计！！不服？咬他？当心被捉进<strong>唐府</strong>…</p><p>记NUC505的启动配置：（在复位时默认上拉，所以如需配置为0，则相应管脚需加10KR电阻下拉）</p><table><thead><tr><th align="center">PB.4</th><th align="center">PB.3</th><th align="center">PA.10</th><th align="center">PA.9</th><th align="center">描述</th></tr></thead><tbody><tr><td align="center"><strong>1</strong></td><td align="center"><strong>1</strong></td><td align="center"><strong>1</strong></td><td align="center"><strong>1</strong></td><td align="center"><strong>内部MCP SPI FLash启动</strong></td></tr><tr><td align="center">1</td><td align="center">1</td><td align="center">1</td><td align="center"><font color=#FF3300>0</font></td><td align="center"><strong>USB启动</strong></td></tr><tr><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">外部SPI Flash启动</td></tr><tr><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">ICP模式启动</td></tr><tr><td align="center"><font color=#FF3300>0</font></td><td align="center">1</td><td align="center">1</td><td align="center">1</td><td align="center"><strong>SWD/ICE + 内部SPI Flash</strong></td></tr><tr><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">SWD/ICE + 外部SPI Flash</td></tr></tbody></table><p>记录我的板子上的调试：</p><ul><li>电阻全都不焊，默认 1111 ： 从片上SPI Flash中启动</li><li><strong>R13 = 10KR， PB4=0， SWD/ICE + 内部SPI Flash ，调试时使用这种模式。</strong></li><li>R3 = 10KR， PA9=0， USB启动。</li></ul><h3 id="坑三：优化精简代码"><a href="#坑三：优化精简代码" class="headerlink" title="坑三：优化精简代码"></a>坑三：优化精简代码</h3><p>官方代码：NUC505_Series_BSP_CMSIS_V3.03.001，压缩包52M左右，解压后先看下Readme.pdf，比较详细的描述了各个目录下的工程等，为了方便备份，我又完整的拷贝了一份解压后的文件，打开NUC505_Series_BSP_CMSIS_V3.03.001\SampleCode\StdDriver\USBD_VCOM_SerialEmulator这个工程，然后开始编译+删除，不断尝试后把不需要用到的都给删除掉并能编译成功，至文件夹大约5MB左右，OK！这就是我要的工程了，以后就在这个上面盖房子就行。</p><p>注：默认配置该工程是使用的SPI FLASH的，需要先设置成“<strong>SWD/ICE + 内部SPI Flash</strong>”模式下，debug下可以运行，也可以下载，然后把启动模式更改为“<strong>内部MCP SPI FLash启动</strong>”，上电即可运行。</p><p>在SampleCode\BootTemplate下有几个例程，参考来实现如何使用SPI Flash和SRAM，目前使用MainOnSram例程，就是启动代码在spi flash中，然后其他大部分程序都是在ram中执行。直接用该例程的ld文件就可以。另外程序稍作配置，将主频配到180M，96M太对不起这内存了。顺便移植了下新塘的NuConsole，跟Segger的RTT类似，在debug模式下打开即可，再插上shell的翅膀，可以起飞啦！</p><p><img src="../../../../medias/boardPic/2020/NuConsole.png" alt="NuConsole"></p><p>顺便再吐槽下他家的NuConsole，虽然功能跟RTT相似，结果请看上图：不支持最大化！只能这么小窗口显示，真是小气的很~</p><h3 id="坑四：新鲜出炉的M484-NUC505"><a href="#坑四：新鲜出炉的M484-NUC505" class="headerlink" title="坑四：新鲜出炉的M484+NUC505"></a>坑四：新鲜出炉的M484+NUC505</h3><p>之前由于封装画错了的M484只能含泪默默重新改版，顺便把NUC505也改了改，加上了oled和按键。</p><p><img src="../../../../medias/boardPic/2020/M484Nuc505.jpg" alt="M484Nuc505"></p><p>NUC505 LQFP封装的可用IO 还是比较少的，目前几乎全用上了，于是在按键输入上又掉坑里了！</p><p>PA0 - 看上去是GPIO管脚，结果该脚使能上拉读出来的值始终为0，查了下手册才发现PA0-ADC_CH0，<strong>内建10KR电阻分压用作电池检测</strong>！内贱啊！！！也没个电路看看如果要测电池电压该怎么接…顺便看了下它的ADC，虽然只有一个ADC，可是玩出了很多花样：</p><ul><li><p>ADC_CH1通道最高可达1MSPS的采样率。</p></li><li><p>ADC_CH2~ADC_CH7:最高200KSPS采样率。</p></li><li><p>ADC_CH2：支持键盘比较器。</p></li><li><p>ADC_CH0：内建10KR电阻分压用作电池检测。</p></li></ul><p>好在OLED一把就点亮了，SPI代码配置真是简洁。</p><h3 id="坑五：VCP-512整数倍发送的问题"><a href="#坑五：VCP-512整数倍发送的问题" class="headerlink" title="坑五：VCP 512整数倍发送的问题"></a>坑五：VCP 512整数倍发送的问题</h3><p>老生常谈的话题了，早在STM32上就有这问题，结果在505上又遇到了，说白了就是在发完整数倍数据包如果还有要发的数据就接着发数据，没有要发的数据了就发个空包就行，在这一点上Nuvoton设计的还是比较人性化的：<br><code>USBD-&gt;EP[EPA].EPRSPCTL = USB_EP_RSPCTL_ZEROLEN;</code><br>对EPRSPCTL的ZERO位置1就会发送一个空包了。至于为啥是512，因为是高速USB嘛，还有一点：可以配置缓冲区为1024，然后收发 一包就是1024Byte，真爽~</p><h3 id="坑六：UART的接收超时中断"><a href="#坑六：UART的接收超时中断" class="headerlink" title="坑六：UART的接收超时中断"></a>坑六：UART的接收超时中断</h3><p>之前用stm32F072时使用串口空闲中断作为接收成帧判断，看NUC505的手册看到UART_TOUT寄存器中的TOIC：当RX FIFO接收到一个新的数据时，定时溢出计数器开始计数，超时后如果RXTOINT为使能，则接收超时中断RXTOINT产生。要求设置为40~255之间，如TOIC为40，则在4个字符时间长度后还没收到新数据，则超时中断产生。看这个描述正正合我的心意！UART1设置46字节fifo的阈值中断，这样使用也可以很大的减轻CPU的负担又能再收到一帧数据后 延时4个字符给出中断，测试时也是OK的，蛋蛋蛋但是：</p><p>当正好发送46字节时，则无超时中断产生，只有UART_INTSTS_RDAINT_Msk中断产生，从此读出数据后，UART_INTSTS_RXTOINT_Msk并未置位，而无论少一个或多一个，都是OK的！</p><p>what’s the ~！M48x的用户别偷笑，你们也有同样的问题！</p><p>查看UART_INTSTS寄存器中<strong>RXTOINT：如果TOUTIEN和RXTOIF都被置1，该位置1.</strong> 跟着看<strong>RXTOIF</strong>的描述：</p><p><strong>当RX FIFO非空且RX FIFO无活动发生，定时溢出计数器等于TOIC时，该位置位</strong>。</p><p>总和之即：超时中断要产生，需要RX FIFO非空，并且TOIC超时溢出并使能。那么问题就在于当正好到RX FIFO阈值中断时，在中断服务函数把数据全都读出来了导致RX FIFO空了，所以就不满足了，自然就无法产生超时溢出中断了！真是蛋疼的设计，那怎么解决呢？解决方法很简单，在阈值中断中让rx fifo不空就完事了。<strong>留一个字节在fifo里！</strong>问题完美解决！</p><p>顺便再吐槽一下：UART0的RX和TX FIFO是16， UART1和UART2的RX TX FIFO是64！就三个UART还整的不一样，顺便赞一下：RS485模式，使用RTS控制485的换向端，真香！</p><h3 id="坑七：NuLink-VS-JLink"><a href="#坑七：NuLink-VS-JLink" class="headerlink" title="坑七：NuLink VS JLink"></a>坑七：<del>NuLink</del> VS <strong>JLink</strong></h3><p>忍受了这么久的NULink，现在终于可以用JLink来欢快的仿真下载调试NUC505了，爽的不要不要的，实现方式很简单，就是在<strong>JLinkDevices.xml</strong>中添加上NUC505的型号就可以了，如下：</p><pre><code>&lt;Device&gt;    &lt;ChipInfo Vendor=&quot;Nuvoton&quot; Name=&quot;NUC505YO13Y&quot; WorkRAMAddr=&quot;0x20000000&quot; WorkRAMSize=&quot;0x00020000&quot; Core=&quot;JLINK_CORE_CORTEX_M4&quot; Aliases=&quot;NUC505DL13Y; NUC505DS13Y&quot;/&gt;    &lt;FlashBankInfo Name=&quot;SPI Flash&quot; BaseAddr=&quot;0x00000000&quot; MaxSize=&quot;0x00200000&quot; Loader=&quot;Devices/Nuvoton/NUC505_SPIFLASH.FLM&quot; LoaderType=&quot;FLASH_ALGO_TYPE_OPEN&quot; /&gt;&lt;/Device&gt;</code></pre><p>然后从keil目录下找到NUC505_SPIFLASH.FLM拷贝到 .\SEGGER\JLink\Devices\Nuvoton目录下即可，就能成功的读到芯片的ID。剩下的跟普通的仿真调试一样了。</p><p>顺便记一下解决仿真时弹出Verification 的ERROR:</p><p><img src="../../../../medias/boardPic/2020/debugError.png" alt="Verification of application image failed."></p><p>先看下下面的 “Download to flash” 是否√了。</p><p><img src="../../../../medias/boardPic/2020/checkDownloadFlash.png" alt="checkDownloadFlash."></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ARM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NUC505 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MyStm32 - MiniFlasher</title>
+      <link href="/2020/02/09/F072MiniFlasher/"/>
+      <url>/2020/02/09/F072MiniFlasher/</url>
+      
+        <content type="html"><![CDATA[<p>使用STM32F072做了一个离线下载器，麻雀虽小然五脏俱全:</p><ul><li>MCU + 8/16 MB SPI Flasher.</li><li>0.96寸 128*64 OLED.</li><li>锂电池充放电管理.</li><li>一键开关机.</li><li>蜂鸣器指示（烧录完成后有提示音）.</li><li>穿上了衣服，有透明外壳.</li></ul><h3 id="Picture"><a href="#Picture" class="headerlink" title="Picture"></a>Picture</h3><p><img src="https://s2.ax1x.com/2020/02/10/14Grmn.jpg" alt="Stm32F072 MiniFlasher"></p><h3 id="离线烧录"><a href="#离线烧录" class="headerlink" title="离线烧录"></a>离线烧录</h3><p>参考移植了DAPLink的代码，烧写速度还是很快的。</p><p>通过MOS管控制对外供电，这样可以在烧写时打开供电，烧录完成后断开供电，可以热插拔了<del>~</del></p><h3 id="SPI-FLash-LittleFS"><a href="#SPI-FLash-LittleFS" class="headerlink" title="SPI FLash - LittleFS"></a>SPI FLash - LittleFS</h3><p>对这个文件系统还是很期待的，好在现在有了<strong>LittleFS Explorer (LFSE) for Windows</strong>工具 ，可以一试。</p><h3 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h3><p>哪有什么GUI啊，128 * 64 / 8，内存中做了个对应显存，然后全靠画点操作了，速度还是非常非常的快的，加了一个进度条用于烧写进度指示。</p><p>按键支持短按、长按，对于PWR键支持长按关机。</p><p>等有时间了再整理代码吧<del>~</del></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> STM32 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STM32 </tag>
+            
+            <tag> STM32F072 </tag>
+            
+            <tag> Flasher </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
