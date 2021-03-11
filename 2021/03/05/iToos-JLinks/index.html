@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CH569 第一篇：GPIO, ">
-    <meta name="description" content="开始学习Risc-V核的CH569">
+    <meta name="keywords" content="我的 J-Link 们, ">
+    <meta name="description" content="感谢Segger提供的好工具">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>CH569 第一篇：GPIO | </title>
+    <title>我的 J-Link 们 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CH569 第一篇：GPIO</h1>
+                    <h1 class="description center-align post-title">我的 J-Link 们</h1>
                 </div>
             </div>
         </div>
@@ -331,10 +331,105 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -343,12 +438,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CH569/">
-                                <span class="chip bg-color">CH569</span>
+                            <a href="/tags/tools/">
+                                <span class="chip bg-color">tools</span>
                             </a>
                         
-                            <a href="/tags/Risc-V/">
-                                <span class="chip bg-color">Risc-V</span>
+                            <a href="/tags/JLink/">
+                                <span class="chip bg-color">JLink</span>
                             </a>
                         
                     </div>
@@ -359,8 +454,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/RiscV/" class="post-category">
-                                RiscV
+                            <a href="/categories/TOOL/" class="post-category">
+                                TOOL
                             </a>
                         
                     </div>
@@ -372,7 +467,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-15
+                    2021-03-05
                 </div>
                 
 
@@ -389,7 +484,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="第一篇：GPIO"><a href="#第一篇：GPIO" class="headerlink" title="第一篇：GPIO"></a>第一篇：GPIO</h3><p>先从嵌入式的“Hello World！” – GPIO点灯开始：</p>
+                <p>喝水不忘挖井人，感谢Segger提供这么好的工具，感谢XHWW、T大神等的帮助，这些年学习了很多，也一直都在享受便利的开发，非常非常的感谢~</p>
+<h3 id="JLink-Flasher-Portable-Plus"><a href="#JLink-Flasher-Portable-Plus" class="headerlink" title="JLink - Flasher Portable Plus"></a>JLink - Flasher Portable Plus</h3><p>自从Segger的Flasher Portable诞生以来，垂涎滴了又滴，官方介绍如 <a href="https://www.segger.com/products/production/flasher/models/flasher-portable-plus/" target="_blank" rel="noopener">链接</a> ，简单来说就是带1.8寸屏显的离线烧录器，支持N多ARM和非ARM核的芯片，支持JTAG/SWD/FINE/SPD等 <a href="https://www.segger.com/products/debug-probes/j-link/technology/interface-description/" target="_blank" rel="noopener">接口</a>，还自带680mAh的可充电锂电池，超级方便，虽然自个也曾做过离线烧写，基于DAPLink来搞的，但是在量产使用时心里总不放心，最近花了些时间研究下了Flasher Portable，一不小心给搞出来了，非常开心~ 如下图：<br><img src="../../../../medias/boardPic/2021/tools/FlasherPortablePlus.jpg" alt="FlasherPortablePlus Pic"><br>MDK下测试JTAG下载速度可到21000KHZ，SWD却只有12000KHZ，我用足矣。按惯例，去掉接口缓冲芯片（芯片太小，手焊太麻烦，而且我老眼昏花，小芯片上的丝印经常看不清，一不小心就方向焊反了，查找起来太麻烦）、电源输入输出那套啰里啰唆部分电路，然后精简如下：<br><img src="../../../../medias/boardPic/2021/tools/MiniFlashPortable.jpg" alt="Mini FlasherPortablePlus Pic"><br>测试速度不影响，灰常好用，还给赛到了个小盒子里，方便携带~</p>
+<h3 id="JLink-Flasher-Pro-V4"><a href="#JLink-Flasher-Pro-V4" class="headerlink" title="JLink - Flasher Pro V4"></a>JLink - Flasher Pro V4</h3><p>年代比较久远了，出自于XHWW大神之作，后来偶得一正版Flasher Pro，就读出了固件，顺便精简了一下穿上了外衣，非常非常的好用，陪伴我很多年，如下图示：<br><img src="../../../../medias/boardPic/2021/tools/FlasherPro.jpg" alt="Flasher Pro Pic"><br>可惜Flasher系列都不支持虚拟串口，好在有RTT，自从有了RTT，虚拟串口是路人~<br>当然也少不了我的Mini Flasher Pro V4：<br><img src="../../../../medias/boardPic/2021/tools/miniFlasher.jpg" alt="Mini Flasher Pro Pic"></p>
+<h3 id="JLink-Ultra-amp-JLink-Pro-V4"><a href="#JLink-Ultra-amp-JLink-Pro-V4" class="headerlink" title="JLink Ultra &amp; JLink Pro V4"></a>JLink Ultra &amp; JLink Pro V4</h3><p>也是出自于XHWW大神之作，重新修改了下原理及PCB，两层板画下来了，stm32f4+Cyclone4，高速USB、以太网，速度最高能到50000KHz，下载速度很快，但也没那么快，受限于目标芯片的flash速度，下载也就那样，不过配套的JScope可是飞一般的快。第一版的JPro是17年搞的：<br><img src="../../../../medias/boardPic/2021/tools/JUV4.jpg" alt="JLink Ultra &amp; JLink Pro V4 Pic"><br>这个只是偶尔的拿出来用用，大部分时间都在吃灰，但却是一块很不错的arm+fpga的开发板，有需要的时候还可以拿出来鼓捣鼓捣。后来又做了下修改：<br><img src="../../../../medias/boardPic/2021/tools/JProV4.jpg" alt="JLink Ultra &amp; JLink Pro V4 New Pic"></p>
+<h3 id="JLink-V10-amp-JLink-V11"><a href="#JLink-V10-amp-JLink-V11" class="headerlink" title="JLink V10 &amp; JLink V11"></a>JLink V10 &amp; JLink V11</h3><p>依然是出自于XHWW大神之作，JLink V10、V11、Flasher Portable都使用了RSA2048签名，公钥存储在固件中用以验证签名是否正确，不正确不运行，私钥是没办法弄出来的，所以想要破解还是有一定难度的，感兴趣的可以私聊，我也是在XHWW大神的指点下孤岛了好久才不小心给试了出来。<br><img src="../../../../medias/boardPic/2021/tools/V10.jpg" alt="JLink V10 &amp; JLink V11 Pic"><br>顺便提一下，V11的固件是可以在V10上直接运行的，下载速度也没啥变化，不晓得官方做了哪些改动，并且LPC4337也有DAPLink的固件，速度也是非常非常的快。可以按住按键更新不同的程序。<br>同样也少不了Mini V10 &amp; Mini V11，虽然只支持3.3V电平，但是下载速度不受影响：<br><img src="../../../../medias/boardPic/2021/tools/miniV10.jpg" alt="Mini V10 Pic"><br><img src="../../../../medias/boardPic/2021/tools/MiniV11.jpg" alt="Mini V11 Pic"></p>
+<h3 id="JLink-V9"><a href="#JLink-V9" class="headerlink" title="JLink V9"></a>JLink V9</h3><p>V9的年代更是很老了，貌似官方都停止更新了吧？曾经很好用很好用，没啥校验，固件烧上就可以跑，目前dll貌似对序列号后四字节校验做了判断。自从有了V10和mini flasher，就很少用V9了，留照纪念之。<br><img src="../../../../medias/boardPic/2021/tools/V9.jpg" alt="最初的JLink V9 Pic"><br>后来各种改，穿衣服，还和usb hub放一起，再加上个CH34x的一个usb转串口芯片，把Jlink、USB转RS232、USB转RS485、Hub接口都放一起了，也很好用的~<br><img src="../../../../medias/boardPic/2021/tools/iToolsV9.jpg" alt="iToolsV9 Pic"><br>顺便提一下，序列号后四字节的校验如果不正确，Jlinkarm.dll有时会弹出defective的错误框，要么处理下jlinkarm.dll，要么就把这个序列号校验给加上，如果需要可以联系我，可提供针对序列号的校验码。（JLinkarm.dll中有此函数，可惜没有export出来，不过可以找出此函数然后调用它来计算）</p>
+<h3 id="JLink-OB们"><a href="#JLink-OB们" class="headerlink" title="JLink OB们"></a>JLink OB们</h3><p>最初的JLink OB是103，在没有V9之前一直都是OB103陪伴着我，后来有了OB 072，还有了OB K22，貌似OB K22和JLink Mini硬件一致的，而且可用的版本众多，官方貌似开源了原理图了，所以照着画个板写个boot跳到App就可以运行了，其中最牛的是下面这个了：支持4路SWD、3路UART，是在Nodic的NRF91DK开发板上的，原理图都是公开的，照着画个就完事了。在使用一个JLink同时调多个目标板的时候，灰常灰常的好用，按下按键就切过去了~<br><img src="../../../../medias/boardPic/2021/tools/OB072andV9.jpg" alt="JLink OB072 Pic"><br><img src="../../../../medias/boardPic/2021/tools/OBK22.jpg" alt="JLink OBK22 Pic"><br><img src="../../../../medias/boardPic/2021/tools/OBK22s4.jpg" alt="JLink OBK22s4 Pic"></p>
+<h3 id="其他小工具"><a href="#其他小工具" class="headerlink" title="其他小工具"></a>其他小工具</h3><p>JLink SWD ISO: 隔离小板，只隔离SWD，速度不快，调试电机时还是很有必要。<br><img src="../../../../medias/boardPic/2021/tools/JSWDISO.jpg" alt="JLink SWD ISO Pic"><br>Xilinx的JTAG HS3、SMT2，很快，很好用，还有一路虚拟串口，支持选择1.8V/3.3V电平。<br><img src="../../../../medias/boardPic/2021/tools/JTAGH3.jpg" alt="Xilinx FPGA debug tool"></p>
 
             </div>
             <hr/>
@@ -415,7 +517,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2020/10/15/CH569_01GPIO/">https://xarm.gitee.io/2020/10/15/CH569_01GPIO/</a>
+                    <a href="https://xarm.gitee.io/2021/03/05/iToos-JLinks/">https://xarm.gitee.io/2021/03/05/iToos-JLinks/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -453,12 +555,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CH569/">
-                                    <span class="chip bg-color">CH569</span>
+                                <a href="/tags/tools/">
+                                    <span class="chip bg-color">tools</span>
                                 </a>
                             
-                                <a href="/tags/Risc-V/">
-                                    <span class="chip bg-color">Risc-V</span>
+                                <a href="/tags/JLink/">
+                                    <span class="chip bg-color">JLink</span>
                                 </a>
                             
                         </div>
@@ -624,11 +726,66 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/04/hello-world/">
+                <a href="/2021/03/05/iToos-JLinks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="我的 J-Link 们">
+                        
+                        <span class="card-title">我的 J-Link 们</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            感谢Segger提供的好工具
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/TOOL/" class="post-category">
+                                    TOOL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/tools/">
+                        <span class="chip bg-color">tools</span>
+                    </a>
+                    
+                    <a href="/tags/JLink/">
+                        <span class="chip bg-color">JLink</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/03/04/HelloHexo/">
                     <div class="card-image">
                         
                         
@@ -640,13 +797,13 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            Welcome to Hexo  ! This is your very first post. Check documentation for more info. If you get any problems when using H
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -664,59 +821,6 @@
                     
                     <a href="/tags/Hexo/">
                         <span class="chip bg-color">Hexo</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/10/15/CH569/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="CH569 开篇">
-                        
-                        <span class="card-title">CH569 开篇</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            开始学习Risc-V核的CH569
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-15
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/RiscV/" class="post-category">
-                                    RiscV
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CH569/">
-                        <span class="chip bg-color">CH569</span>
-                    </a>
-                    
-                    <a href="/tags/Risc-V/">
-                        <span class="chip bg-color">Risc-V</span>
                     </a>
                     
                 </div>
@@ -755,6 +859,100 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
