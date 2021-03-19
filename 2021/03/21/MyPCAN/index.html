@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, ">
-    <meta name="description" content="Welcome to Hexo  ! This is your very first post. Check documentation for more info. If you get any problems when using H">
+    <meta name="keywords" content="PEAK PCAN, ">
+    <meta name="description" content="PCAN,好用的CAN调试工具">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | </title>
+    <title>PEAK PCAN | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">PEAK PCAN</h1>
                 </div>
             </div>
         </div>
@@ -438,18 +438,27 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GIT/">
-                                <span class="chip bg-color">GIT</span>
+                            <a href="/tags/PCAN/">
+                                <span class="chip bg-color">PCAN</span>
                             </a>
                         
-                            <a href="/tags/Hexo/">
-                                <span class="chip bg-color">Hexo</span>
+                            <a href="/tags/tools/">
+                                <span class="chip bg-color">tools</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/TOOL/" class="post-category">
+                                TOOL
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -458,7 +467,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-04
+                    2021-03-21
                 </div>
                 
 
@@ -475,28 +484,51 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to Hexo  ! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Prepare"><a href="#Prepare" class="headerlink" title="Prepare"></a>Prepare</h3><ol>
-<li>Download and install Git and node, node version : v12.16.0</li>
-<li>test for node and npm, and install hexo.<pre class=" language-bash"><code class="language-bash">$ node -v
-$ <span class="token function">npm</span> -v
-$ <span class="token function">npm</span> <span class="token function">install</span> -g hexo</code></pre>
+                <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>Github上又发现了宝，不废话先上网址：<br><strong>PCAN USB</strong> 固件 (支持成品 CANtack、CANable 硬件修改 或者 STMF042系列芯片)：<br><a href="https://github.com/moonglow/pcan_cantact" target="_blank" rel="noopener">https://github.com/moonglow/pcan_cantact</a><br><strong>PCAN USB PRO</strong>  固件(支持STM32F405\407芯片)：<br><a href="https://github.com/moonglow/pcan_pro_x" target="_blank" rel="noopener">https://github.com/moonglow/pcan_pro_x</a></p>
+<h3 id="pcan-cantact-F072版本"><a href="#pcan-cantact-F072版本" class="headerlink" title="pcan_cantact - F072版本"></a>pcan_cantact - F072版本</h3><p>马上拉下代码，一看蒙圈了，没有keil工程，只有Makefile，大体上看了下用的是arm-none-eabi-gcc编译链，我这编译A8的编译链应该不行，懒的配环境了直接动手移植，找个072的工程把其中的源码都删了，然后把pcan_cantact中的代码都先添加进去，然后一编译果然一堆错误，然后就开始对着error一个一个的解决，一番操作猛如虎，一看error 250！应该是startup_stm23f072.s文件的问题，换回之前keil工程里的.s文件，稍作修改就OK了，翻出我的F072的带CAN的小板子down进去一试，居然识别出来了！虽然没有驱动但是很开心，至少说明usb枚举成功了，然后找驱动，官网下载<strong>PeakOemDrv.exe</strong>安装后，就识别出来了！先上板图留念：<br><img src="../../../../medias/boardPic/2021/pcan/PCAN.jpg" alt="PCAN USB - F072"><br><img src="../../../../medias/boardPic/2021/pcan/PCANView.png" alt="PCANView成功识别"><br>再翻出之前买的笨重的USB2CAN工具，连接后配置相同的波特率，收发都正常！代码没做啥修改，只是改了改LED就跑起来了，开心ing…</p>
+<h3 id="PCAN-USB-PRO-F407版本"><a href="#PCAN-USB-PRO-F407版本" class="headerlink" title="PCAN USB PRO - F407版本"></a>PCAN USB PRO - F407版本</h3><p>打铁需趁热，翻出407的板子同样的套路移植好代码，usb上电down程序，又是一番操作猛如虎，NaNi？USB豪无反应！左一想应该时钟不正确，改时钟配置重新下进去还是没反应！好吧，看程序里默认的配置用的应该是8M晶振，算了不改时钟了–换晶振！额…还是不行，看了看USB初始化部分代码居然用的是USBHS！难道需要外扩外扩USB3300来跑高速？不怕，哥有的是板子！翻出之前带USB3300的407板子，继续一番猛如虎的操作，还是毫无反应啊！右一想可能是USB的管脚配置不正确，毕竟ULPI要配置好多个腿，巴拉了巴拉发现USB管脚居然用的是PB14、PB15！奇怪，难道407的高速USB内置了PHY？之前的USB FS都是用的PA11、PA12，不管了，找了个能引出PB14、PB15管脚的407板子，然后把它飞到USB座上，USB线一插听到了熟悉的叮咚声音，虎躯一震，赶紧打开设备管理器一看PCAN USB PRO设备直接识别出来了！呼，长呼一口气！<br>后来看了下人家的README.md文件，上面清晰的注明：</p>
+<p>Target hardware:</p>
+<ul>
+<li>Any STM32F407/405 based boards with 8MHz oscillator<br>Pinout:<table>
+<thead>
+<tr>
+<th>PIN/PINS</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PC10</td>
+<td>STATUS LED</td>
+</tr>
+<tr>
+<td>PA2/PA3</td>
+<td>TX/RX CAN1 LED</td>
+</tr>
+<tr>
+<td>PC6/PC7</td>
+<td>TX/RX CAN2 LED</td>
+</tr>
+<tr>
+<td>PB8/PB9</td>
+<td>CAN1 RX/TX</td>
+</tr>
+<tr>
+<td>PB5/PB6</td>
+<td>CAN2 RX/TX</td>
+</tr>
+<tr>
+<td>PB14/PB15</td>
+<td>USB DM/DP</td>
+</tr>
+</tbody></table>
 </li>
-<li>Config git :<pre class=" language-bash"><code class="language-bash">$ <span class="token function">git</span> config --global user.name <span class="token string">"xxx"</span>
-$ <span class="token function">git</span> config --global user.email <span class="token string">"xxx@xxx.com"</span></code></pre>
-</li>
-<li>如果需要更换git地址或用户等，需要从windows中删除，按如下操作：<br> （1）：进入控制面板<br> （2）：选择用户账户<br> （3）：选择管理你的凭据<br> （4）：选择Windows凭据<br> （5）：选择git保存的用户信息<br> （6）：选择编辑或者进行删除操作<br> （7）：完成</li>
-</ol>
-<h3 id="One-Key-for-test"><a href="#One-Key-for-test" class="headerlink" title="One Key for test"></a>One Key for test</h3><pre class=" language-bash"><code class="language-bash">$ hexo clean <span class="token operator">&amp;</span> hexo g <span class="token operator">&amp;</span> hexo s</code></pre>
-<h3 id="One-Key-for-publish"><a href="#One-Key-for-publish" class="headerlink" title="One Key for publish"></a>One Key for publish</h3><pre class=" language-bash"><code class="language-bash">$ hexo clean <span class="token operator">&amp;</span> hexo g <span class="token operator">&amp;</span> hexo d</code></pre>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+</ul>
+<ul>
+<li>Be sure to use <strong>PB14/PB15</strong> pins for USB</li>
+<li>PRO FD firmware has better performance on windows ( due internal PEAK driver implementation )</li>
+</ul>
+<p>都怪自己太心急绕了些弯路，不过虎躯又一震，还支持CANFD哪！虽然407不支持，但是协议有了，改了改配了配，嗯，果然识别成PCAN-USB Pro FD了，还多了个PCAN-USB-Pro FD LIN！爽歪歪，虽然不知道LIN有啥用。<br>这里的修改主要是在工程配置选项中增加如下配置：PCAN_PRO_FD=1,INCLUDE_LIN_INTERFACE=1,USB_WITHOUT_ISR=0<br>开始改版，用407就不要浪费了，两路CAN、两路LIN、两路RS485，六个LED，SPI Flash，按键，然后今天的主角闪亮登场：<br><img src="../../../../medias/boardPic/2021/pcan/PCANProFD.jpg" alt="MyPCANPro"><br>程序里修改了下LED管脚配置，然后down进去就识别出来了，还是用笨重的USB2CAN工具调试，两路CAN收发都正常！PCAN View可以选择配置CANFD的Norminal Bit Rate和Data Bit Rate，Data Bit Rate只有2MBits/s和6MBits/s两种，不知道是不是固件的原因。<br><img src="../../../../medias/boardPic/2021/pcan/PCANViewCANFD.png" alt="MyPCANPro FD PcanView"><br>还有附送的PLIN，虽然暂时用不到，谁知道以后会不会用上呢~<br><img src="../../../../medias/boardPic/2021/pcan/PLINView.png" alt="PLIN View"></p>
+<h3 id="高速USB-CANFD"><a href="#高速USB-CANFD" class="headerlink" title="高速USB + CANFD"></a>高速USB + CANFD</h3><p>至此虽然已经实现了PCAN，但是没有高速USB没有CANFD，心里总有些遗憾，然后东逛西逛在立创商城上下到了GD32E505的datasheet，虎躯震了又震！这货不就是我一直在找寻的嘛！内置高速USB PHY，至此3路CANFD！选择GD32E505RB/C/E，LQFP64 pin就可以实现了，关于CANFD的描述如下：<br><img src="../../../../medias/boardPic/2021/pcan/E505CANDesc.png" alt="E505 CAN的描述"><br>三路CAN，支持CAN FD，速率也能到6MBit/S！还等什么哪，407的板子还没捂热乎就在它的基础上改出了一个同时支持高速USB、两路CAN FD、QSPI Flash的高级版，立马下单投板。焦急的等板子的过程中找资料找例程，第一次接触GD的片子，可得仔细点~<br>事实再一次狠狠的打了我的脸，快就慢！我以为我捡到了宝结果是一坨屎！CANFD在新版本的datasheet上连个鬼影都木的！别说CANFD了，连CAN都没了！带着一丝丝希望咨询GD的工程师得到如下的回复：<br><strong>“ 505把CAN去掉了，508才有，508还没出样片！”</strong><br>真是句句扎心啊…太坑了…<br>可怜我那可爱的GD32E505xUSBHSxCANFD的小裸板了~<br><img src="../../../../medias/boardPic/2021/pcan/GD32E505Board.jpg" alt="E505Board"></p>
 
             </div>
             <hr/>
@@ -512,7 +544,7 @@ $ <span class="token function">git</span> config --global user.email <span class
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io" rel="external nofollow noreferrer">xarm</a>
+                    <a href="https://xarm.gitee.io" rel="external nofollow noreferrer">XARM</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -522,7 +554,7 @@ $ <span class="token function">git</span> config --global user.email <span class
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/03/04/HelloHexo/">https://xarm.gitee.io/2021/03/04/HelloHexo/</a>
+                    <a href="https://xarm.gitee.io/2021/03/21/MyPCAN/">https://xarm.gitee.io/2021/03/21/MyPCAN/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -535,7 +567,7 @@ $ <span class="token function">git</span> config --global user.email <span class
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://xarm.gitee.io" target="_blank">xarm</a>
+                    <a href="https://xarm.gitee.io" target="_blank">XARM</a>
                     !
                 </span>
             </div>
@@ -560,12 +592,12 @@ $ <span class="token function">git</span> config --global user.email <span class
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/GIT/">
-                                    <span class="chip bg-color">GIT</span>
+                                <a href="/tags/PCAN/">
+                                    <span class="chip bg-color">PCAN</span>
                                 </a>
                             
-                                <a href="/tags/Hexo/">
-                                    <span class="chip bg-color">Hexo</span>
+                                <a href="/tags/tools/">
+                                    <span class="chip bg-color">tools</span>
                                 </a>
                             
                         </div>
@@ -731,9 +763,64 @@ $ <span class="token function">git</span> config --global user.email <span class
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/03/21/MyPCAN/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="PEAK PCAN">
+                        
+                        <span class="card-title">PEAK PCAN</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            PCAN,好用的CAN调试工具
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/TOOL/" class="post-category">
+                                    TOOL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PCAN/">
+                        <span class="chip bg-color">PCAN</span>
+                    </a>
+                    
+                    <a href="/tags/tools/">
+                        <span class="chip bg-color">tools</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/03/05/iToos-JLinks/">
                     <div class="card-image">
@@ -751,9 +838,9 @@ $ <span class="token function">git</span> config --global user.email <span class
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -775,59 +862,6 @@ $ <span class="token function">git</span> config --global user.email <span class
                     
                     <a href="/tags/JLink/">
                         <span class="chip bg-color">JLink</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/10/16/CH569_02_GPIO/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="CH569 第一篇：GPIO">
-                        
-                        <span class="card-title">CH569 第一篇：GPIO</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            开始学习Risc-V核的CH569
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-16
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/RiscV/" class="post-category">
-                                    RiscV
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CH569/">
-                        <span class="chip bg-color">CH569</span>
-                    </a>
-                    
-                    <a href="/tags/Risc-V/">
-                        <span class="chip bg-color">Risc-V</span>
                     </a>
                     
                 </div>

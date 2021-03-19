@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="我的 J-Link 们, ">
-    <meta name="description" content="感谢Segger提供的好工具">
+    <meta name="description" content="工欲善其事,必先利其器！ 感谢Segger！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -484,7 +484,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>喝水不忘挖井人，感谢Segger提供这么好的工具，感谢XHWW、T大神等的帮助，这些年学习了很多，也一直都在享受便利的开发，非常非常的感谢~</p>
+                <p>喝水不忘挖井人，感谢Segger提供这么好的工具，感谢XHWW、T大神等的帮助，也感谢凤舞天大哥的支持，这些年学习了很多，也一直都在享受便利的开发，非常非常的感谢~</p>
+<p>同时声明：本人不卖盗版，请支持正版，支持正版，支持正版！</p>
 <h3 id="JLink-Flasher-Portable-Plus"><a href="#JLink-Flasher-Portable-Plus" class="headerlink" title="JLink - Flasher Portable Plus"></a>JLink - Flasher Portable Plus</h3><p>自从Segger的Flasher Portable诞生以来，垂涎滴了又滴，官方介绍如 <a href="https://www.segger.com/products/production/flasher/models/flasher-portable-plus/" target="_blank" rel="noopener">链接</a> ，简单来说就是带1.8寸屏显的离线烧录器，支持N多ARM和非ARM核的芯片，支持JTAG/SWD/FINE/SPD等 <a href="https://www.segger.com/products/debug-probes/j-link/technology/interface-description/" target="_blank" rel="noopener">接口</a>，还自带680mAh的可充电锂电池，超级方便，虽然自个也曾做过离线烧写，基于DAPLink来搞的，但是在量产使用时心里总不放心，最近花了些时间研究下了Flasher Portable，一不小心给搞出来了，非常开心~ 如下图：<br><img src="../../../../medias/boardPic/2021/tools/FlasherPortablePlus.jpg" alt="FlasherPortablePlus Pic"><br>MDK下测试JTAG下载速度可到21000KHZ，SWD却只有12000KHZ，我用足矣。按惯例，去掉接口缓冲芯片（芯片太小，手焊太麻烦，而且我老眼昏花，小芯片上的丝印经常看不清，一不小心就方向焊反了，查找起来太麻烦）、电源输入输出那套啰里啰唆部分电路，然后精简如下：<br><img src="../../../../medias/boardPic/2021/tools/MiniFlashPortable.jpg" alt="Mini FlasherPortablePlus Pic"><br>测试速度不影响，灰常好用，还给赛到了个小盒子里，方便携带~</p>
 <h3 id="JLink-Flasher-Pro-V4"><a href="#JLink-Flasher-Pro-V4" class="headerlink" title="JLink - Flasher Pro V4"></a>JLink - Flasher Pro V4</h3><p>年代比较久远了，出自于XHWW大神之作，后来偶得一正版Flasher Pro，就读出了固件，顺便精简了一下穿上了外衣，非常非常的好用，陪伴我很多年，如下图示：<br><img src="../../../../medias/boardPic/2021/tools/FlasherPro.jpg" alt="Flasher Pro Pic"><br>可惜Flasher系列都不支持虚拟串口，好在有RTT，自从有了RTT，虚拟串口是路人~<br>当然也少不了我的Mini Flasher Pro V4：<br><img src="../../../../medias/boardPic/2021/tools/miniFlasher.jpg" alt="Mini Flasher Pro Pic"></p>
 <h3 id="JLink-Ultra-amp-JLink-Pro-V4"><a href="#JLink-Ultra-amp-JLink-Pro-V4" class="headerlink" title="JLink Ultra &amp; JLink Pro V4"></a>JLink Ultra &amp; JLink Pro V4</h3><p>也是出自于XHWW大神之作，重新修改了下原理及PCB，两层板画下来了，stm32f4+Cyclone4，高速USB、以太网，速度最高能到50000KHz，下载速度很快，但也没那么快，受限于目标芯片的flash速度，下载也就那样，不过配套的JScope可是飞一般的快。第一版的JPro是17年搞的：<br><img src="../../../../medias/boardPic/2021/tools/JUV4.jpg" alt="JLink Ultra &amp; JLink Pro V4 Pic"><br>这个只是偶尔的拿出来用用，大部分时间都在吃灰，但却是一块很不错的arm+fpga的开发板，有需要的时候还可以拿出来鼓捣鼓捣。后来又做了下修改：<br><img src="../../../../medias/boardPic/2021/tools/JProV4.jpg" alt="JLink Ultra &amp; JLink Pro V4 New Pic"></p>
@@ -726,30 +727,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/03/05/iToos-JLinks/">
+                <a href="/2021/03/21/MyPCAN/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="我的 J-Link 们">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="PEAK PCAN">
                         
-                        <span class="card-title">我的 J-Link 们</span>
+                        <span class="card-title">PEAK PCAN</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            感谢Segger提供的好工具
+                            PCAN,好用的CAN调试工具
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-05
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -762,16 +762,15 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/tools/">
-                        <span class="chip bg-color">tools</span>
+                    <a href="/tags/PCAN/">
+                        <span class="chip bg-color">PCAN</span>
                     </a>
                     
-                    <a href="/tags/JLink/">
-                        <span class="chip bg-color">JLink</span>
+                    <a href="/tags/tools/">
+                        <span class="chip bg-color">tools</span>
                     </a>
                     
                 </div>
