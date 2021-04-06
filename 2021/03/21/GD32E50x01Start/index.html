@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PEAK PCAN, ">
-    <meta name="description" content="PCAN,好用的CAN调试工具">
+    <meta name="keywords" content="GD32E505 Start - 环境搭建, ">
+    <meta name="description" content="GD32E505:180MHz CortexM33, 高速USB、QSPI Flash、RS485、高速串口">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PEAK PCAN | </title>
+    <title>GD32E505 Start - 环境搭建 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PEAK PCAN</h1>
+                    <h1 class="description center-align post-title">GD32E505 Start - 环境搭建</h1>
                 </div>
             </div>
         </div>
@@ -331,105 +331,10 @@
 
 
 
-<main class="post-container content">
+<main class="container content">
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
-
-    #articleContent :focus {
-        outline: none;
-    }
-
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
-
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
-
-    .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
-
-    #toc-content {
-        height: calc(100vh - 250px);
-        overflow: auto;
-    }
-
-    #toc-content ol {
-        padding-left: 10px;
-    }
-
-    #toc-content ol li {
-        padding-left: 10px;
-    }
-
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #toc-content .is-active-link::before {
-        background-color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
+    <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -438,12 +343,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/PCAN/">
-                                <span class="chip bg-color">PCAN</span>
+                            <a href="/tags/GD32E505/">
+                                <span class="chip bg-color">GD32E505</span>
                             </a>
                         
-                            <a href="/tags/tools/">
-                                <span class="chip bg-color">tools</span>
+                            <a href="/tags/CortexM33/">
+                                <span class="chip bg-color">CortexM33</span>
                             </a>
                         
                     </div>
@@ -454,8 +359,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/TOOL/" class="post-category">
-                                TOOL
+                            <a href="/categories/MCU/" class="post-category">
+                                MCU
                             </a>
                         
                     </div>
@@ -484,51 +389,38 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>Github上又发现了宝，不废话先上网址：<br><strong>PCAN USB</strong> 固件 (支持成品 CANtack、CANable 硬件修改 或者 STMF042系列芯片)：<br><a href="https://github.com/moonglow/pcan_cantact" target="_blank" rel="noopener">https://github.com/moonglow/pcan_cantact</a><br><strong>PCAN USB PRO</strong>  固件(支持STM32F405\407芯片)：<br><a href="https://github.com/moonglow/pcan_pro_x" target="_blank" rel="noopener">https://github.com/moonglow/pcan_pro_x</a></p>
-<h3 id="pcan-cantact-F072版本"><a href="#pcan-cantact-F072版本" class="headerlink" title="pcan_cantact - F072版本"></a>pcan_cantact - F072版本</h3><p>马上拉下代码，一看蒙圈了，没有keil工程，只有Makefile，大体上看了下用的是arm-none-eabi-gcc编译链，我这编译A8的编译链应该不行，懒的配环境了直接动手移植，找个072的工程把其中的源码都删了，然后把pcan_cantact中的代码都先添加进去，然后一编译果然一堆错误，然后就开始对着error一个一个的解决，一番操作猛如虎，一看error 250！应该是startup_stm23f072.s文件的问题，换回之前keil工程里的.s文件，稍作修改就OK了，翻出我的F072的带CAN的小板子down进去一试，居然识别出来了！虽然没有驱动但是很开心，至少说明usb枚举成功了，然后找驱动，官网下载<strong>PeakOemDrv.exe</strong>安装后，就识别出来了！先上板图留念：<br><img src="../../../../medias/boardPic/2021/pcan/PCAN.jpg" alt="PCAN USB - F072"><br><img src="../../../../medias/boardPic/2021/pcan/PCANView.png" alt="PCANView成功识别"><br>再翻出之前买的笨重的USB2CAN工具，连接后配置相同的波特率，收发都正常！代码没做啥修改，只是改了改LED就跑起来了，开心ing…</p>
-<h3 id="PCAN-USB-PRO-F407版本"><a href="#PCAN-USB-PRO-F407版本" class="headerlink" title="PCAN USB PRO - F407版本"></a>PCAN USB PRO - F407版本</h3><p>打铁需趁热，翻出407的板子同样的套路移植好代码，usb上电down程序，又是一番操作猛如虎，NaNi？USB豪无反应！左一想应该时钟不正确，改时钟配置重新下进去还是没反应！好吧，看程序里默认的配置用的应该是8M晶振，算了不改时钟了–换晶振！额…还是不行，看了看USB初始化部分代码居然用的是USBHS！难道需要外扩外扩USB3300来跑高速？不怕，哥有的是板子！翻出之前带USB3300的407板子，继续一番猛如虎的操作，还是毫无反应啊！右一想可能是USB的管脚配置不正确，毕竟ULPI要配置好多个腿，巴拉了巴拉发现USB管脚居然用的是PB14、PB15！奇怪，难道407的高速USB内置了PHY？之前的USB FS都是用的PA11、PA12，不管了，找了个能引出PB14、PB15管脚的407板子，然后把它飞到USB座上，USB线一插听到了熟悉的叮咚声音，虎躯一震，赶紧打开设备管理器一看PCAN USB PRO设备直接识别出来了！呼，长呼一口气！<br>后来看了下人家的README.md文件，上面清晰的注明：</p>
-<p>Target hardware:</p>
-<ul>
-<li>Any STM32F407/405 based boards with 8MHz oscillator<br>Pinout:<table>
-<thead>
-<tr>
-<th>PIN/PINS</th>
-<th>DESCRIPTION</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PC10</td>
-<td>STATUS LED</td>
-</tr>
-<tr>
-<td>PA2/PA3</td>
-<td>TX/RX CAN1 LED</td>
-</tr>
-<tr>
-<td>PC6/PC7</td>
-<td>TX/RX CAN2 LED</td>
-</tr>
-<tr>
-<td>PB8/PB9</td>
-<td>CAN1 RX/TX</td>
-</tr>
-<tr>
-<td>PB5/PB6</td>
-<td>CAN2 RX/TX</td>
-</tr>
-<tr>
-<td>PB14/PB15</td>
-<td>USB DM/DP</td>
-</tr>
-</tbody></table>
+                <p>摘掉了CANFD的GD32E505犹如折翼了的天使~光环不再，奈何PCB已做回，好在GD的FAE给力，在芯片价格满天飞的今天提供了10片样片，感动的泪牛满面！纵有千般不爽还是立马搞起！<br><img src="../../../../medias/boardPic/2021/pcan/GD32E505Pic.jpg" alt="GD32E505 Board Pic"></p>
+<h3 id="GD32E505"><a href="#GD32E505" class="headerlink" title="GD32E505"></a>GD32E505</h3><ul>
+<li>180MHz, Arm Cortex-M33 内核，ARMv8架构。</li>
+<li>SRAM/Flash：80/128，96/256，128/512 KB</li>
+<li>高速USB，内置PHY，480Mbit/s。</li>
+<li>两个12bit SAR ADC，2.5MSPS，两个DAC，9个16bit 定时器，一个32bit通用定时器。</li>
+<li>QSPI Flash。</li>
+<li>USART: 高达<strong>22.5MBits/s</strong> ， 支持IrDA SIR编解码，支持LIN，支持ISO7816-3.</li>
+<li>96bits Unique ID，位于0x1FFF_F7E8</li>
+</ul>
+<p>虽然没了CANFD，但还是亮点满满，尤其是内置高速USB PHY，相比STM32来说诚意满满！STM32貌似只有STM32F7有几款型号内置了高速PHY，蛋疼。</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol>
+<li>先从GD32官网下载所需资源<br>英文：<a href="http://www.gd32mcu.com/en/download/" target="_blank" rel="noopener">http://www.gd32mcu.com/en/download/</a><br>中文：<a href="http://gd32mcu.com/cn/download" target="_blank" rel="noopener">http://gd32mcu.com/cn/download</a><br>选择GD32E5，主要下载以下几个文件：<br>GD32E505xx_Datasheet_Rev1.2.pdf - 数据手册<br>GD32E50x_RM_Rev1.2.pdf - 寄存器手册<br>GD32E50x_AddOn_V1.2.0.zip - 安装后MDK能识别出GD32E5的芯片<br>GD32E50x_Firmware_Library_V1.1.2.rar - 固件库<br>GD32E50x_Firmware_Library_User_Guide_Rev1.1.rar - 库函数手册<br>GD32E50x_Demo_Suites_V1.1.1.rar - Demo板参考例程，Demo板的原理图也藏在这里面<br>GD32DfuDrivers_V3.6.6.6167.rar - GD32 DFU驱动<br>GD32All_In_OneProgrammer_V1.2.8.9234.rar - 下载程序<br>GD32_Dfu_Tool_V3.8.2.9056.rar - DFU上位机程序<br>GD32_ISP_CLI(Windows)1.0.0.5109.rar - ISP程序<br>GD_Link_Programmer_V4.3.7.9954.rar - GDLink的上位机下载程序</li>
+<li>MDK - 我最开始用的MDK5.23版本，各种问题，后来果断升级至最新版 5.34版本<br>GD32的例程使用的是AC6的编译器。</li>
+<li>JLink驱动：JLink_Windows_V696.exe ，这个版本的支持GD32E505器件，老版本的不支持。</li>
+</ol>
+<h3 id="USB-CDC例程"><a href="#USB-CDC例程" class="headerlink" title="USB CDC例程"></a>USB CDC例程</h3><ol>
+<li>解压GD32E50x_Firmware_Library_V1.1.2.rar</li>
+<li>打开Examples\USBHS\usb_device\cdc_acm\MDK-ARM工程，编译。</li>
+<li>选择JLink，连接方式选择SWD，JTAG/SWD都支持，下载即可。</li>
+</ol>
+<h3 id="埋坑笔记"><a href="#埋坑笔记" class="headerlink" title="埋坑笔记"></a>埋坑笔记</h3><ol>
+<li>例程很多，对每一个外设基本上都有相应的例程，蛋疼的是大部分都没工程，只有几个.c文件。在USBHS中有MDK和IAR的工程，所以直接以此工程入手。</li>
+<li>在MDK5.23版本中，遇到自带的AC6编译时有很多问题，于是从其他高版本的MDK中拷贝出相应的AC6编译链，替换Keil\ARM\ARMCLANG，编译没问题了，在下载选项中没法选择JLink，后来查找到MDK中的描述：<a href="https://www.keil.com/support/docs/4053.htm" target="_blank" rel="noopener">https://www.keil.com/support/docs/4053.htm</a><blockquote>
+<p><strong>µVISION DEBUGGER: J-LINK/J-TRACE Debug Support for ARMv8m Architecture</strong><br>To resolve this issue, open the Keil\Tools.ini file with a text editor and in the section starting with ARMADS search for the debug drivers for Arm v8m architecture and add TDRV4 to the list of supported drivers in CPUDLL3 line.<br>Tools.ini:<br>[ARMADS]<br>CPUDLL0=SARM.DLL(TDRV17,TDRV18,TDRV19)                              # Drivers for ARM7/9 devices<br>CPUDLL1=SARMCM3.DLL(TDRV0,TDRV1,TDRV2,TDRV3,TDRV4,TDRV5,TDRV6,…   # Drivers for Cortex-M devices<br>CPUDLL2=SARMCR4.DLL(TDRV4)                                          # Drivers for Cortex-R4 devices<br>CPUDLL3=SARMV8M.DLL(TDRV2,<strong>TDRV4</strong>,TDRV13,TDRV14,TDRV15,TDRV16)        # Drivers for <strong>ARMv8-M</strong> devices<br>…<br>TDRV3=BIN\CMSIS_AGDI.dll(“CMSIS-DAP Debugger”)<br>TDRV4=<strong>Segger\JL2CM3.dll(“J-LINK / J-TRACE Cortex”)</strong><br>TDRV5=BIN\DbgFM.DLL(“Models Cortex-M Debugger”)<br>…</p>
+</blockquote>
 </li>
-</ul>
-<ul>
-<li>Be sure to use <strong>PB14/PB15</strong> pins for USB</li>
-<li>PRO FD firmware has better performance on windows ( due internal PEAK driver implementation )</li>
-</ul>
-<p>都怪自己太心急绕了些弯路，不过虎躯又一震，还支持CANFD哪！虽然407不支持，但是协议有了，改了改配了配，嗯，果然识别成PCAN-USB Pro FD了，还多了个PCAN-USB-Pro FD LIN！爽歪歪，虽然不知道LIN有啥用。<br>这里的修改主要是在工程配置选项中增加如下配置：PCAN_PRO_FD=1,INCLUDE_LIN_INTERFACE=1,USB_WITHOUT_ISR=0<br>开始改版，用407就不要浪费了，两路CAN、两路LIN、两路RS485，六个LED，SPI Flash，按键，然后今天的主角闪亮登场：<br><img src="../../../../medias/boardPic/2021/pcan/PCANProFD.jpg" alt="MyPCANPro"><br>程序里修改了下LED管脚配置，然后down进去就识别出来了，还是用笨重的USB2CAN工具调试，两路CAN收发都正常！PCAN View可以选择配置CANFD的Norminal Bit Rate和Data Bit Rate，Data Bit Rate只有2MBits/s和6MBits/s两种，不知道是不是固件的原因。<br><img src="../../../../medias/boardPic/2021/pcan/PCANViewCANFD.png" alt="MyPCANPro FD PcanView"><br>还有附送的PLIN，虽然暂时用不到，谁知道以后会不会用上呢~<br><img src="../../../../medias/boardPic/2021/pcan/PLINView.png" alt="PLIN View"></p>
-<h3 id="高速USB-CANFD"><a href="#高速USB-CANFD" class="headerlink" title="高速USB + CANFD"></a>高速USB + CANFD</h3><p>至此虽然已经实现了PCAN，但是没有高速USB没有CANFD，心里总有些遗憾，然后东逛西逛在立创商城上下到了GD32E505的datasheet，虎躯震了又震！这货不就是我一直在找寻的嘛！内置高速USB PHY，至此3路CANFD！选择GD32E505RB/C/E，LQFP64 pin就可以实现了，关于CANFD的描述如下：<br><img src="../../../../medias/boardPic/2021/pcan/E505CANDesc.png" alt="E505 CAN的描述"><br>三路CAN，支持CAN FD，速率也能到6MBit/S！还等什么哪，407的板子还没捂热乎就在它的基础上改出了一个同时支持高速USB、两路CAN FD、QSPI Flash的高级版，立马下单投板。焦急的等板子的过程中找资料找例程，第一次接触GD的片子，可得仔细点~<br>事实再一次狠狠的打了我的脸，快就慢！我以为我捡到了宝结果是一坨屎！CANFD在新版本的datasheet上连个鬼影都木的！别说CANFD了，连CAN都没了！带着一丝丝希望咨询GD的工程师得到如下的回复：<br><strong>“ 505把CAN去掉了，508才有，508还没出样片！”</strong><br>真是句句扎心啊…太坑了…<br>可怜我那可爱的GD32E505xUSBHSxCANFD的小裸板了~<br><img src="../../../../medias/boardPic/2021/pcan/GD32E505Board.jpg" alt="E505Board"></p>
+<li>JLink不支持GD32E5的芯片，升级JLink驱动至V696版本即可。Segger的WIKI上还给GD32E507开了个专页，<a href="https://wiki.segger.com/GigaDevice_GD32E5" target="_blank" rel="noopener">https://wiki.segger.com/GigaDevice_GD32E5</a><br>如果使用SEGGER的开发环境，可以下载GigaDevice_GD32E507Z_TestProject_ES_V452b.zip试试。</li>
+<li>我这边还遇到过无法下载的情况，换了电脑换了MDK534还是不行，后来用ISP工具，通过串口给下载了个程序后就OK了，顺便提一下，USB DFU也不行！</li>
+<li>程序下载后无限重启，约1S重启了，各种查找才发现原来是看门狗莫宁奇妙的被开启了，真是日了狗！RM上写的默认是关闭的，但是可以通过配置选项字打开，我也不清楚是个例，还是就这么设计的，程序主循环里不断喂狗就行了。</li>
+<li>能下载能运行了，其他都不是事了，回头慢慢研究吧。</li>
+</ol>
 
             </div>
             <hr/>
@@ -544,7 +436,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io" rel="external nofollow noreferrer">XARM</a>
+                    <a href="https://xarm.gitee.io" rel="external nofollow noreferrer">xArm</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -554,7 +446,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/03/21/MyPCAN/">https://xarm.gitee.io/2021/03/21/MyPCAN/</a>
+                    <a href="https://xarm.gitee.io/2021/03/21/GD32E50x01Start/">https://xarm.gitee.io/2021/03/21/GD32E50x01Start/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -567,7 +459,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://xarm.gitee.io" target="_blank">XARM</a>
+                    <a href="https://xarm.gitee.io" target="_blank">xArm</a>
                     !
                 </span>
             </div>
@@ -592,12 +484,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/PCAN/">
-                                    <span class="chip bg-color">PCAN</span>
+                                <a href="/tags/GD32E505/">
+                                    <span class="chip bg-color">GD32E505</span>
                                 </a>
                             
-                                <a href="/tags/tools/">
-                                    <span class="chip bg-color">tools</span>
+                                <a href="/tags/CortexM33/">
+                                    <span class="chip bg-color">CortexM33</span>
                                 </a>
                             
                         </div>
@@ -763,9 +655,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/03/21/GD32E50x01Start/">
                     <div class="card-image">
@@ -783,9 +676,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -798,6 +691,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -820,24 +714,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/05/iToos-JLinks/">
+                <a href="/2021/03/21/MyPCAN/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="我的 J-Link 们">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="PEAK PCAN">
                         
-                        <span class="card-title">我的 J-Link 们</span>
+                        <span class="card-title">PEAK PCAN</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            工欲善其事,必先利其器！ 感谢Segger！
+                            PCAN,好用的CAN调试工具
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
                             </span>
                         <span class="publish-author">
                             
@@ -854,12 +748,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/tools/">
-                        <span class="chip bg-color">tools</span>
+                    <a href="/tags/PCAN/">
+                        <span class="chip bg-color">PCAN</span>
                     </a>
                     
-                    <a href="/tags/JLink/">
-                        <span class="chip bg-color">JLink</span>
+                    <a href="/tags/tools/">
+                        <span class="chip bg-color">tools</span>
                     </a>
                     
                 </div>
@@ -898,100 +792,6 @@
 code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
 </style>
 
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
-
-
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
-        });
-
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
 
     
 

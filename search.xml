@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>GD32E505 Start - 环境搭建</title>
+      <link href="/2021/03/21/GD32E50x01Start/"/>
+      <url>/2021/03/21/GD32E50x01Start/</url>
+      
+        <content type="html"><![CDATA[<p>摘掉了CANFD的GD32E505犹如折翼了的天使~光环不再，奈何PCB已做回，好在GD的FAE给力，在芯片价格满天飞的今天提供了10片样片，感动的泪牛满面！纵有千般不爽还是立马搞起！<br><img src="../../../../medias/boardPic/2021/pcan/GD32E505Pic.jpg" alt="GD32E505 Board Pic"></p><h3 id="GD32E505"><a href="#GD32E505" class="headerlink" title="GD32E505"></a>GD32E505</h3><ul><li>180MHz, Arm Cortex-M33 内核，ARMv8架构。</li><li>SRAM/Flash：80/128，96/256，128/512 KB</li><li>高速USB，内置PHY，480Mbit/s。</li><li>两个12bit SAR ADC，2.5MSPS，两个DAC，9个16bit 定时器，一个32bit通用定时器。</li><li>QSPI Flash。</li><li>USART: 高达<strong>22.5MBits/s</strong> ， 支持IrDA SIR编解码，支持LIN，支持ISO7816-3.</li><li>96bits Unique ID，位于0x1FFF_F7E8</li></ul><p>虽然没了CANFD，但还是亮点满满，尤其是内置高速USB PHY，相比STM32来说诚意满满！STM32貌似只有STM32F7有几款型号内置了高速PHY，蛋疼。</p><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol><li>先从GD32官网下载所需资源<br>英文：<a href="http://www.gd32mcu.com/en/download/" target="_blank" rel="noopener">http://www.gd32mcu.com/en/download/</a><br>中文：<a href="http://gd32mcu.com/cn/download" target="_blank" rel="noopener">http://gd32mcu.com/cn/download</a><br>选择GD32E5，主要下载以下几个文件：<br>GD32E505xx_Datasheet_Rev1.2.pdf - 数据手册<br>GD32E50x_RM_Rev1.2.pdf - 寄存器手册<br>GD32E50x_AddOn_V1.2.0.zip - 安装后MDK能识别出GD32E5的芯片<br>GD32E50x_Firmware_Library_V1.1.2.rar - 固件库<br>GD32E50x_Firmware_Library_User_Guide_Rev1.1.rar - 库函数手册<br>GD32E50x_Demo_Suites_V1.1.1.rar - Demo板参考例程，Demo板的原理图也藏在这里面<br>GD32DfuDrivers_V3.6.6.6167.rar - GD32 DFU驱动<br>GD32All_In_OneProgrammer_V1.2.8.9234.rar - 下载程序<br>GD32_Dfu_Tool_V3.8.2.9056.rar - DFU上位机程序<br>GD32_ISP_CLI(Windows)1.0.0.5109.rar - ISP程序<br>GD_Link_Programmer_V4.3.7.9954.rar - GDLink的上位机下载程序</li><li>MDK - 我最开始用的MDK5.23版本，各种问题，后来果断升级至最新版 5.34版本<br>GD32的例程使用的是AC6的编译器。</li><li>JLink驱动：JLink_Windows_V696.exe ，这个版本的支持GD32E505器件，老版本的不支持。</li></ol><h3 id="USB-CDC例程"><a href="#USB-CDC例程" class="headerlink" title="USB CDC例程"></a>USB CDC例程</h3><ol><li>解压GD32E50x_Firmware_Library_V1.1.2.rar</li><li>打开Examples\USBHS\usb_device\cdc_acm\MDK-ARM工程，编译。</li><li>选择JLink，连接方式选择SWD，JTAG/SWD都支持，下载即可。</li></ol><h3 id="埋坑笔记"><a href="#埋坑笔记" class="headerlink" title="埋坑笔记"></a>埋坑笔记</h3><ol><li>例程很多，对每一个外设基本上都有相应的例程，蛋疼的是大部分都没工程，只有几个.c文件。在USBHS中有MDK和IAR的工程，所以直接以此工程入手。</li><li>在MDK5.23版本中，遇到自带的AC6编译时有很多问题，于是从其他高版本的MDK中拷贝出相应的AC6编译链，替换Keil\ARM\ARMCLANG，编译没问题了，在下载选项中没法选择JLink，后来查找到MDK中的描述：<a href="https://www.keil.com/support/docs/4053.htm" target="_blank" rel="noopener">https://www.keil.com/support/docs/4053.htm</a><blockquote><p><strong>µVISION DEBUGGER: J-LINK/J-TRACE Debug Support for ARMv8m Architecture</strong><br>To resolve this issue, open the Keil\Tools.ini file with a text editor and in the section starting with ARMADS search for the debug drivers for Arm v8m architecture and add TDRV4 to the list of supported drivers in CPUDLL3 line.<br>Tools.ini:<br>[ARMADS]<br>CPUDLL0=SARM.DLL(TDRV17,TDRV18,TDRV19)                              # Drivers for ARM7/9 devices<br>CPUDLL1=SARMCM3.DLL(TDRV0,TDRV1,TDRV2,TDRV3,TDRV4,TDRV5,TDRV6,…   # Drivers for Cortex-M devices<br>CPUDLL2=SARMCR4.DLL(TDRV4)                                          # Drivers for Cortex-R4 devices<br>CPUDLL3=SARMV8M.DLL(TDRV2,<strong>TDRV4</strong>,TDRV13,TDRV14,TDRV15,TDRV16)        # Drivers for <strong>ARMv8-M</strong> devices<br>…<br>TDRV3=BIN\CMSIS_AGDI.dll(“CMSIS-DAP Debugger”)<br>TDRV4=<strong>Segger\JL2CM3.dll(“J-LINK / J-TRACE Cortex”)</strong><br>TDRV5=BIN\DbgFM.DLL(“Models Cortex-M Debugger”)<br>…</p></blockquote></li><li>JLink不支持GD32E5的芯片，升级JLink驱动至V696版本即可。Segger的WIKI上还给GD32E507开了个专页，<a href="https://wiki.segger.com/GigaDevice_GD32E5" target="_blank" rel="noopener">https://wiki.segger.com/GigaDevice_GD32E5</a><br>如果使用SEGGER的开发环境，可以下载GigaDevice_GD32E507Z_TestProject_ES_V452b.zip试试。</li><li>我这边还遇到过无法下载的情况，换了电脑换了MDK534还是不行，后来用ISP工具，通过串口给下载了个程序后就OK了，顺便提一下，USB DFU也不行！</li><li>程序下载后无限重启，约1S重启了，各种查找才发现原来是看门狗莫宁奇妙的被开启了，真是日了狗！RM上写的默认是关闭的，但是可以通过配置选项字打开，我也不清楚是个例，还是就这么设计的，程序主循环里不断喂狗就行了。</li><li>能下载能运行了，其他都不是事了，回头慢慢研究吧。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> GD32E505 </tag>
+            
+            <tag> CortexM33 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PEAK PCAN</title>
       <link href="/2021/03/21/MyPCAN/"/>
       <url>/2021/03/21/MyPCAN/</url>
