@@ -493,6 +493,15 @@
 <h3 id="JLink-V9"><a href="#JLink-V9" class="headerlink" title="JLink V9"></a>JLink V9</h3><p>V9的年代更是很老了，貌似官方都停止更新了吧？曾经很好用很好用，没啥校验，固件烧上就可以跑，目前dll貌似对序列号后四字节校验做了判断。自从有了V10和mini flasher，就很少用V9了，留照纪念之。<br><img src="../../../../medias/boardPic/2021/tools/V9.jpg" alt="最初的JLink V9 Pic"><br>后来各种改，穿衣服，还和usb hub放一起，再加上个CH34x的一个usb转串口芯片，把Jlink、USB转RS232、USB转RS485、Hub接口都放一起了，也很好用的~<br><img src="../../../../medias/boardPic/2021/tools/iToolsV9.jpg" alt="iToolsV9 Pic"><br>顺便提一下，序列号后四字节的校验如果不正确，Jlinkarm.dll有时会弹出defective的错误框，要么处理下jlinkarm.dll，要么就把这个序列号校验给加上，如果需要可以联系我，可提供针对序列号的校验码。（JLinkarm.dll中有此函数，可惜没有export出来，不过可以找出此函数然后调用它来计算）</p>
 <h3 id="JLink-OB们"><a href="#JLink-OB们" class="headerlink" title="JLink OB们"></a>JLink OB们</h3><p>最初的JLink OB是103，在没有V9之前一直都是OB103陪伴着我，后来有了OB 072，还有了OB K22，貌似OB K22和JLink Mini硬件一致的，而且可用的版本众多，官方貌似开源了原理图了，所以照着画个板写个boot跳到App就可以运行了，其中最牛的是下面这个了：支持4路SWD、3路UART，是在Nodic的NRF91DK开发板上的，原理图都是公开的，照着画个就完事了。在使用一个JLink同时调多个目标板的时候，灰常灰常的好用，按下按键就切过去了~<br><img src="../../../../medias/boardPic/2021/tools/OB072andV9.jpg" alt="JLink OB072 Pic"><br><img src="../../../../medias/boardPic/2021/tools/OBK22.jpg" alt="JLink OBK22 Pic"><br><img src="../../../../medias/boardPic/2021/tools/OBK22s4.jpg" alt="JLink OBK22s4 Pic"></p>
 <h3 id="其他小工具"><a href="#其他小工具" class="headerlink" title="其他小工具"></a>其他小工具</h3><p>JLink SWD ISO: 隔离小板，只隔离SWD，速度不快，调试电机时还是很有必要。<br><img src="../../../../medias/boardPic/2021/tools/JSWDISO.jpg" alt="JLink SWD ISO Pic"><br>Xilinx的JTAG HS3、SMT2，很快，很好用，还有一路虚拟串口，支持选择1.8V/3.3V电平。<br><img src="../../../../medias/boardPic/2021/tools/JTAGH3.jpg" alt="Xilinx FPGA debug tool"></p>
+<h3 id="JLink-CMDs"><a href="#JLink-CMDs" class="headerlink" title="JLink CMDs"></a>JLink CMDs</h3><ol>
+<li>exec InvalidateFW</li>
+<li>exec GetSNChecksum</li>
+<li>exec GetUID</li>
+<li>exec GetSignature</li>
+<li>exec VerifySignature</li>
+<li>exec SetSN</li>
+<li>exec ClearFeatures</li>
+</ol>
 
             </div>
             <hr/>

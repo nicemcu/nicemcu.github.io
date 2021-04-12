@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GD32E505 Start - 环境搭建, ">
-    <meta name="description" content="GD32E505:180MHz CortexM33, 高速USB、QSPI Flash、RS485、高速串口">
+    <meta name="keywords" content="GD32E505 Flash 操作, ">
+    <meta name="description" content="GD32E505 Flash操作">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GD32E505 Start - 环境搭建 | </title>
+    <title>GD32E505 Flash 操作 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GD32E505 Start - 环境搭建</h1>
+                    <h1 class="description center-align post-title">GD32E505 Flash 操作</h1>
                 </div>
             </div>
         </div>
@@ -372,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-21
+                    2021-04-12
                 </div>
                 
 
@@ -389,38 +389,173 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>摘掉了CANFD的GD32E505犹如折翼了的天使~光环不再，奈何PCB已做回，好在GD的FAE给力，在芯片价格满天飞的今天提供了10片样片，感动的泪牛满面！纵有千般不爽还是立马搞起！<br><img src="../../../../medias/boardPic/2021/pcan/GD32E505Pic.jpg" alt="GD32E505 Board Pic"></p>
-<h3 id="GD32E505"><a href="#GD32E505" class="headerlink" title="GD32E505"></a>GD32E505</h3><ul>
-<li>180MHz, Arm Cortex-M33 内核，ARMv8架构。</li>
-<li>SRAM/Flash：80/128，96/256，128/512 KB</li>
-<li>高速USB，内置PHY，480Mbit/s。</li>
-<li>两个12bit SAR ADC，2.5MSPS，两个DAC，9个16bit 定时器，一个32bit通用定时器。</li>
-<li>QSPI Flash。</li>
-<li>USART: 高达<strong>22.5MBits/s</strong> ， 支持IrDA SIR编解码，支持LIN，支持ISO7816-3.</li>
-<li>96bits Unique ID，位于0x1FFF_F7E8</li>
-</ul>
-<p>虽然没了CANFD，但还是亮点满满，尤其是内置高速USB PHY，相比STM32来说诚意满满！STM32貌似只有STM32F7有几款型号内置了高速PHY，蛋疼。</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol>
-<li>先从GD32官网下载所需资源<br>英文：<a href="http://www.gd32mcu.com/en/download/" target="_blank" rel="noopener">http://www.gd32mcu.com/en/download/</a><br>中文：<a href="http://gd32mcu.com/cn/download" target="_blank" rel="noopener">http://gd32mcu.com/cn/download</a><br>选择GD32E5，主要下载以下几个文件：<br>GD32E505xx_Datasheet_Rev1.2.pdf - 数据手册<br>GD32E50x_RM_Rev1.2.pdf - 寄存器手册<br>GD32E50x_AddOn_V1.2.0.zip - 安装后MDK能识别出GD32E5的芯片<br>GD32E50x_Firmware_Library_V1.1.2.rar - 固件库<br>GD32E50x_Firmware_Library_User_Guide_Rev1.1.rar - 库函数手册<br>GD32E50x_Demo_Suites_V1.1.1.rar - Demo板参考例程，Demo板的原理图也藏在这里面<br>GD32DfuDrivers_V3.6.6.6167.rar - GD32 DFU驱动<br>GD32All_In_OneProgrammer_V1.2.8.9234.rar - 下载程序<br>GD32_Dfu_Tool_V3.8.2.9056.rar - DFU上位机程序<br>GD32_ISP_CLI(Windows)1.0.0.5109.rar - ISP程序<br>GD_Link_Programmer_V4.3.7.9954.rar - GDLink的上位机下载程序</li>
-<li>MDK - 我最开始用的MDK5.23版本，各种问题，后来果断升级至最新版 5.34版本<br>GD32的例程使用的是AC6的编译器。</li>
-<li>JLink驱动：JLink_Windows_V696.exe ，这个版本的支持GD32E505器件，老版本的不支持。</li>
-</ol>
-<h3 id="USB-CDC例程"><a href="#USB-CDC例程" class="headerlink" title="USB CDC例程"></a>USB CDC例程</h3><ol>
-<li>解压GD32E50x_Firmware_Library_V1.1.2.rar</li>
-<li>打开Examples\USBHS\usb_device\cdc_acm\MDK-ARM工程，编译。</li>
-<li>选择JLink，连接方式选择SWD，JTAG/SWD都支持，下载即可。</li>
-</ol>
-<h3 id="埋坑笔记"><a href="#埋坑笔记" class="headerlink" title="埋坑笔记"></a>埋坑笔记</h3><ol>
-<li>例程很多，对每一个外设基本上都有相应的例程，蛋疼的是大部分都没工程，只有几个.c文件。在USBHS中有MDK和IAR的工程，所以直接以此工程入手。</li>
-<li>在MDK5.23版本中，遇到自带的AC6编译时有很多问题，于是从其他高版本的MDK中拷贝出相应的AC6编译链，替换Keil\ARM\ARMCLANG，编译没问题了，在下载选项中没法选择JLink，后来查找到MDK中的描述：<a href="https://www.keil.com/support/docs/4053.htm" target="_blank" rel="noopener">https://www.keil.com/support/docs/4053.htm</a><blockquote>
-<p><strong>µVISION DEBUGGER: J-LINK/J-TRACE Debug Support for ARMv8m Architecture</strong><br>To resolve this issue, open the Keil\Tools.ini file with a text editor and in the section starting with ARMADS search for the debug drivers for Arm v8m architecture and add TDRV4 to the list of supported drivers in CPUDLL3 line.<br>Tools.ini:<br>[ARMADS]<br>CPUDLL0=SARM.DLL(TDRV17,TDRV18,TDRV19)                              # Drivers for ARM7/9 devices<br>CPUDLL1=SARMCM3.DLL(TDRV0,TDRV1,TDRV2,TDRV3,TDRV4,TDRV5,TDRV6,…   # Drivers for Cortex-M devices<br>CPUDLL2=SARMCR4.DLL(TDRV4)                                          # Drivers for Cortex-R4 devices<br>CPUDLL3=SARMV8M.DLL(TDRV2,<strong>TDRV4</strong>,TDRV13,TDRV14,TDRV15,TDRV16)        # Drivers for <strong>ARMv8-M</strong> devices<br>…<br>TDRV3=BIN\CMSIS_AGDI.dll(“CMSIS-DAP Debugger”)<br>TDRV4=<strong>Segger\JL2CM3.dll(“J-LINK / J-TRACE Cortex”)</strong><br>TDRV5=BIN\DbgFM.DLL(“Models Cortex-M Debugger”)<br>…</p>
-</blockquote>
+                <h3 id="GD32E505-Flash："><a href="#GD32E505-Flash：" class="headerlink" title="GD32E505 Flash："></a>GD32E505 Flash：</h3><ol>
+<li><p>设备唯一ID（UNIQUE ID ,96bit，只能按字32位访问），基地址：0x1FFF_F7E8</p>
 </li>
-<li>JLink不支持GD32E5的芯片，升级JLink驱动至V696版本即可。Segger的WIKI上还给GD32E507开了个专页，<a href="https://wiki.segger.com/GigaDevice_GD32E5" target="_blank" rel="noopener">https://wiki.segger.com/GigaDevice_GD32E5</a><br>如果使用SEGGER的开发环境，可以下载GigaDevice_GD32E507Z_TestProject_ES_V452b.zip试试。</li>
-<li>我这边还遇到过无法下载的情况，换了电脑换了MDK534还是不行，后来用ISP工具，通过串口给下载了个程序后就OK了，顺便提一下，USB DFU也不行！</li>
-<li>程序下载后无限重启，约1S重启了，各种查找才发现原来是看门狗莫宁奇妙的被开启了，真是日了狗！RM上写的默认是关闭的，但是可以通过配置选项字打开，我也不清楚是个例，还是就这么设计的，程序主循环里不断喂狗就行了。</li>
-<li>能下载能运行了，其他都不是事了，回头慢慢研究吧。</li>
+<li><p>闪存的前512K字节空间内，CPU执行指令需要0~4个等待时间。</p>
+</li>
+<li><p>闪存页大小为<strong>8KB</strong>，支持32位字/16位半字编程，页擦除和整片擦除。</p>
+</li>
+<li><p>2K字节 OTP块（一次性编程），用于存储用户数据。</p>
+</li>
+<li><p>16字节的选项字节，根据用户需求配置，当系统复位时，选项字节被加载到选项字节控制寄存器。</p>
+</li>
+<li><p>GD32E505_CL闪存基地址和构成：</p>
+<table>
+<thead>
+<tr>
+<th align="center">闪存</th>
+<th align="center">名称</th>
+<th align="center">地址范围</th>
+<th align="center">大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">主闪存</td>
+<td align="center">Page0</td>
+<td align="center">0x0800_0000~0x0800_1FFF</td>
+<td align="center">8KB</td>
+</tr>
+<tr>
+<td align="center">主闪存</td>
+<td align="center">Page1</td>
+<td align="center">0x0800_2000~0x0800_3FFF</td>
+<td align="center">8KB</td>
+</tr>
+<tr>
+<td align="center">主闪存</td>
+<td align="center">…..</td>
+<td align="center">…..</td>
+<td align="center">8KB</td>
+</tr>
+<tr>
+<td align="center">主闪存</td>
+<td align="center">Page63</td>
+<td align="center">0x0807_E000~0x0807_FFFF</td>
+<td align="center">8KB</td>
+</tr>
+<tr>
+<td align="center">信息块 CL</td>
+<td align="center">引导Bootloader</td>
+<td align="center">0x1FFF_B000~0x1FFF_F7FF</td>
+<td align="center">18KB</td>
+</tr>
+<tr>
+<td align="center">选项字节</td>
+<td align="center">选项字节</td>
+<td align="center">0x1FFF_F800~0x1FFF_F80F</td>
+<td align="center">16B</td>
+</tr>
+<tr>
+<td align="center">一次性编程</td>
+<td align="center">OTP</td>
+<td align="center">0x1FFF_7000~0x1FFF_77FF</td>
+<td align="center">2KB</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>选项字节说明 : 每次系统复位后，选项字节被重载到FMC_OBSTAT和FMC_WP寄存器后，选项字节生效。选项字节的补字节具体为选项字节取反。当选项字被重载时，如果选项字节的补字节和选项字节补匹配，FMC_OBSTAT的OBERR位将被置1，选项字节被强制设置为0xFF。若选项字节和其补字节同为0xFF，则OBERR位补置位。</p>
+<table>
+<thead>
+<tr>
+<th align="center">地址</th>
+<th align="center">名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0x1FFF_F800</td>
+<td align="center">SPC</td>
+<td align="center">选项字节安全保护值，0xA5未保护，除0xA5和0xCC外的任何值：保护级别低，0xCC：保护级别高</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F801</td>
+<td align="center">SPC_N</td>
+<td align="center">SPC补字节</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F802</td>
+<td align="center">USER</td>
+<td align="center">[7:6] : BOR_TH ，BOR复位阈值<br>[5:3] : 保留<br>[2] : nRST_STDBY，0：设置待机模式时产生复位而不是进入待机模式。1：设置待机模式时进入待机模式而不产生复位。<br>[1] : nRST_DPSLP，0：设置深度睡眠模式时产生复位而不进入深度睡眠模式。1：设置深度睡眠模式时进入深度睡眠模式而不产生复位。<br>[0] : nWDG_HW， 0：硬件是能独立看门狗功能。1：软件使能独立看门狗功能。</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F803</td>
+<td align="center">USER_N</td>
+<td align="center">SPC补字节</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F804</td>
+<td align="center">DATA[7:0]</td>
+<td align="center">用户定义数据7到0位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F805</td>
+<td align="center">DATA_N[7:0]</td>
+<td align="center">DATA补字节的7到0位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F806</td>
+<td align="center">DATA[15:8]</td>
+<td align="center">用户定义数据15到8位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F807</td>
+<td align="center">DATA_N[15:8]</td>
+<td align="center">DATA补字节的15到8位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F808</td>
+<td align="center">WP[7:0]</td>
+<td align="center">页擦除/编程保护值的7到0位 <br>[0] : 保护生效<br>[1] : 未保护</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F809</td>
+<td align="center">WP_N[7:0]</td>
+<td align="center">WP补字节的7到0位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80A</td>
+<td align="center">WP[15:8]</td>
+<td align="center">页擦除/编程保护值的15到8位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80B</td>
+<td align="center">WP_N[15:8]</td>
+<td align="center">WP补字节的15到8位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80C</td>
+<td align="center">WP[23:16]</td>
+<td align="center">页擦除/编程保护值的23到16位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80D</td>
+<td align="center">WP_N[23:16]</td>
+<td align="center">WP补字节的23到16位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80E</td>
+<td align="center">WP[31:24]</td>
+<td align="center">页擦除/编程保护值的31到24位</td>
+</tr>
+<tr>
+<td align="center">0x1FFF_F80F</td>
+<td align="center">WP_N[31:24]</td>
+<td align="center">WP补字节的31到24位</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>安全防护：<br><strong>未保护状态</strong>：当将SPC字节和它的补字节设置为0x5AA5，系统复位后闪存将处于非安全保护状态，主存储器和选项字节可以被所有操作模式访问。<br><strong>保护等级低</strong>：当设置SPC字节为任何除0xA5或0xCC外的值，系统复位以后，低安全保护状态生效。需要注意的是，若修改过程中，MCU的调试模块依然和外部JTAG/SWD设备相连，需要用上电复位代替系统复位以使得修改后的保护状态生效。在低安全保护状态下，<strong>主存储闪存块仅能被用户代码访问且前8KB的闪存自动处于页擦除/编程保护状态下</strong>。在调试模式下，或从SRAM中启动时，以及从boot loader区启动时，这些模式下对主存储块的操作都被禁止。如果在这些模式下读主存储块，将产生总线错误。如果在这些模式下，对主存储块进行编程或擦除操作，FMC_STAT寄存器的WPERR位将被置1。但这些模式下都可以对选项字节进行操作，从而可以通过该方式失能安全保护功能。如果将SPC字节和它的补字节设置为0x5AA5，安全保护功能将失效，并自动触发一次整片擦除操作。<br><strong>保护等级高</strong>：当设置SPC字节为0xCC，激活高安全保护等级。当编程选择该保护等级时，调试模式，从SRAM中启动，或者从boot loader启动都被禁止。主存储闪存块可由用户代码的所有操作进行访问。SPC字节禁止再次编程。所以，如果高保护等级被激活，将不能再降回到低保护等级或无保护等级。 </p>
+<p><strong><font color=#FF3300>空芯片默认该值为0xFF？所以无法烧写程序？？蛋疼的设计！！</font></strong></p>
+</li>
 </ol>
+<h3 id="例程分析"><a href="#例程分析" class="headerlink" title="例程分析"></a>例程分析</h3><p>Examples/FMC中有三个例程；</p>
+<ol>
+<li>Erase_Program: 提供了fmc_erase_pages和fmc_program的操作例程。</li>
+<li>Security_protection: 设置Security和解unSecurity。</li>
+<li>Write_Protection: 设置写保护，参考意义不大。</li>
+</ol>
+<p>基于以上这三个例程，基本上对flash的操作就不是事了。</p>
 
             </div>
             <hr/>
@@ -446,7 +581,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/03/21/GD32E50x01Start/">https://xarm.gitee.io/2021/03/21/GD32E50x01Start/</a>
+                    <a href="https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/">https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -655,28 +790,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/22/GD32E50x02USB/">
+                <a href="/2021/04/12/GD32E50x04Flash/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="GD32E505 USB分析">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GD32E505 Flash 操作">
                         
-                        <span class="card-title">GD32E505 USB分析</span>
+                        <span class="card-title">GD32E505 Flash 操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            USB虚拟串口，感受高速USB 480Mbps！
+                            GD32E505 Flash操作
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -689,6 +825,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -711,31 +848,30 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/21/MyPCAN/">
+                <a href="/2021/03/23/GD32E50x03DMA/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="GD32E505 USART and DMA">
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="PEAK PCAN">
-                        
-                        <span class="card-title">PEAK PCAN</span>
+                        <span class="card-title">GD32E505 USART and DMA</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PCAN,好用的CAN调试工具
+                            GD32E505 USART DMA Send and receive
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/TOOL/" class="post-category">
-                                    TOOL
+                            <a href="/categories/MCU/" class="post-category">
+                                    MCU
                                 </a>
                             
                             
@@ -745,12 +881,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/PCAN/">
-                        <span class="chip bg-color">PCAN</span>
+                    <a href="/tags/GD32E505/">
+                        <span class="chip bg-color">GD32E505</span>
                     </a>
                     
-                    <a href="/tags/tools/">
-                        <span class="chip bg-color">tools</span>
+                    <a href="/tags/CortexM33/">
+                        <span class="chip bg-color">CortexM33</span>
                     </a>
                     
                 </div>
