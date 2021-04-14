@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GD32E505 Flash 操作, ">
-    <meta name="description" content="GD32E505 Flash操作">
+    <meta name="keywords" content="KT6368A - 8脚的蓝牙BLE, ">
+    <meta name="description" content="蓝牙双模，BLE5.1，SOP8，蓝牙透传，AT指令">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GD32E505 Flash 操作 | </title>
+    <title>KT6368A - 8脚的蓝牙BLE | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GD32E505 Flash 操作</h1>
+                    <h1 class="description center-align post-title">KT6368A - 8脚的蓝牙BLE</h1>
                 </div>
             </div>
         </div>
@@ -343,12 +343,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GD32E505/">
-                                <span class="chip bg-color">GD32E505</span>
+                            <a href="/tags/KT6368A/">
+                                <span class="chip bg-color">KT6368A</span>
                             </a>
                         
-                            <a href="/tags/CortexM33/">
-                                <span class="chip bg-color">CortexM33</span>
+                            <a href="/tags/BLE/">
+                                <span class="chip bg-color">BLE</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%93%9D%E7%89%99/">
+                                <span class="chip bg-color">蓝牙</span>
                             </a>
                         
                     </div>
@@ -372,7 +376,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-12
+                    2021-04-13
                 </div>
                 
 
@@ -389,173 +393,152 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="GD32E505-Flash："><a href="#GD32E505-Flash：" class="headerlink" title="GD32E505 Flash："></a>GD32E505 Flash：</h3><ol>
-<li><p>设备唯一ID（UNIQUE ID ,96bit，只能按字32位访问），基地址：0x1FFF_F7E8</p>
-</li>
-<li><p>闪存的前512K字节空间内，CPU执行指令需要0~4个等待时间。</p>
-</li>
-<li><p>闪存页大小为<strong>8KB</strong>，支持32位字/16位半字编程，页擦除和整片擦除。</p>
-</li>
-<li><p>2K字节 OTP块（一次性编程），用于存储用户数据。</p>
-</li>
-<li><p>16字节的选项字节，根据用户需求配置，当系统复位时，选项字节被加载到选项字节控制寄存器。</p>
-</li>
-<li><p>GD32E505_CL闪存基地址和构成：</p>
+                <p>偶然间见到了这款神芯：KT6368A，8脚的蓝牙UART透传芯片，淘宝零售价1.6元/pcs，禁不住赶紧做板一试。<br><img src="../../../../medias/boardPic/2021/tools/KT6368A.jpg" alt="KT6368A BLE Pic"></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>KT6368A芯片是一款支持蓝牙双模的纯数据芯片，蓝牙5.1版本。芯片的亮点在超小尺寸，超级价格。以及简单明了的透传和串口AT控制功能。大大降低了嵌入蓝牙在其它产品的开发难度和成本。<br>同时支持<strong>SPP</strong>和<strong>BLE</strong> 。但是只能任选其中一个协议使用。<br>备注：这款芯片最大的特点，就是成本低，使用简单，生产简单。无他。</p>
+<p>电流：芯片上电启动是20mA，马上进入低功耗广播20uA和唤醒4mA交替。连接成功就一直都是4mA。<br>电路：简洁的令人发指！如果能把晶振内置，再多引出2个IO那简直太完美了！<br>串口：波特率默认115200.<br>PIN2：连接状态指示。连接成功后输出高电平，未连接为高阻态。 – <strong>这脚如果能配置成发送完成状态指示就好了，不然咋知道发送是否完成？</strong></p>
+<h3 id="AT指令"><a href="#AT指令" class="headerlink" title="AT指令"></a>AT指令</h3><ol>
+<li><p>指令格式：AT+CMD[parama]\r\n<br>&lt;IND&gt; : 数据反馈是蓝牙把各种状态和数据信息反馈给主机，以<strong>&lt;IND&gt;</strong>作为开头<br>CMD指令：</p>
 <table>
 <thead>
 <tr>
-<th align="center">闪存</th>
-<th align="center">名称</th>
-<th align="center">地址范围</th>
-<th align="center">大小</th>
+<th align="center">CMD</th>
+<th align="center">功能描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">主闪存</td>
-<td align="center">Page0</td>
-<td align="center">0x0800_0000~0x0800_1FFF</td>
-<td align="center">8KB</td>
+<td align="center">AT+CT</td>
+<td align="center">设置波特率，如AT+CT01\r\n</td>
 </tr>
 <tr>
-<td align="center">主闪存</td>
-<td align="center">Page1</td>
-<td align="center">0x0800_2000~0x0800_3FFF</td>
-<td align="center">8KB</td>
+<td align="center">AT+CZ</td>
+<td align="center">芯片复位</td>
 </tr>
 <tr>
-<td align="center">主闪存</td>
-<td align="center">…..</td>
-<td align="center">…..</td>
-<td align="center">8KB</td>
+<td align="center">AT+CW</td>
+<td align="center">芯片恢复出厂设置</td>
 </tr>
 <tr>
-<td align="center">主闪存</td>
-<td align="center">Page63</td>
-<td align="center">0x0807_E000~0x0807_FFFF</td>
-<td align="center">8KB</td>
+<td align="center">AT+CL</td>
+<td align="center">芯片低功耗设置</td>
 </tr>
 <tr>
-<td align="center">信息块 CL</td>
-<td align="center">引导Bootloader</td>
-<td align="center">0x1FFF_B000~0x1FFF_F7FF</td>
-<td align="center">18KB</td>
+<td align="center">AT+BM</td>
+<td align="center">设置BLE蓝牙名称，如AT+BMMyBle\r\n</td>
 </tr>
 <tr>
-<td align="center">选项字节</td>
-<td align="center">选项字节</td>
-<td align="center">0x1FFF_F800~0x1FFF_F80F</td>
-<td align="center">16B</td>
+<td align="center">AT+BN</td>
+<td align="center">设置BLE的MAC地址</td>
 </tr>
 <tr>
-<td align="center">一次性编程</td>
-<td align="center">OTP</td>
-<td align="center">0x1FFF_7000~0x1FFF_77FF</td>
-<td align="center">2KB</td>
+<td align="center">AT+BD</td>
+<td align="center">设置SPP蓝牙名称</td>
+</tr>
+<tr>
+<td align="center">AT+BS</td>
+<td align="center">设置BLE连接密码，此功能没有实现</td>
+</tr>
+<tr>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">AT+QT</td>
+<td align="center">查询系统的波特率</td>
+</tr>
+<tr>
+<td align="center">AT+QL</td>
+<td align="center">查询系统的低功耗状态</td>
+</tr>
+<tr>
+<td align="center">AT+TM</td>
+<td align="center">查询BLE蓝牙名称</td>
+</tr>
+<tr>
+<td align="center">AT+TN</td>
+<td align="center">查询BLE蓝牙地址</td>
+</tr>
+<tr>
+<td align="center">AT+TN</td>
+<td align="center">查询SPP蓝牙名称</td>
+</tr>
+<tr>
+<td align="center">AT+TS</td>
+<td align="center">查询BLE蓝牙连接密码,功能保留</td>
+</tr>
+<tr>
+<td align="center">–</td>
+<td align="center">–</td>
+</tr>
+<tr>
+<td align="center">AT+B401\r\n</td>
+<td align="center">开启BLE功能，AT+B400\r\n关闭该功能</td>
+</tr>
+<tr>
+<td align="center">AT+B501\r\n</td>
+<td align="center">开启SPP功能，AT+B500\r\n关闭该功能</td>
+</tr>
+<tr>
+<td align="center">AT+T4\r\n</td>
+<td align="center">查询BLE功能是否打开，芯片返回T4+01或T4+00</td>
+</tr>
+<tr>
+<td align="center">AT+T5\r\n</td>
+<td align="center">查询SPP功能是否打开，芯片返回T5+01或T5+00</td>
 </tr>
 </tbody></table>
 </li>
-<li><p>选项字节说明 : 每次系统复位后，选项字节被重载到FMC_OBSTAT和FMC_WP寄存器后，选项字节生效。选项字节的补字节具体为选项字节取反。当选项字被重载时，如果选项字节的补字节和选项字节补匹配，FMC_OBSTAT的OBERR位将被置1，选项字节被强制设置为0xFF。若选项字节和其补字节同为0xFF，则OBERR位补置位。</p>
+<li><p>设置波特率：AT+CT01\r\n=9600;     05=115200;    07=512000;    10=1000000;     还支持其他的一些波特率设置，请参考手册。</p>
+</li>
+<li><p>关闭BLE或SPP功能后，必须重新上电，此功能才能生效。</p>
+</li>
+<li><p>芯片返回错误信息表：</p>
 <table>
 <thead>
 <tr>
-<th align="center">地址</th>
-<th align="center">名称</th>
-<th align="center">说明</th>
+<th align="center">错误信息</th>
+<th align="center">功能描述</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">0x1FFF_F800</td>
-<td align="center">SPC</td>
-<td align="center">选项字节安全保护值，0xA5未保护，除0xA5和0xCC外的任何值：保护级别低，0xCC：保护级别高</td>
+<td align="center">ER+1\r\n</td>
+<td align="center">接收的数据帧不对</td>
 </tr>
 <tr>
-<td align="center">0x1FFF_F801</td>
-<td align="center">SPC_N</td>
-<td align="center">SPC补字节</td>
+<td align="center">ER+2\r\n</td>
+<td align="center">接收的命令不存在，如发送的AT+KK字符串不正确</td>
 </tr>
 <tr>
-<td align="center">0x1FFF_F802</td>
-<td align="center">USER</td>
-<td align="center">[7:6] : BOR_TH ，BOR复位阈值<br>[5:3] : 保留<br>[2] : nRST_STDBY，0：设置待机模式时产生复位而不是进入待机模式。1：设置待机模式时进入待机模式而不产生复位。<br>[1] : nRST_DPSLP，0：设置深度睡眠模式时产生复位而不进入深度睡眠模式。1：设置深度睡眠模式时进入深度睡眠模式而不产生复位。<br>[0] : nWDG_HW， 0：硬件是能独立看门狗功能。1：软件使能独立看门狗功能。</td>
+<td align="center">ER+3\r\n</td>
+<td align="center">接收的AT指令，没有收到回车换行，\r\n</td>
 </tr>
 <tr>
-<td align="center">0x1FFF_F803</td>
-<td align="center">USER_N</td>
-<td align="center">SPC补字节</td>
+<td align="center">ER+4\r\n</td>
+<td align="center">发送的指令给的参数超范围了</td>
 </tr>
 <tr>
-<td align="center">0x1FFF_F804</td>
-<td align="center">DATA[7:0]</td>
-<td align="center">用户定义数据7到0位</td>
+<td align="center">ER+(5,6,8)\r\n</td>
+<td align="center">保留</td>
 </tr>
 <tr>
-<td align="center">0x1FFF_F805</td>
-<td align="center">DATA_N[7:0]</td>
-<td align="center">DATA补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F806</td>
-<td align="center">DATA[15:8]</td>
-<td align="center">用户定义数据15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F807</td>
-<td align="center">DATA_N[15:8]</td>
-<td align="center">DATA补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F808</td>
-<td align="center">WP[7:0]</td>
-<td align="center">页擦除/编程保护值的7到0位 <br>[0] : 保护生效<br>[1] : 未保护</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F809</td>
-<td align="center">WP_N[7:0]</td>
-<td align="center">WP补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80A</td>
-<td align="center">WP[15:8]</td>
-<td align="center">页擦除/编程保护值的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80B</td>
-<td align="center">WP_N[15:8]</td>
-<td align="center">WP补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80C</td>
-<td align="center">WP[23:16]</td>
-<td align="center">页擦除/编程保护值的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80D</td>
-<td align="center">WP_N[23:16]</td>
-<td align="center">WP补字节的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80E</td>
-<td align="center">WP[31:24]</td>
-<td align="center">页擦除/编程保护值的31到24位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80F</td>
-<td align="center">WP_N[31:24]</td>
-<td align="center">WP补字节的31到24位</td>
+<td align="center">ER+7\r\n</td>
+<td align="center">在BLE连接成功状态下，发送数据给手机，手机端未打开notify</td>
 </tr>
 </tbody></table>
 </li>
-<li><p>安全防护：<br><strong>未保护状态</strong>：当将SPC字节和它的补字节设置为0x5AA5，系统复位后闪存将处于非安全保护状态，主存储器和选项字节可以被所有操作模式访问。<br><strong>保护等级低</strong>：当设置SPC字节为任何除0xA5或0xCC外的值，系统复位以后，低安全保护状态生效。需要注意的是，若修改过程中，MCU的调试模块依然和外部JTAG/SWD设备相连，需要用上电复位代替系统复位以使得修改后的保护状态生效。在低安全保护状态下，<strong>主存储闪存块仅能被用户代码访问且前8KB的闪存自动处于页擦除/编程保护状态下</strong>。在调试模式下，或从SRAM中启动时，以及从boot loader区启动时，这些模式下对主存储块的操作都被禁止。如果在这些模式下读主存储块，将产生总线错误。如果在这些模式下，对主存储块进行编程或擦除操作，FMC_STAT寄存器的WPERR位将被置1。但这些模式下都可以对选项字节进行操作，从而可以通过该方式失能安全保护功能。如果将SPC字节和它的补字节设置为0x5AA5，安全保护功能将失效，并自动触发一次整片擦除操作。<br><strong>保护等级高</strong>：当设置SPC字节为0xCC，激活高安全保护等级。当编程选择该保护等级时，调试模式，从SRAM中启动，或者从boot loader启动都被禁止。主存储闪存块可由用户代码的所有操作进行访问。SPC字节禁止再次编程。所以，如果高保护等级被激活，将不能再降回到低保护等级或无保护等级。 </p>
-<p><strong><font color=#FF3300>空芯片默认该值为0xFF？所以无法烧写程序？？蛋疼的设计！！</font></strong></p>
-</li>
 </ol>
-<h3 id="例程分析"><a href="#例程分析" class="headerlink" title="例程分析"></a>例程分析</h3><p>Examples/FMC中有三个例程；</p>
-<ol>
-<li>Erase_Program: 提供了fmc_erase_pages和fmc_program的操作例程。</li>
-<li>Security_protection: 设置Security和解unSecurity。</li>
-<li>Write_Protection: 设置写保护，参考意义不大。</li>
+<h3 id="BLE透传"><a href="#BLE透传" class="headerlink" title="BLE透传"></a>BLE透传</h3><ol>
+<li>目前支持BLE纯数传，BLE和SPP均只能作为从，也就是“SERVER”端。</li>
+<li><strong>一旦蓝牙被连接之后，芯片自动进入透传模式。不再识别AT指令</strong>。</li>
+<li>单次吞吐的数据最大是<strong>1024</strong>字节，支持16位或128位的UUID。128位的需要特别定制。</li>
+<li>BLE的UUID说明：<br>4.1    ：    主UUID是“<strong>FFF0</strong>”<br>4.2    ：    特征1的UUID是“<strong>FFF1</strong>”，特征是“<strong>WRITE</strong>” “<strong>NOTIFY</strong>”<br>4.3    ：    特征2的UUID是“<strong>FFF2</strong>”，特征是“<strong>WRITE</strong>” “<strong>NOTIFY</strong>”<br>4.4    ：    特征3的UUID是“<strong>FFF3</strong>”，特征是“<strong>WRITE</strong>” </li>
 </ol>
-<p>基于以上这三个例程，基本上对flash的操作就不是事了。</p>
+<h3 id="SPP透传"><a href="#SPP透传" class="headerlink" title="SPP透传"></a>SPP透传</h3><ol>
+<li>SPP走的是经典蓝牙2.1的协议，不推荐使用，新产品建议使用BLE。</li>
+<li>单次吞吐的数据最大是<strong>1024</strong>字节。</li>
+<li>SPP是经典蓝牙里面的一个子链路。</li>
+<li>SPP数传和BLE是互斥的，如果用SPP请关闭BLE。</li>
+</ol>
+<p>操作很简单，没有任何流控，发送后也不清楚发送成功了没，什么时候可以再发送也不清楚，自个写程序管理吧。有此神芯，仍无法如虎添翼啊…<br><img src="../../../../medias/boardPic/2021/tools/tiger.jpg" alt="TIGER Pic"></p>
 
             </div>
             <hr/>
@@ -581,7 +564,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/">https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/</a>
+                    <a href="https://xarm.gitee.io/2021/04/13/KT6368A/">https://xarm.gitee.io/2021/04/13/KT6368A/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,12 +602,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/GD32E505/">
-                                    <span class="chip bg-color">GD32E505</span>
+                                <a href="/tags/KT6368A/">
+                                    <span class="chip bg-color">KT6368A</span>
                                 </a>
                             
-                                <a href="/tags/CortexM33/">
-                                    <span class="chip bg-color">CortexM33</span>
+                                <a href="/tags/BLE/">
+                                    <span class="chip bg-color">BLE</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%93%9D%E7%89%99/">
+                                    <span class="chip bg-color">蓝牙</span>
                                 </a>
                             
                         </div>
@@ -790,9 +777,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/04/13/KT6368A/">
                     <div class="card-image">
@@ -810,9 +798,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -825,6 +813,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -851,23 +840,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/23/GD32E50x03DMA/">
+                <a href="/2021/04/12/GD32E50x04Flash/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="GD32E505 USART and DMA">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GD32E505 Flash 操作">
                         
-                        <span class="card-title">GD32E505 USART and DMA</span>
+                        <span class="card-title">GD32E505 Flash 操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GD32E505 USART DMA Send and receive
+                            GD32E505 Flash操作
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
                             </span>
                         <span class="publish-author">
                             

@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>KT6368A - 8脚的蓝牙BLE</title>
+      <link href="/2021/04/13/KT6368A/"/>
+      <url>/2021/04/13/KT6368A/</url>
+      
+        <content type="html"><![CDATA[<p>偶然间见到了这款神芯：KT6368A，8脚的蓝牙UART透传芯片，淘宝零售价1.6元/pcs，禁不住赶紧做板一试。<br><img src="../../../../medias/boardPic/2021/tools/KT6368A.jpg" alt="KT6368A BLE Pic"></p><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>KT6368A芯片是一款支持蓝牙双模的纯数据芯片，蓝牙5.1版本。芯片的亮点在超小尺寸，超级价格。以及简单明了的透传和串口AT控制功能。大大降低了嵌入蓝牙在其它产品的开发难度和成本。<br>同时支持<strong>SPP</strong>和<strong>BLE</strong> 。但是只能任选其中一个协议使用。<br>备注：这款芯片最大的特点，就是成本低，使用简单，生产简单。无他。</p><p>电流：芯片上电启动是20mA，马上进入低功耗广播20uA和唤醒4mA交替。连接成功就一直都是4mA。<br>电路：简洁的令人发指！如果能把晶振内置，再多引出2个IO那简直太完美了！<br>串口：波特率默认115200.<br>PIN2：连接状态指示。连接成功后输出高电平，未连接为高阻态。 – <strong>这脚如果能配置成发送完成状态指示就好了，不然咋知道发送是否完成？</strong></p><h3 id="AT指令"><a href="#AT指令" class="headerlink" title="AT指令"></a>AT指令</h3><ol><li><p>指令格式：AT+CMD[parama]\r\n<br>&lt;IND&gt; : 数据反馈是蓝牙把各种状态和数据信息反馈给主机，以<strong>&lt;IND&gt;</strong>作为开头<br>CMD指令：</p><table><thead><tr><th align="center">CMD</th><th align="center">功能描述</th></tr></thead><tbody><tr><td align="center">AT+CT</td><td align="center">设置波特率，如AT+CT01\r\n</td></tr><tr><td align="center">AT+CZ</td><td align="center">芯片复位</td></tr><tr><td align="center">AT+CW</td><td align="center">芯片恢复出厂设置</td></tr><tr><td align="center">AT+CL</td><td align="center">芯片低功耗设置</td></tr><tr><td align="center">AT+BM</td><td align="center">设置BLE蓝牙名称，如AT+BMMyBle\r\n</td></tr><tr><td align="center">AT+BN</td><td align="center">设置BLE的MAC地址</td></tr><tr><td align="center">AT+BD</td><td align="center">设置SPP蓝牙名称</td></tr><tr><td align="center">AT+BS</td><td align="center">设置BLE连接密码，此功能没有实现</td></tr><tr><td align="center">–</td><td align="center">–</td></tr><tr><td align="center">AT+QT</td><td align="center">查询系统的波特率</td></tr><tr><td align="center">AT+QL</td><td align="center">查询系统的低功耗状态</td></tr><tr><td align="center">AT+TM</td><td align="center">查询BLE蓝牙名称</td></tr><tr><td align="center">AT+TN</td><td align="center">查询BLE蓝牙地址</td></tr><tr><td align="center">AT+TN</td><td align="center">查询SPP蓝牙名称</td></tr><tr><td align="center">AT+TS</td><td align="center">查询BLE蓝牙连接密码,功能保留</td></tr><tr><td align="center">–</td><td align="center">–</td></tr><tr><td align="center">AT+B401\r\n</td><td align="center">开启BLE功能，AT+B400\r\n关闭该功能</td></tr><tr><td align="center">AT+B501\r\n</td><td align="center">开启SPP功能，AT+B500\r\n关闭该功能</td></tr><tr><td align="center">AT+T4\r\n</td><td align="center">查询BLE功能是否打开，芯片返回T4+01或T4+00</td></tr><tr><td align="center">AT+T5\r\n</td><td align="center">查询SPP功能是否打开，芯片返回T5+01或T5+00</td></tr></tbody></table></li><li><p>设置波特率：AT+CT01\r\n=9600;     05=115200;    07=512000;    10=1000000;     还支持其他的一些波特率设置，请参考手册。</p></li><li><p>关闭BLE或SPP功能后，必须重新上电，此功能才能生效。</p></li><li><p>芯片返回错误信息表：</p><table><thead><tr><th align="center">错误信息</th><th align="center">功能描述</th></tr></thead><tbody><tr><td align="center">ER+1\r\n</td><td align="center">接收的数据帧不对</td></tr><tr><td align="center">ER+2\r\n</td><td align="center">接收的命令不存在，如发送的AT+KK字符串不正确</td></tr><tr><td align="center">ER+3\r\n</td><td align="center">接收的AT指令，没有收到回车换行，\r\n</td></tr><tr><td align="center">ER+4\r\n</td><td align="center">发送的指令给的参数超范围了</td></tr><tr><td align="center">ER+(5,6,8)\r\n</td><td align="center">保留</td></tr><tr><td align="center">ER+7\r\n</td><td align="center">在BLE连接成功状态下，发送数据给手机，手机端未打开notify</td></tr></tbody></table></li></ol><h3 id="BLE透传"><a href="#BLE透传" class="headerlink" title="BLE透传"></a>BLE透传</h3><ol><li>目前支持BLE纯数传，BLE和SPP均只能作为从，也就是“SERVER”端。</li><li><strong>一旦蓝牙被连接之后，芯片自动进入透传模式。不再识别AT指令</strong>。</li><li>单次吞吐的数据最大是<strong>1024</strong>字节，支持16位或128位的UUID。128位的需要特别定制。</li><li>BLE的UUID说明：<br>4.1    ：    主UUID是“<strong>FFF0</strong>”<br>4.2    ：    特征1的UUID是“<strong>FFF1</strong>”，特征是“<strong>WRITE</strong>” “<strong>NOTIFY</strong>”<br>4.3    ：    特征2的UUID是“<strong>FFF2</strong>”，特征是“<strong>WRITE</strong>” “<strong>NOTIFY</strong>”<br>4.4    ：    特征3的UUID是“<strong>FFF3</strong>”，特征是“<strong>WRITE</strong>” </li></ol><h3 id="SPP透传"><a href="#SPP透传" class="headerlink" title="SPP透传"></a>SPP透传</h3><ol><li>SPP走的是经典蓝牙2.1的协议，不推荐使用，新产品建议使用BLE。</li><li>单次吞吐的数据最大是<strong>1024</strong>字节。</li><li>SPP是经典蓝牙里面的一个子链路。</li><li>SPP数传和BLE是互斥的，如果用SPP请关闭BLE。</li></ol><p>操作很简单，没有任何流控，发送后也不清楚发送成功了没，什么时候可以再发送也不清楚，自个写程序管理吧。有此神芯，仍无法如虎添翼啊…<br><img src="../../../../medias/boardPic/2021/tools/tiger.jpg" alt="TIGER Pic"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> KT6368A </tag>
+            
+            <tag> BLE </tag>
+            
+            <tag> 蓝牙 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GD32E505 Flash 操作</title>
       <link href="/2021/04/12/GD32E50x04Flash/"/>
       <url>/2021/04/12/GD32E50x04Flash/</url>
