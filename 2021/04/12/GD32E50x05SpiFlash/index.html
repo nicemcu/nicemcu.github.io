@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GD32E505 Flash 操作, ">
+    <meta name="keywords" content="GD32E505 SPI Flash, ">
     <meta name="description" content="GD32E505 Flash操作">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GD32E505 Flash 操作 | </title>
+    <title>GD32E505 SPI Flash | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GD32E505 Flash 操作</h1>
+                    <h1 class="description center-align post-title">GD32E505 SPI Flash</h1>
                 </div>
             </div>
         </div>
@@ -389,173 +389,28 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="GD32E505-Flash："><a href="#GD32E505-Flash：" class="headerlink" title="GD32E505 Flash："></a>GD32E505 Flash：</h3><ol>
-<li><p>设备唯一ID（UNIQUE ID ,96bit，只能按字32位访问），基地址：0x1FFF_F7E8</p>
-</li>
-<li><p>闪存的前512K字节空间内，CPU执行指令需要0~4个等待时间。</p>
-</li>
-<li><p>闪存页大小为<strong>8KB</strong>，支持32位字/16位半字编程，页擦除和整片擦除。</p>
-</li>
-<li><p>2K字节 OTP块（一次性编程），用于存储用户数据。</p>
-</li>
-<li><p>16字节的选项字节，根据用户需求配置，当系统复位时，选项字节被加载到选项字节控制寄存器。</p>
-</li>
-<li><p>GD32E505_CL闪存基地址和构成：</p>
-<table>
-<thead>
-<tr>
-<th align="center">闪存</th>
-<th align="center">名称</th>
-<th align="center">地址范围</th>
-<th align="center">大小</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">主闪存</td>
-<td align="center">Page0</td>
-<td align="center">0x0800_0000~0x0800_1FFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">Page1</td>
-<td align="center">0x0800_2000~0x0800_3FFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">…..</td>
-<td align="center">…..</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">Page63</td>
-<td align="center">0x0807_E000~0x0807_FFFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">信息块 CL</td>
-<td align="center">引导Bootloader</td>
-<td align="center">0x1FFF_B000~0x1FFF_F7FF</td>
-<td align="center">18KB</td>
-</tr>
-<tr>
-<td align="center">选项字节</td>
-<td align="center">选项字节</td>
-<td align="center">0x1FFF_F800~0x1FFF_F80F</td>
-<td align="center">16B</td>
-</tr>
-<tr>
-<td align="center">一次性编程</td>
-<td align="center">OTP</td>
-<td align="center">0x1FFF_7000~0x1FFF_77FF</td>
-<td align="center">2KB</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>选项字节说明 : 每次系统复位后，选项字节被重载到FMC_OBSTAT和FMC_WP寄存器后，选项字节生效。选项字节的补字节具体为选项字节取反。当选项字被重载时，如果选项字节的补字节和选项字节补匹配，FMC_OBSTAT的OBERR位将被置1，选项字节被强制设置为0xFF。若选项字节和其补字节同为0xFF，则OBERR位补置位。</p>
-<table>
-<thead>
-<tr>
-<th align="center">地址</th>
-<th align="center">名称</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0x1FFF_F800</td>
-<td align="center">SPC</td>
-<td align="center">选项字节安全保护值，0xA5未保护，除0xA5和0xCC外的任何值：保护级别低，0xCC：保护级别高</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F801</td>
-<td align="center">SPC_N</td>
-<td align="center">SPC补字节</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F802</td>
-<td align="center">USER</td>
-<td align="center">[7:6] : BOR_TH ，BOR复位阈值<br>[5:3] : 保留<br>[2] : nRST_STDBY，0：设置待机模式时产生复位而不是进入待机模式。1：设置待机模式时进入待机模式而不产生复位。<br>[1] : nRST_DPSLP，0：设置深度睡眠模式时产生复位而不进入深度睡眠模式。1：设置深度睡眠模式时进入深度睡眠模式而不产生复位。<br>[0] : nWDG_HW， 0：硬件是能独立看门狗功能。1：软件使能独立看门狗功能。</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F803</td>
-<td align="center">USER_N</td>
-<td align="center">SPC补字节</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F804</td>
-<td align="center">DATA[7:0]</td>
-<td align="center">用户定义数据7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F805</td>
-<td align="center">DATA_N[7:0]</td>
-<td align="center">DATA补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F806</td>
-<td align="center">DATA[15:8]</td>
-<td align="center">用户定义数据15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F807</td>
-<td align="center">DATA_N[15:8]</td>
-<td align="center">DATA补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F808</td>
-<td align="center">WP[7:0]</td>
-<td align="center">页擦除/编程保护值的7到0位 <br>[0] : 保护生效<br>[1] : 未保护</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F809</td>
-<td align="center">WP_N[7:0]</td>
-<td align="center">WP补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80A</td>
-<td align="center">WP[15:8]</td>
-<td align="center">页擦除/编程保护值的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80B</td>
-<td align="center">WP_N[15:8]</td>
-<td align="center">WP补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80C</td>
-<td align="center">WP[23:16]</td>
-<td align="center">页擦除/编程保护值的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80D</td>
-<td align="center">WP_N[23:16]</td>
-<td align="center">WP补字节的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80E</td>
-<td align="center">WP[31:24]</td>
-<td align="center">页擦除/编程保护值的31到24位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80F</td>
-<td align="center">WP_N[31:24]</td>
-<td align="center">WP补字节的31到24位</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>安全防护：<br><strong>未保护状态</strong>：当将SPC字节和它的补字节设置为0x5AA5，系统复位后闪存将处于非安全保护状态，主存储器和选项字节可以被所有操作模式访问。<br><strong>保护等级低</strong>：当设置SPC字节为任何除0xA5或0xCC外的值，系统复位以后，低安全保护状态生效。需要注意的是，若修改过程中，MCU的调试模块依然和外部JTAG/SWD设备相连，需要用上电复位代替系统复位以使得修改后的保护状态生效。在低安全保护状态下，<strong>主存储闪存块仅能被用户代码访问且前8KB的闪存自动处于页擦除/编程保护状态下</strong>。在调试模式下，或从SRAM中启动时，以及从boot loader区启动时，这些模式下对主存储块的操作都被禁止。如果在这些模式下读主存储块，将产生总线错误。如果在这些模式下，对主存储块进行编程或擦除操作，FMC_STAT寄存器的WPERR位将被置1。但这些模式下都可以对选项字节进行操作，从而可以通过该方式失能安全保护功能。如果将SPC字节和它的补字节设置为0x5AA5，安全保护功能将失效，并自动触发一次整片擦除操作。<br><strong>保护等级高</strong>：当设置SPC字节为0xCC，激活高安全保护等级。当编程选择该保护等级时，调试模式，从SRAM中启动，或者从boot loader启动都被禁止。主存储闪存块可由用户代码的所有操作进行访问。SPC字节禁止再次编程。所以，如果高保护等级被激活，将不能再降回到低保护等级或无保护等级。 </p>
-<p><strong><font color=#FF3300>空芯片默认该值为0xFF？所以无法烧写程序？？蛋疼的设计！！</font></strong></p>
-</li>
-</ol>
-<h3 id="例程分析"><a href="#例程分析" class="headerlink" title="例程分析"></a>例程分析</h3><p>Examples/FMC中有三个例程；</p>
+                <p>GD32E50x有专用的SQPI外设，支持接SQPI接口的PSRAM、Flash等，不过LQFP64封装的不支持，这些管脚都分配到了PF口或PG口上。好在SPI0且仅有SPI0支持4线模式，可以尝试四线接口的SPI Flash。</p>
+<h3 id="GD32E505-SPI0四线操作模式："><a href="#GD32E505-SPI0四线操作模式：" class="headerlink" title="GD32E505 SPI0四线操作模式："></a>GD32E505 SPI0四线操作模式：</h3><p>SPI四线模式用于控制四线SPI flash外设。要配置成SPI四线模式，首先要确认<strong>TBE</strong>位置1，且<strong>TRANS</strong>位清零，然后将SPI_QCTL寄存器中的<strong>QMOD</strong>位置1。在SPI 四线模式，SPI_CTL0寄存器中BDEN位、BDOEN位、CRCEN位、CRCNT位、FF16位、RO位和LF位保持清零，且MSTMOD位置1，以保证SPI工作于主机模式。SPIEN位、PSC位、CKPL位和CKPH位根据需要进行配置。 </p>
+<p>SPI四线模式有两种运行模式：<strong>四线写模式</strong>和<strong>四线读模式</strong>，通过SPI_QCTL寄存器中的QRD位进行配置。 </p>
+<h3 id="四线写模式"><a href="#四线写模式" class="headerlink" title="四线写模式"></a>四线写模式</h3><p>当SPI_QCTL寄存器中的QMOD位置1且QRD位清零时，SPI工作在四路写模式。在四路写模式中，MOSI、MISO、IO2 和IO3 都用作输出引脚。在SCK产生时钟信号后，一旦数据写入SPI_DATA寄存器（TBE位清零）且SPIEN位置1时，SPI将会通过这四个引脚发送写入的数据。一旦SPI开始数据传输，它总是在数据帧结束时检查TBE标志位的状态，若不能满足条件则停止传输。 </p>
+<p>四路模式下发送操作流程： </p>
 <ol>
-<li>Erase_Program: 提供了fmc_erase_pages和fmc_program的操作例程。</li>
-<li>Security_protection: 设置Security和解unSecurity。</li>
-<li>Write_Protection: 设置写保护，参考意义不大。</li>
+<li>根据应用需求，配置SPI_CTL0和SPI_CTL1中的时钟预分频、时钟极性、相位等参数； </li>
+<li>将SPI_QCTL中的QMOD位置1，然后将SPI_CTL0中的SPIEN位置1来使能SPI功能； </li>
+<li>向SPI_DATA寄存器中写入一个字节的数据，TBE标志位将会清零； </li>
+<li>等待硬件将TBE位重新置位，然后写入下一个字节数据。<br><img src="../../../../medias/boardPic/2021/tools/QSPIWrite.png" alt="四线SPI写时序 Pic"></li>
 </ol>
-<p>基于以上这三个例程，基本上对flash的操作就不是事了。</p>
+<h3 id="四线写模式-1"><a href="#四线写模式-1" class="headerlink" title="四线写模式"></a>四线写模式</h3><p>当SPI_QCTL寄存器中的QMOD位和QRD位都置1时，SPI工作在四路读模式。在四路读模式中，MOSI、MISO、IO2 和IO3都用作输入引脚。当数据写入SPI_DATA寄存器（此时TBE位被清零）且SPIEN位置1时，SPI开始在SCK信号线上产生时钟信号。写数据到SPI_DATA寄存器只是为了产生SCK时钟信号，所以可以写入任何数据。SPI开始数据传输之后，每发送一个数据帧都要检测SPIEN位和TBE位，若条件不满足则停止传输。所以软件需要一直向SPI_DATA写空闲数据，以产生SCK时钟信号。 </p>
+<p>四路模式下接收操作流程： </p>
+<ol>
+<li>根据应用需求，配置SPI_CTL0和SPI_CTL1中时钟预分频、时钟极性、相位等参数； </li>
+<li>将SPI_QCTL中的QMOD位和QRD位置1，然后将SPI_CTL0中的SPIEN位置1来使能SPI功能； </li>
+<li>写任意数据（例如0xFF）到SPI_DATA寄存器； </li>
+<li>等待RBNE位置1，然后读SPI_DATA寄存器来获取接收的数据； </li>
+<li>写任意数据（例如0xFF）到SPI_DATA寄存器，以接收下一个字节数据。<br><img src="../../../../medias/boardPic/2021/tools/QSPIRead.png" alt="四线SPI读时序 Pic"></li>
+</ol>
+<h3 id="SPI停止流程"><a href="#SPI停止流程" class="headerlink" title="SPI停止流程"></a>SPI停止流程</h3><p>不同运行模式下采用不同的流程来停止SPI功能。<br><strong>SPI四路模式</strong> ：在禁用SPI四路模式或者关闭SPI功能之前，软件应该先检查：TBE位置1，TRANS位清零，SPI_QCTL中的QMOD位和SPI_CTL0中的SPIEN位清零。 </p>
+<h3 id="例程分析"><a href="#例程分析" class="headerlink" title="例程分析"></a>例程分析</h3><p>木有例程。。。只能自个啃啃试试了，如果不行，就换成2线的跟普通SPI Flash操作流程一样就完事了。</p>
 
             </div>
             <hr/>
@@ -581,7 +436,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/">https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/</a>
+                    <a href="https://xarm.gitee.io/2021/04/12/GD32E50x05SpiFlash/">https://xarm.gitee.io/2021/04/12/GD32E50x05SpiFlash/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,23 +649,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/12/GD32E50x05SpiFlash/">
+                <a href="/2021/04/13/KT6368A/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="GD32E505 SPI Flash">
                         
-                        <span class="card-title">GD32E505 SPI Flash</span>
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="KT6368A - 8脚的蓝牙BLE">
+                        
+                        <span class="card-title">KT6368A - 8脚的蓝牙BLE</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GD32E505 Flash操作
+                            蓝牙双模，BLE5.1，SOP8，蓝牙透传，AT指令
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
                         </span>
                         <span class="publish-author">
                             
@@ -827,12 +683,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/GD32E505/">
-                        <span class="chip bg-color">GD32E505</span>
+                    <a href="/tags/KT6368A/">
+                        <span class="chip bg-color">KT6368A</span>
                     </a>
                     
-                    <a href="/tags/CortexM33/">
-                        <span class="chip bg-color">CortexM33</span>
+                    <a href="/tags/BLE/">
+                        <span class="chip bg-color">BLE</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%93%9D%E7%89%99/">
+                        <span class="chip bg-color">蓝牙</span>
                     </a>
                     
                 </div>
@@ -846,23 +706,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/23/GD32E50x03DMA/">
+                <a href="/2021/04/12/GD32E50x04Flash/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="GD32E505 USART and DMA">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GD32E505 Flash 操作">
                         
-                        <span class="card-title">GD32E505 USART and DMA</span>
+                        <span class="card-title">GD32E505 Flash 操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GD32E505 USART DMA Send and receive
+                            GD32E505 Flash操作
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
                             </span>
                         <span class="publish-author">
                             

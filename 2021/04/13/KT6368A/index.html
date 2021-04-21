@@ -538,6 +538,16 @@
 <li>SPP是经典蓝牙里面的一个子链路。</li>
 <li>SPP数传和BLE是互斥的，如果用SPP请关闭BLE。</li>
 </ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ol>
+<li>发送AT+TM\r\n，查询当前BLE名称。</li>
+<li>发送AT+BMMyBle\r\n，设置BLE名称为MyBle，收到OK响应。</li>
+<li>发送AT+CZ\r\n，让芯片复位并重启，然后继续查询蓝牙名称，看是否是MyBle。</li>
+<li>发送AT+T4\r\n和AT+T5\r\n，查询BLE和SPP的打开情况，结果都是打开的状态。</li>
+<li>发送AT+B500\r\n关闭SPP功能，只保留BLE功能。</li>
+<li>打开手机蓝牙，扫描设备，居然查找到的蓝牙为MyBle\r\n，说明执行AT+BM时出错，重新发送<strong>AT+BMMyBle</strong>，返回OK。</li>
+<li>手机安装LightBlue Explorer APK进行测试。找到MyBle连接之，可以看到信号强度。<br><img src="../../../../medias/boardPic/2021/tools/phone.png" alt="LightBlue Explorer Pic"></li>
+<li>串口调试记录：收发都比较简单，手机端是二进制显示，所有要发送1234需要发送0x31323334才行。<br><img src="../../../../medias/boardPic/2021/tools/serialDebug.png" alt="串口调试Pic"></li>
+</ol>
 <p>操作很简单，没有任何流控，发送后也不清楚发送成功了没，什么时候可以再发送也不清楚，自个写程序管理吧。有此神芯，仍无法如虎添翼啊…<br><img src="../../../../medias/boardPic/2021/tools/tiger.jpg" alt="TIGER Pic"></p>
 
             </div>
@@ -840,12 +850,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/12/GD32E50x04Flash/">
+                <a href="/2021/04/12/GD32E50x05SpiFlash/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="GD32E505 Flash 操作">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="GD32E505 SPI Flash">
                         
-                        <span class="card-title">GD32E505 Flash 操作</span>
+                        <span class="card-title">GD32E505 SPI Flash</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
