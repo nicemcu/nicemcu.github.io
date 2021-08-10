@@ -4,6 +4,89 @@
   
     
     <entry>
+      <title>NUC980 Linux 笔记</title>
+      <link href="/2021/08/02/NUC980Note/"/>
+      <url>/2021/08/02/NUC980Note/</url>
+      
+        <content type="html"><![CDATA[<p>N年前折腾过NUC972，可惜需要配个头又大管脚又多的Nand flash，后来它的弟弟NUC980诞生了，支持了QSPI Nand，但阉割掉了LCD控制器，也无所谓了，如果需要耍屏的话还可以其他方案了，全志的V3S、国产的SSD20x都是屏驱的好方案。赶着JLC支持免费的紫油及免费的4层PCB打样，就继续去薅他的羊毛~</p><p><img src="../../../../medias/boardPic/2021/tools/NUC980Board.jpg" alt="MyNUC980 Board"></p><p>调试的过程中也是遇坑无数，满眼都是泪…  比如uboot下以太网，不知道你们是否都能正常tftp，反正我是折腾了好久，对照着nuc972的网卡驱动改过来的，目前uboot下网络能正常运行，但是启动linux后，网络死活跑不起来，而另一块不是核心板的板子，同样的固件、同样的配置，网络跑的很欢快，丢包还是有的。真是无语了~</p><h3 id="烧写地址配置"><a href="#烧写地址配置" class="headerlink" title="烧写地址配置"></a>烧写地址配置</h3><p>Nuvoton NuWriter 下载、安装，选择SPI NAND</p><table><thead><tr><th align="center">名称</th><th align="center">类型</th><th align="center">execute地址</th><th align="center">offset</th></tr></thead><tbody><tr><td align="center">SPL</td><td align="center">Loader</td><td align="center">200</td><td align="center">0</td></tr><tr><td align="center">uboot</td><td align="center">Data</td><td align="center"></td><td align="center">0x10000</td></tr><tr><td align="center">env</td><td align="center">Environment</td><td align="center"></td><td align="center">0x8000</td></tr><tr><td align="center">kernel(uImage)</td><td align="center">Data</td><td align="center"></td><td align="center">0x20000</td></tr><tr><td align="center">rootfs</td><td align="center">Data</td><td align="center"></td><td align="center">0x160000</td></tr></tbody></table><h3 id="Uboot"><a href="#Uboot" class="headerlink" title="Uboot"></a>Uboot</h3><ol><li><p>env的配置：（放txt里直接烧录到指定位置即可）<br>setenv ethaddr 08:55:00:11:66:88<br>setenv ipaddr 192.168.2.28<br>setenv serverip 192.168.2.21<br>setenv bootcmd sf probe 0 75000000;sf read 0x7fc0 0x200000 0x800000;bootm 0x7fc0<br>saveenv</p></li><li><p>uboot tftp启动内核：（windows下开tftp软件，配置目录，关闭防火墙）<br> tftpboot 0x7fc0 980uimage<br> bootm 0x7fc0</p></li></ol><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><ol><li><strong>取消ramfs文件系统</strong>，真是坑爹的骚操作。并配置：<br>noinitrd root=/dev/mtdblock2 rootfstype=yaffs2 rootflags=inband-tags rw console=ttyS0,115200n8 init=/sbin/init mem=64M rootwait=1 mtdparts=nand0:0x200000@0x0(u-boot),0x1400000@0x200000(kernel),-(user)</li><li>配置SPI时，取消quard模式，选择normal模式，奇葩的设置。</li><li>使能NFS文件系统。</li></ol><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><ol><li>官方提供的文件系统傻傻的，命令弱的可怜，自己动手丰衣足食，使用busybox配置做文件系统即可，注意编译的时候不要选择static。可参考如下连接制作：<br><a href="https://blog.csdn.net/weixin_38387929/article/details/108538631" target="_blank" rel="noopener">https://blog.csdn.net/weixin_38387929/article/details/108538631</a></li><li>生成busybox文件后，查看所依赖的库文件（没必要copy全部的库，太多太大了）<br>arm-linux-gnueabi-readelf -d busybox | grep NEEDED<br>或者：arm-linux-gnueabi-objdump -x busybox | grep NEEDED<br>将其所需要的库文件拷贝到根目录的lib文件下即可。注意有很多是连接文件，需要连同实际文件一起copy。一般只需要4个即可。</li><li>挂在NFS文件系统：<br>mount -t nfs -o intr,nolock,tcp,rsize=2048,wsize=1024 192.168.2.21:/ /mnt/nfs</li><li>busybox 显示用户名及路径：参考如下连接<br><a href="https://blog.csdn.net/litao31415/article/details/50188243" target="_blank" rel="noopener">https://blog.csdn.net/litao31415/article/details/50188243</a></li><li>网络调试工具：<strong>ethtool</strong>，新塘提供了，直接make即可，通过它可以看当前的网卡配置。貌似还有个mii-tool的工具，没用过。Linux网络命令mii-tool和ethtool使用参考连接：<br><a href="https://blog.csdn.net/yzhang6_10/article/details/81557195" target="_blank" rel="noopener">https://blog.csdn.net/yzhang6_10/article/details/81557195</a></li></ol><h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><ol><li>win10 WSL下cannot execute binary file: Exec format error:  - 安装QEMU<br>sudo apt update<br>sudo apt install qemu-user-static<br>sudo update-binfmts –install i386 /usr/bin/qemu-i386-static –magic ‘\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00’ –mask ‘\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff’<br>sudo service binfmt-support start</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Nuvoton </tag>
+            
+            <tag> ARM9 </tag>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CH573F调试笔记 二 之编译调试与下载</title>
+      <link href="/2021/07/28/CH573F02Debug/"/>
+      <url>/2021/07/28/CH573F02Debug/</url>
+      
+        <content type="html"><![CDATA[<p>工欲善其事，必先利其器！快捷的仿真调试会事半功倍，反之则事倍功半。先给这个小板配个底板，把要调试的功能都引出来先。顺便喷一下boot上的那个小按键：太小太不方便按了，于是在上面的boot脚上焊了个大点的四脚按键，按起来有感觉多了~</p><p><img src="../../../../medias/boardPic/2021/tools/Ch573Base.jpg" alt="CH573F底板"></p><p>CH573虽支持2线调试，可惜不支持JLink，自然也不支持JLink全家桶，官方提供的下载器以及ISP工具虽然能用，但是不好用，于是先从打造好用的下载工具开始~</p><p>感谢沁恒的FAE提供了ISP下载的参考例程，基于提供的lib文件，用QT做了个简洁的下载工具，简洁而不简单~</p><p><img src="../../../../medias/boardPic/2021/tools/MyWCHISP.png" alt="MyWCHISP"></p><p>主要实现如下功能：</p><ol><li>选择待烧写的BIN文件。（如何生成BIN文件请参考上一篇）</li><li>检测CH573F是否进入USB ISP模式，进入则连接。</li><li>连接成功后则自动烧写（可勾选选择是否自动烧写）</li><li>烧写成功后自动复位运行app。</li></ol><p>CH573F自带的bootloader只支持冷启动，即上电时检测到boot脚被按下后会运行boot，如果通过RST脚复位后也不识别，所以如果要每次要操作的时候就得不断上下电还要按住boot键。好在发现了这篇文档：</p><p>从应用跳到芯片Boot的方法：<a href="https://www.cnblogs.com/iot-fan/p/14344779.html" target="_blank" rel="noopener">https://www.cnblogs.com/iot-fan/p/14344779.html</a></p><p>于是将其copy进工程，通过解析串口指令“enisp”自动进入bootloader并执行烧写，烧写成功后又自动运行。终于可以摆脱硬件在不断电的情况下自动完成了。</p><p>需要该软件的小伙伴可联系我获取~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> BLE </tag>
+            
+            <tag> RISC-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CH573F调试笔记 一 之初尝</title>
+      <link href="/2021/07/21/CH573F01Start/"/>
+      <url>/2021/07/21/CH573F01Start/</url>
+      
+        <content type="html"><![CDATA[<p>最近需要一款低成本的蓝牙芯片，KT6368A是不错的选择，但需外配MCU，需要一款能像NRF52840那样带USB的蓝牙SOC，价格又要美美的，于是就找到了它：<strong>CH573F</strong> ！官方资源开放的连PCB的源文件都提供了，刚好某创和某配都提供了免费PCB打样，赶紧去薅了一把羊毛，PCB文件直接拿去打样，在此非常感谢沁恒市场经理李先生，不仅提供了CH573F和CH569的样片，还提供了一个烧写器用于调试，真是太贴心了~</p><p><img src="../../../../medias/boardPic/2021/tools/CH573Board.jpg" alt="CH573F BLEBoard Pic"></p><h3 id="CH573F"><a href="#CH573F" class="headerlink" title="CH573F"></a>CH573F</h3><ul><li>32位RISC处理器WCH RISC-V3A</li><li>支持RV32 IMAC指令集，支持<strong>单周期乘法和硬件除法</strong></li><li>内置<strong>18K SRAM，512K Flash</strong> ROM，支持ICP、ISP和IAP，支持OTA无线升级</li><li>集成2.4GHz RF收发器和基带及链路控制，提高优化的协议栈和应用层API，支持组网</li><li>内置USB控制器和USB收发器，支持USB2.0全速和低速主机或设备</li><li>多种低功耗模式：Idle，Halt, Sleep, Shutdown, 内置电池电压低压监控，最低睡眠电流0.3uA</li><li>内置AES-128加解密单元，芯片唯一ID</li><li>其他传统接口：UARTx4、SPI、12位ADC、8通道触摸按键等。</li></ul><p>主频不详？！貌似只有20MHz？32MHz的主晶振时钟输入，不明白为何主频这么低。先不管了，谁让它这么便宜呢~ （ 看程序主频应该最高<strong>60MHz</strong>）顺便上一张沁恒的BLE选型：<br><img src="../../../../medias/boardPic/2021/tools/CHBLE.png" alt="CH BLE 选型"></p><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol><li>先从官网下载所需资源：<a href="http://www.wch.cn/products/CH573.html" target="_blank" rel="noopener">http://www.wch.cn/products/CH573.html</a><br>Datasheet：CH573DS1.PDF<br>CH573评估板说明及参考应用例程：CH573EVT.ZIP<br>集成开发环境(IDE)：MounRiver Studio(MRS)<br>CH573F板载天线核心板：CH573PCB.ZIP<br>系统平台低功耗蓝牙开发接口库：WCHBleLib_MultiOS.ZIP<br>沁恒芯云物联平台说明及参考应用例程：WCHIOT.ZIP<br>单片机系列芯片程序烧录软件：WCHISPTool_Setup.exe</li><li>开发环境只能用官方提供的MounRiver Studio，看介绍也支持JLink，慢慢熟悉之。</li></ol><h3 id="埋坑笔记-HW"><a href="#埋坑笔记-HW" class="headerlink" title="埋坑笔记 - HW"></a>埋坑笔记 - HW</h3><ol><li>芯片背面的焊盘要接地！芯片背面的焊盘要接地！芯片背面的焊盘要接地！整个芯片的地只有芯片背面的焊盘，所以必须要可靠接地！对于DIY者来说不够友好，焊之前处理下也能搞定。</li><li>电感L1是22uH电感，0805封装的，这个封装以及32K RTC晶振的封装、0603封装的LED、0402的某几个电容都很蛋疼，翻箱倒柜找好物料然后开焊。</li><li>芯片的仿真引脚：PB14-TIO-SWDIO，PB15-TCK-SWCLK，默认boot PIN：PB22</li><li>两线仿真调试接口通过ISP工具配置，仿真调试接口启用后，PB15和PB14仅用作TCK和TIO，不再用于GPIO或外设复用功能引脚。如需复用，需关闭仿真调试接口功能。<br><img src="../../../../medias/boardPic/2021/tools/CHusrCfg.png" alt="用户配置信息"></li><li>系统SysTick定时器：64位，递减型计数器，支持HCLK或HCLK/8作为时基，具有较高优先级。</li><li>上电后默认不启用DC-DC，而是提供直通电源，为了降低正常运行时的系统功耗，可以选择<strong>启用DC-DC提升电源能耗利用率</strong>，工作电流通常会下降到直通方式的<strong>60%</strong>左右。</li><li>USB Device模式下，有0、1、2、3、4、共5组双向端点，最大数据包长64字节。<ul><li>断点0是默认断点，发送和接收共用64字节数据缓冲区。</li><li>端点1、2、3各自包含一个发送端点IN和一个接收端点OUT，发送和接收各有一个独立的64字节或者<strong>双64字节</strong>数据缓冲区，支持批量、中断和实时/同步传输。</li><li>端点4包括一个发送端点IN和一个接收端点OUT，发送和接收各有一个独立的64字节数据缓冲区，支持批量、中断和实时/同步传输。</li></ul></li><li>USB总线上的上拉电阻可以由软件随时设置是否启用。当R8_USB_CTRL中的RB_UC_DEV_PU_EN置1时，在内部位USB总线的DP/DM引脚连接上拉电阻，并启用USB设备功能。</li></ol><h3 id="埋坑笔记-SW"><a href="#埋坑笔记-SW" class="headerlink" title="埋坑笔记 - SW"></a>埋坑笔记 - SW</h3><p>硬件手册基本上粗略看完一遍，接下来开始折腾软件。</p><ol><li>首先安装WCHISPTool_Setup.exe，按住Boot按键上电，如下图示，确认能识别出CH573F的设备，选择开启仿真。<br><img src="../../../../medias/boardPic/2021/tools/WCHISP.png" alt="CH573F ISP"></li><li>安装MounRiver Studio，解压CH573EVT.ZIP，然后导入一个USB的例程 ..\USB\Device\CompoundDev\CompoundDev.wvproj，貌似是一个USB HID的复合设备，导入成功后CTRL+B编译，只要没有其他误操作，这个过程基本上都会编译成功的，在obj目录下会有编译出的CompoundDev.hex文件，重复上一步的操作，按住Boot进USB ISP模式，通过WCHISPTool将该文件下载进去，重启后查看设备管理器，人体学输入设备中会多出两个USB输入设备。</li><li>测试蓝牙工程，BLE目录下有25个例程，真丰富，选择其中HID KeyBoard测试，导入..\BLE\HID_Keyboard\HID_Keyboard.wvproj，编译之。重复ISP的步骤，将生成的HID_Keyboard.hex文件烧入其中，打开手机蓝牙搜寻设备，会出现HID Keybrod的蓝牙设备，连接后提示配置实体键盘。打开手机App便签，然后就会每隔一秒钟收到一个字符，从abcdef ~ xyz。</li><li>BLE目录下的文档 <strong>沁恒低功耗蓝牙软件开发参考手册.pdf</strong> ，搞蓝牙的话还是需要好好看看的。</li><li>配置MounRiver Studio，生成BIN文件：（Help文件中有描述）<ul><li>右键工程配置选项 - &gt; C/C++ Build - &gt; Settings , 切换至 Build Steps标签页，在下面的 Post-build steps中输入如下命令：</li><li>“${eclipse_home}\toolchain\RISC-V Embedded GCC\bin\riscv-none-embed-objcopy”  -O binary “${ProjName}.elf”  “..\${ProjName}.bin”</li><li>或者直接在GNU RISC-V Cross Greate Flash Image选项中，选择Output file format <strong>Raw binary</strong>即可。<br>不知为何，我这边使用MounRiver Studio，Ctrl+B编译 很慢很慢的，make -j4或-j8都一样的慢。</li></ul></li><li>博客园中有非常好的笔记，满满的干货，在此记录并感谢之~<br><a href="https://www.cnblogs.com/iot-fan/tag/CH57x/" target="_blank" rel="noopener">https://www.cnblogs.com/iot-fan/tag/CH57x/</a><br>TMOS系统介绍：<a href="https://www.cnblogs.com/iot-fan/p/13460082.html" target="_blank" rel="noopener">https://www.cnblogs.com/iot-fan/p/13460082.html</a><br>用户Boot和App：<a href="https://www.cnblogs.com/iot-fan/p/14976335.html" target="_blank" rel="noopener">https://www.cnblogs.com/iot-fan/p/14976335.html</a><br>从应用跳到芯片Boot的方法：<a href="https://www.cnblogs.com/iot-fan/p/14344779.html" target="_blank" rel="noopener">https://www.cnblogs.com/iot-fan/p/14344779.html</a></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> BLE </tag>
+            
+            <tag> RISC-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>不正经的PCB板</title>
       <link href="/2021/05/21/PCBCard/"/>
       <url>/2021/05/21/PCBCard/</url>
@@ -45,9 +128,9 @@
       
         <tags>
             
-            <tag> KT6368A </tag>
-            
             <tag> BLE </tag>
+            
+            <tag> KT6368A </tag>
             
             <tag> 蓝牙 </tag>
             
