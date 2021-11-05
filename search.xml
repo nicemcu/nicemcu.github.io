@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>重开一篇LPC4370</title>
+      <link href="/2021/11/02/LPC4370/"/>
+      <url>/2021/11/02/LPC4370/</url>
+      
+        <content type="html"><![CDATA[<p>在家整理芯片的时候翻出了这款神器：</p><p>NXP的三核MCU：一个CM4+两个CM0，204M主频，282KB SRAM，两路高速USB，SDRAM、LCD控制器、以太网、双CAN、QSPI Flash等等应有尽有，还有那强悍的<strong>SGPIO</strong>以及<strong>80Msps</strong> <strong>12bit</strong> ADC，秒天秒地秒空气神一般的存在，放眼望去，谁与争锋？又翻出了当时的板子及帖子：</p><p><img src="../../../../medias/boardPic/2021/pcb/LPC4370Core.png" alt="LPC4370Core Pic"></p><ul><li><p>板载32bit SDRAM / Nandflash / QSPI Flash</p></li><li><p>两路USB、两路CAN、 N路串口、LAN8720以太网PHY</p></li><li><p>24bit 最高1024*768分辨率 TFT驱动</p></li><li><p>12bit 80MSPS高速ADC，还有多路10bit的ADC。</p><p>刚好有个基于lpclinkII的开源应用：Labtools，当时还有开源的软件系统：RAW-OS，不知道是否还有人记得~  于是仿照着做了一个：</p><p><img src="../../../../medias/boardPic/2021/pcb/LPC4370LabTools.png" alt="MyLabtools Pic"></p><p><img src="../../../../medias/boardPic/2021/pcb/LPC4370BaseBoard22.png" alt="PCB Pic"></p></li></ul><p>先从TFT搞起：</p><h3 id="LCD-TFT-RGB565"><a href="#LCD-TFT-RGB565" class="headerlink" title="LCD-TFT RGB565"></a>LCD-TFT RGB565</h3><p>​    虽然引出了24bit的LCD，不过太占管脚，没有太实际的意义，而16bit RGB565格式的显示效果也还是不错的，65536色。关于LCD管脚应用，参考手册UM10503 P901描述如下：</p><p><img src="../../../../medias/boardPic/2021/pcb/PINConfig.png" alt="PINConfig Pic"></p><p>对于16bit 565格式的管脚配置，根据手册使用LCD_VD[3:7],LCD_VD[10:15],LCD_VD[19:23],未使用的LCD管脚均可配置为GPIO管脚或作它用。程序中管脚配置如下：</p><p><img src="../../../../medias/boardPic/2021/pcb/LCD_PinCfg.png" alt="LCDPinCfg Pic"></p><p>  LCD需要配置SDRAM做显存，默认地址是0x28000000，所以需要先调试SDRAM，保证读写正确及SDRAM的时序满足需求，配置起来需要对照着SDRAM数据手册来调整，比较讨厌的。对于图片取模，可以使用Image2LCD工具，如图设置：</p><p><img src="../../../../medias/boardPic/2021/pcb/Image2LCD.jpg" alt="Image2LCD Pic"></p><p>在5寸屏800*480 分辨率，显示效果如下：（PS：实际显示效果更加细腻！！）</p><p><img src="../../../../medias/boardPic/2021/pcb/LPC4370_LCD_PIC.png" alt="Image2LCD Pic"></p><h3 id="LCD-双缓存配置"><a href="#LCD-双缓存配置" class="headerlink" title="LCD-双缓存配置"></a>LCD-双缓存配置</h3><p>首先引用下单显存及双显存的解释：（个人感觉比较好）</p><p>​    在嵌入式平台Linux，主要通过framebuffer来显示UI。FrameBuffer实际上就是嵌入式系统中专门为GPU所保留的一块连续的物理内存，LCD通过专门的总线从framebuffer读取数据，显示到屏幕上。根据系统中framebuffer的数量，可以分成单buffer和双buffer两种。  …  不贴了</p><p>​    上面没有格式化的文字看上去很头疼，简单来说就是<strong>为了保持屏幕不闪烁而使用两块显存做显示切换，一块做当前的显示，需要更新显示的内容在第二块显存上做操作，完成后只需要将显存地址切换至第二块即可。好处不必多说，劣势也有：局部刷新时，显示内容的拷贝填充等，关键在于如何灵活运用。    同时还有一点需要注意的是：显存切换时需要在一屏刷新完成后切换！！！不然会有撕裂感。LCD中断寄存器：（BIT3）</strong></p><p><img src="../../../../medias/boardPic/2021/pcb/LCD_IT.png" alt="LCD_IT Pic"></p><p>  RT-Thread RealBoard-LPC4088已经实现了双显存的配置，使用时可以参考：</p><p><img src="../../../../medias/boardPic/2021/pcb/LCD_IT_Soft.png" alt="LCD_IT_Soft Pic"></p><h3 id="双缓存搞好就太监了，下面没有了"><a href="#双缓存搞好就太监了，下面没有了" class="headerlink" title="双缓存搞好就太监了，下面没有了~~"></a>双缓存搞好就太监了，下面没有了~~</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> CortexM4 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IDA JLink OBF4-Arduino</title>
       <link href="/2021/10/21/IDAJlinkOBF4/"/>
       <url>/2021/10/21/IDAJlinkOBF4/</url>
