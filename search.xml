@@ -4,6 +4,114 @@
   
     
     <entry>
+      <title>F072 W5500 双以太网</title>
+      <link href="/2021/12/22/F072W5500/"/>
+      <url>/2021/12/22/F072W5500/</url>
+      
+        <content type="html"><![CDATA[<p>最近有个需求要使用简单的网络通信，速率要求并不高，只是按下按键通过UDP发送一包数据，本来想用407来做，后来还是想起了它：W5500，虽然N多年前就用KL27做过一个，不过板子早就找不到了，于是就用stm32f072又新做了一个：</p><p><img src="../../../../medias/boardPic/2022/diy/F072W5500.jpg" alt="F072W5500 Pic"></p><p>一片小小的STM32F072连接了如下：</p><ul><li><p>两个SPI连接了两个W5500，实现两路以太网，最多支持16个socket，互联互通。</p></li><li><p>一路CAN、一路RS485、一路RS232、一路串口TTL</p></li><li><p>USB（免晶振）、蓝牙（串口）</p></li><li><p>按键、LED</p><p>UDP 收发经过测试还是很不错的</p><p><img src="../../../../medias/boardPic/2022/diy/W5500UDP.jpg" alt="W5500UDP Pic"></p><p>CAN可以移植PCAN的程序（之前也已实现过了），这么一来，这个小板具有了丰富的功了。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DIY </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DIY </tag>
+            
+            <tag> tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TMC2226步进电机驱动</title>
+      <link href="/2021/12/12/TMCS2226/"/>
+      <url>/2021/12/12/TMCS2226/</url>
+      
+        <content type="html"><![CDATA[<p>最近搞了这个小玩意，STM32F072+TMC2226步进电机驱动，TMC2226在云汉芯城上的价格零售11元，难得的亲民，于是就打了个板测试一下：</p><p>效果超乎想象，出奇的静音：</p><p><img src="../../../../medias/boardPic/2022/diy/TMC2226.jpg" alt="TMC2226 Pic"></p><p><img src="../../../../medias/boardPic/2022/diy/TMC2226Motor.jpg" alt="TMC2226 Pic"></p><p>装在小盒子里很完美~（下面是42步进电机）。TMC2226的一些特性：</p><ul><li>静音防抖步进驱动，内置MOS，最高29V,峰值2.8A；</li><li>防堵转、电流自适应负载（节能高达75%）</li><li>脉冲/方向控制 8，16，32，64 细分硬件配置，UART配置最高256 细分 内部自带MicroPley</li><li>细分插补技术实现 256 细分输出，确保运行平滑</li><li>StealthChop2 静音驱动技术（低速超静音）</li><li>SpreadCycle 高动态性能电机斩波控制（高速防抖动）</li><li>Stallguard4 第四代同时适应 StealthChop 的负载力矩检测功能（防堵转）</li><li>Coolstep 电流随负载调节控制，可节能 75%（电流自适应）</li><li>低 RDSon，低温升。LS 170mΩ &amp; HS 170mΩ (typ. at 25°C)</li><li>低功耗待机适应 EUP 或电池供电应用</li><li>可选内部检测电阻，无需外置</li><li>单线 UART&amp;OTP 高级配置选项</li><li>等等 其他一些特性</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DIY </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DIY </tag>
+            
+            <tag> Motor </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>再来一波JLink</title>
+      <link href="/2021/12/08/JLinkWifi/"/>
+      <url>/2021/12/08/JLinkWifi/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JLink-Wifi-Mini"><a href="#JLink-Wifi-Mini" class="headerlink" title="JLink Wifi Mini"></a>JLink Wifi Mini</h3><p>最近继续折腾JLink，JLink Wifi Mini版也来了~ ，硬是给赛进了这个小盒子里。。。</p><p><img src="../../../../medias/boardPic/2021/tools/JLinkWifi.jpg" alt="JLinkWifi Pic"></p><p>jcmder：</p><p><img src="../../../../medias/boardPic/2021/tools/JWificmd.png" alt="JLinkWifi Pic"></p><p>不知道西哥咋想的，选了这么一款蛋疼的WIFI模组，又贵又难买，选esp32多好。实测wifi信号也不咋地，路由器在客厅里，我在屋子里用它就连不上，后来想了个好主意，把它和我的mini路由器邦一块，用充电宝给它们供电，笔记本连路由器，就OK啦。</p><p><img src="../../../../medias/boardPic/2021/tools/JLinkWifiII.jpg" alt="JLinkWifi和路由器"></p><h3 id="Flasher-Portable-V1"><a href="#Flasher-Portable-V1" class="headerlink" title="Flasher Portable V1"></a>Flasher Portable V1</h3><p>Flasher Portable V1在Flasher 4的基础上，增加了多固件的支持，可以通过按键最多选择四个固件并以LED指示选择状态，支持电池供电并支持一键开关机。相比Flasher4没了以太网和串口控制功能，不管怎样还是值得一搞，于是便有了它：</p><p><img src="../../../../medias/boardPic/2021/tools/FlasherPortableV1.jpg" alt="Flasher Portable V1"></p><p>目前还没有boot，只有app，造了个跳转就跑起来了，为此改了个上位机用来查看文件、上传和下载文件。</p><p><img src="../../../../medias/boardPic/2021/tools/FlasherTool.png" alt="FlasherTool.png"></p><p>正如网友说的：都有奥迪（Flasher Portable Plus）了，还要这马车干嘛。。。生命的意义贵在折腾。</p><h3 id="FlasherWifiPlus"><a href="#FlasherWifiPlus" class="headerlink" title="FlasherWifiPlus"></a>FlasherWifiPlus</h3><p>之前把Flasher4的以太网插到无线路由器上，就实现了JLink Wifi的功能，于是就做了个小版的带屏带wifi、带两个以太网口的Flasher Wifi Plus：</p><p><img src="../../../../medias/boardPic/2021/tools/MyFlasherWifi.jpg" alt="FlasherWifiPlus"></p><p>加了个stm32f072用来通过串口烧写控制与显示，界面先简单的搞个。路由器核心板用的是MT7628/88的，之前三四十左右，现在也七八十了，物价飞涨啊</p><p>还没有完全的折腾完，先放上来秀一把。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> TOOL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> JLink </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WS2812 LED灯</title>
+      <link href="/2021/12/02/WS2812Led/"/>
+      <url>/2021/12/02/WS2812Led/</url>
+      
+        <content type="html"><![CDATA[<p>最近也DIY了个5050的灯板玩玩：</p><p><img src="../../../../medias/boardPic/2022/diy/ws2812P1.jpg" alt="WS2812 Pic"></p><ul><li>使用stm32f072控制，还是我曾经最喜欢用的48PIN MCU。</li><li>5V供电，手拉手串了16个。</li><li>SPI通信的方式，参考Arduino的库实现，可以玩出各种花。</li><li>加了个串口的蓝牙芯片，也可以手机控制打开、关闭、调光了</li></ul><p>点亮后的效果：</p><p><img src="../../../../medias/boardPic/2022/diy/ws2812P2.jpg" alt="WS2812 Pic"></p><p>亮度还是可以的，亮瞎眼~  给它套上个螺壳，非常漂亮。</p><p><img src="../../../../medias/boardPic/2022/diy/ws2812P3.jpg" alt="WS2812 Pic"></p><p>下一步准备把它固定到我的台灯上。</p><h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> DIY </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> DIY </tag>
+            
+            <tag> MCU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>重开一篇LPC4370</title>
       <link href="/2021/11/02/LPC4370/"/>
       <url>/2021/11/02/LPC4370/</url>
