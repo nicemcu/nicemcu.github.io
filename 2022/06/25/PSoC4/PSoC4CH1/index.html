@@ -471,6 +471,20 @@
 <ul>
 <li>上下拉电阻：最小：3.5kΩ，典型：5.6kΩ， 最大：8.5kΩ。输入漏电流最大：2nA。</li>
 </ul>
+<h3 id="PSoC-4100S-Plus原理图管脚分配："><a href="#PSoC-4100S-Plus原理图管脚分配：" class="headerlink" title="PSoC 4100S Plus原理图管脚分配："></a>PSoC 4100S Plus原理图管脚分配：</h3><ul>
+<li><p><strong>IIC</strong>：P3_0 - I2C_SCL，P3_1 - I2C_SDA  同时连KitProg2与BLE。</p>
+</li>
+<li><p><strong>UART</strong>： P7_0 - U_RX，P7_1 - T_RX，与KitProg2相连，P5_1 - TX ，P5_0 - RX与BLE相连，电阻未放置。</p>
+</li>
+<li><p><strong>按键</strong>： P3_7 - SW1。 RESET_Key - SW2。</p>
+</li>
+<li><p><strong>LED</strong>: P3_4，高点亮。</p>
+</li>
+<li><p><strong>CapSense 按键 &amp; LED</strong>：P0_2 - TX，P4_6 - BTN0_RX(Big) / P5_2 - LED0 , P4_5 - BTN1_RX(Medium) / P5_5 - LED1 ,  P4_4 - BTN2_RX(Small) / P5_7 - LED2</p>
+</li>
+<li><p><strong>CapSense Slider &amp; LED</strong>:  P1_1 - Slider TX , P2_7 - Slider 0 RX / P2_2 - Slider 0 LED ,  P6_0 - Slider 1 RX / P2_0 - Slider 1 LED ,  P6_1 - Slider 2 RX / P1_6 - Slider 2 LED ,   P6_2 - Slider 3 RX / P1_4 - Slider 3 LED ,  P6_4 - Slider 4 RX / P1_2 - Slider 4 LED ,  P6_5 - Slider 5 RX / P1_0 - Slider 5 LED .</p>
+</li>
+</ul>
 <h3 id="浅尝-PSoC-Creator开发环境"><a href="#浅尝-PSoC-Creator开发环境" class="headerlink" title="浅尝 PSoC Creator开发环境"></a>浅尝 PSoC Creator开发环境</h3><ol>
 <li>安装好PSoC Creator 4.4并打开之，注册infineon的账号并填入。</li>
 <li>确保板子上的SW4拨码拨至PSoC侧。KitProg2上的LED3会点亮。</li>
@@ -758,18 +772,17 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/06/25/PSoC4/PSoC4CH1/">
+                <a href="/2022/06/28/PSoC4/PSoC4CH2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="PSoC 4100S Plus Start1">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="PSoC 4100S Architecure TRM">
                         
-                        <span class="card-title">PSoC 4100S Plus Start1</span>
+                        <span class="card-title">PSoC 4100S Architecure TRM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -779,9 +792,9 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-28
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -794,7 +807,6 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
