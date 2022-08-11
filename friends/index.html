@@ -552,7 +552,7 @@
                                         </div>
                                     </div>
                                     <div class="friend-button">
-                                        <a href="https://mingguang.im" target="_blank"
+                                        <a href="https://www.mingguang.im" target="_blank"
                                             class="button button-glow button-rounded button-caution">
                                             好好学习
                                         </a>
@@ -603,6 +603,27 @@
                             </div>
                         </div>
                         
+                        
+                        <div class="col s12 m6 l4 friend-div" data-aos="zoom-in-up">
+                            <div class="card frind-card4">
+                                <div class="frind-ship">
+                                    <div class="title">
+                                        <img src="/medias/avatars/messages.png" alt="img">
+                                        <div>
+                                            <h1 class="friend-name">Me</h1>
+                                            <p style="position: relative;top: -35px;">曾经折腾过的板卡</p>
+                                        </div>
+                                    </div>
+                                    <div class="friend-button">
+                                        <a href="http://xarm.gitee.io/me/" target="_blank"
+                                            class="button button-glow button-rounded button-caution">
+                                            好好学习
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                     
                 </article>
@@ -616,7 +637,59 @@
         <div class="card">
 
             
+            <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2018-12-12T21-25-30',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+            
+
+            
+            <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Wed Dec 12 2018 21:25:30 GMT+0800',
+    owner: '',
+    repo: '',
+    oauth: {
+        client_id: '',
+        client_secret: ''
+    }
+});
+
+gitment.render('gitment-content');
+</script>
             
 
             

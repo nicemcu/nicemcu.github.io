@@ -635,7 +635,59 @@
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2022-03-01T08-21-21',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Tue Mar 01 2022 08:21:21 GMT+0800',
+    owner: '',
+    repo: '',
+    oauth: {
+        client_id: '',
+        client_secret: ''
+    }
+});
+
+gitment.render('gitment-content');
+</script>
     
 
     
@@ -687,12 +739,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/BLE/">
-                        <span class="chip bg-color">BLE</span>
-                    </a>
-                    
                     <a href="/tags/MCU/">
                         <span class="chip bg-color">MCU</span>
+                    </a>
+                    
+                    <a href="/tags/BLE/">
+                        <span class="chip bg-color">BLE</span>
                     </a>
                     
                     <a href="/tags/PSoC/">

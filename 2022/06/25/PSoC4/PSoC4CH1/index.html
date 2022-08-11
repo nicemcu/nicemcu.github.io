@@ -343,12 +343,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/BLE/">
-                                <span class="chip bg-color">BLE</span>
-                            </a>
-                        
                             <a href="/tags/MCU/">
                                 <span class="chip bg-color">MCU</span>
+                            </a>
+                        
+                            <a href="/tags/BLE/">
+                                <span class="chip bg-color">BLE</span>
                             </a>
                         
                             <a href="/tags/PSoC/">
@@ -597,12 +597,12 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/BLE/">
-                                    <span class="chip bg-color">BLE</span>
-                                </a>
-                            
                                 <a href="/tags/MCU/">
                                     <span class="chip bg-color">MCU</span>
+                                </a>
+                            
+                                <a href="/tags/BLE/">
+                                    <span class="chip bg-color">BLE</span>
                                 </a>
                             
                                 <a href="/tags/PSoC/">
@@ -758,7 +758,59 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
 
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2022-06-25T09-22-18',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+        <link rel="stylesheet" href="/libs/gitment/gitment-default.css">
+<link rel="stylesheet" href="/css/gitment.css">
+
+<div class="gitment-card card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitment-content" class="card-content"></div>
+</div>
+
+<script src="/libs/gitment/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+    id: 'Sat Jun 25 2022 09:22:18 GMT+0800',
+    owner: '',
+    repo: '',
+    oauth: {
+        client_id: '',
+        client_secret: ''
+    }
+});
+
+gitment.render('gitment-content');
+</script>
     
 
     
@@ -810,12 +862,12 @@ Device <span class="token string">'PSoC 4100S Plus CY8C4147AZI-S475'</span> was 
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/BLE/">
-                        <span class="chip bg-color">BLE</span>
-                    </a>
-                    
                     <a href="/tags/MCU/">
                         <span class="chip bg-color">MCU</span>
+                    </a>
+                    
+                    <a href="/tags/BLE/">
+                        <span class="chip bg-color">BLE</span>
                     </a>
                     
                     <a href="/tags/PSoC/">
