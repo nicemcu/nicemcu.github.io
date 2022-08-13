@@ -118,6 +118,33 @@
     
     
     <entry>
+      <title>MC3172初识</title>
+      <link href="/2022/06/02/MC3172_C1/"/>
+      <url>/2022/06/02/MC3172_C1/</url>
+      
+        <content type="html"><![CDATA[<p>2022年，疫情持续，缺芯的现况也持续，国产MCU如雨后春笋般应运而生，又发现了一国产神芯：<strong>MC3172</strong>，官网链接：<a href="http://www.gxchip.cn/" target="_blank" rel="noopener">http://www.gxchip.cn/</a> ， 芯片资源下载：<a href="https://gitee.com/gxchip" target="_blank" rel="noopener">https://gitee.com/gxchip</a></p><h3 id="芯片简介"><a href="#芯片简介" class="headerlink" title="芯片简介"></a>芯片简介</h3><ul><li>业内首个64线程同步并行运行，线程资源可按需配置，共享代码段空间与数据段空间，硬件级实时响应，无需中断服务程序，无需实时操作系统。</li><li>基于RISC-V RV32IMC 指令集，100%单周期指令，最高200MHz主频，3.37coremark/MHz。</li><li>数据段与代码段共享128K字节SRAM，可按需配置为96K代码空间加32K数据空间，或64K代码空间加64K数据空间，或32K代码空间加96K数据空间。</li><li>丰富片内外设：12个可配置通信接口，可按需配置为UASRT或SPI或USB或CAN总线形式，</li><li>6个双缓冲24位计数器，可提供高精度PWM与输入捕捉；</li><li>最高 200MHz 系统主频</li></ul><p>看上去还是蛮有特色的：<strong>64线程同步并行运行</strong>，文档中是这样描述的：<br>“ 并行多线程是一种全新的CPU工作模式与软件开发模式，不同于单线程裸机编程，只能顺序执行，也不同于操作系统通过切换造成的多线程执行，并行多线程的各个线程是一直在并行运行的，彼此互不打扰，没有优先级的概念，也没有切换的随机性。每个线程的运行速度和自己的栈空间都是可以按需配置的…”</p><p>虽然描述的是同步并行运行，不过单核MCU要实现此功能，还是有些怀疑，目前开放样板申请，于是赶紧申请了一块小板实测一下：</p><p>  <img src="../../../../medias/boardPic/2022/diy/MC3172Board.jpg" alt="MC3172 Board Pic"></p><p>收到demo板厚还是微微有些失望：板子看上去简单又复杂，简单的是连个led都没放，复杂的是排针都占满了，还是向上插的，想打个底板也只能扣上面了，而且左下角的排针还碍事… 不管怎样，先搞起来~</p><h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>Mounriver Studio，嗯没错，沁恒的CH573、CH32V307等也都是用这个IDE搞开发的，国产芯，一家亲~<br>关于线程的配置，官方提供了一个图形化的配置工具，位于“MC3172资料合集_v1.12\MC3172_Template\MC3172 “ 目录下，运行即可配置。关于线程的描述如下：</p><ol><li>64个线程的运行速度，<strong>每个线程最高可以运行在主频的1/4</strong>，最低是主频的1/1024，不使用的线程可设置为空闲，空闲线程完全不运行，也不产生功耗。<strong>64个线程分属4个线程组，每个线程组的最高主频份额不能超过主频的1/4</strong>。</li><li>64个线程的运行栈空间，每个线程都有自己独立的栈空间，且在数据空间允许的范围内随意分配，只要所有非空闲线程的栈空间总和不超过数据空间的大小即可（数据空间有192字节的保留区不可使用），栈空间大小需要是4字节的整数倍。</li><li>代码空间和数据空间分配，MC3172拥有128K字节的存储器，可以按需分配为96K代码空间+32K数据空间，或64K代码空间+64K数据空间或32K代码空间+96K数据空间，客户根据自己的实际需要选择即可</li><li>时钟源选择，MC3172拥有4个时钟源，可在界面按需选择。</li></ol><p>配置完毕后，点击生成代码按钮即可得到thread_config.h和MC3172.lds两个文件。当运行配置工具尝试配置时：</p><p>  <img src="../../../../medias/boardPic/2022/diy/task.png" alt="线程配置"></p><p>大体上明白了：<strong>共4个线程组，每组最多占1/4主频，并且每组中线程加起来不得超过1/4主频。</strong></p><p>  MCU硬件层实现了1/4轮询调度，应该是类似时间片轮询的方式实现的吧，所以没有优先级的概念，硬件实现了线程切换、入栈及压栈。</p><p>装好MounRiver Studio后，双击MC3172.wvproj即可打开官方提供的例程：</p><p>  <img src="../../../../medias/boardPic/2022/diy/SampleCode.png" alt="MC3172_Template"></p><p>Ctrl + B可以编译之，程序也如板子一样简洁，连个点灯的参考程序都木的~ </p><p>编译完成后会生成MC3172.hex文件，此时可以打开 “开发板程序下载_v1.1.exe” 选择该文件将其下载进去。连接USB线后会识别为HID的GX_LINK，连接设备然后下载即可。</p><p>  <img src="../../../../medias/boardPic/2022/diy/MCDwn.png" alt="MCDwn"></p><p>目前Mounriver Studio IDE还不支持配置该工具直接下载及单步调试，坐等官方更新~</p><p>第一篇到此结束，接下来看看如何将其利用起来，比如可以搞上两个tft屏，两个线程分别用来刷屏~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> RISC-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CH32F207 &amp; V307</title>
       <link href="/2022/03/01/CH32F207&amp;V307/"/>
       <url>/2022/03/01/CH32F207&amp;V307/</url>

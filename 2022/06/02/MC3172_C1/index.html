@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="GD32E505 Flash 操作, ">
-    <meta name="description" content="GD32E505 Flash操作">
+    <meta name="keywords" content="MC3172初识, ">
+    <meta name="description" content="感芯科技RISC 处理器 MC3172，64线程同步并行运行，线程资源按需配置，硬件级实时响应...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>GD32E505 Flash 操作 | </title>
+    <title>MC3172初识 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">GD32E505 Flash 操作</h1>
+                    <h1 class="description center-align post-title">MC3172初识</h1>
                 </div>
             </div>
         </div>
@@ -343,12 +343,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GD32E505/">
-                                <span class="chip bg-color">GD32E505</span>
+                            <a href="/tags/MCU/">
+                                <span class="chip bg-color">MCU</span>
                             </a>
                         
-                            <a href="/tags/CortexM33/">
-                                <span class="chip bg-color">CortexM33</span>
+                            <a href="/tags/RISC-V/">
+                                <span class="chip bg-color">RISC-V</span>
                             </a>
                         
                     </div>
@@ -372,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-12
+                    2022-06-02
                 </div>
                 
 
@@ -389,173 +389,37 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="GD32E505-Flash："><a href="#GD32E505-Flash：" class="headerlink" title="GD32E505 Flash："></a>GD32E505 Flash：</h3><ol>
-<li><p>设备唯一ID（UNIQUE ID ,96bit，只能按字32位访问），基地址：0x1FFF_F7E8</p>
-</li>
-<li><p>闪存的前512K字节空间内，CPU执行指令需要0~4个等待时间。</p>
-</li>
-<li><p>闪存页大小为<strong>8KB</strong>，支持32位字/16位半字编程，页擦除和整片擦除。</p>
-</li>
-<li><p>2K字节 OTP块（一次性编程），用于存储用户数据。</p>
-</li>
-<li><p>16字节的选项字节，根据用户需求配置，当系统复位时，选项字节被加载到选项字节控制寄存器。</p>
-</li>
-<li><p>GD32E505_CL闪存基地址和构成：</p>
-<table>
-<thead>
-<tr>
-<th align="center">闪存</th>
-<th align="center">名称</th>
-<th align="center">地址范围</th>
-<th align="center">大小</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">主闪存</td>
-<td align="center">Page0</td>
-<td align="center">0x0800_0000~0x0800_1FFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">Page1</td>
-<td align="center">0x0800_2000~0x0800_3FFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">…..</td>
-<td align="center">…..</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">主闪存</td>
-<td align="center">Page63</td>
-<td align="center">0x0807_E000~0x0807_FFFF</td>
-<td align="center">8KB</td>
-</tr>
-<tr>
-<td align="center">信息块 CL</td>
-<td align="center">引导Bootloader</td>
-<td align="center">0x1FFF_B000~0x1FFF_F7FF</td>
-<td align="center">18KB</td>
-</tr>
-<tr>
-<td align="center">选项字节</td>
-<td align="center">选项字节</td>
-<td align="center">0x1FFF_F800~0x1FFF_F80F</td>
-<td align="center">16B</td>
-</tr>
-<tr>
-<td align="center">一次性编程</td>
-<td align="center">OTP</td>
-<td align="center">0x1FFF_7000~0x1FFF_77FF</td>
-<td align="center">2KB</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>选项字节说明 : 每次系统复位后，选项字节被重载到FMC_OBSTAT和FMC_WP寄存器后，选项字节生效。选项字节的补字节具体为选项字节取反。当选项字被重载时，如果选项字节的补字节和选项字节补匹配，FMC_OBSTAT的OBERR位将被置1，选项字节被强制设置为0xFF。若选项字节和其补字节同为0xFF，则OBERR位补置位。</p>
-<table>
-<thead>
-<tr>
-<th align="center">地址</th>
-<th align="center">名称</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0x1FFF_F800</td>
-<td align="center">SPC</td>
-<td align="center">选项字节安全保护值，0xA5未保护，除0xA5和0xCC外的任何值：保护级别低，0xCC：保护级别高</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F801</td>
-<td align="center">SPC_N</td>
-<td align="center">SPC补字节</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F802</td>
-<td align="center">USER</td>
-<td align="center">[7:6] : BOR_TH ，BOR复位阈值<br>[5:3] : 保留<br>[2] : nRST_STDBY，0：设置待机模式时产生复位而不是进入待机模式。1：设置待机模式时进入待机模式而不产生复位。<br>[1] : nRST_DPSLP，0：设置深度睡眠模式时产生复位而不进入深度睡眠模式。1：设置深度睡眠模式时进入深度睡眠模式而不产生复位。<br>[0] : nWDG_HW， 0：硬件是能独立看门狗功能。1：软件使能独立看门狗功能。</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F803</td>
-<td align="center">USER_N</td>
-<td align="center">SPC补字节</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F804</td>
-<td align="center">DATA[7:0]</td>
-<td align="center">用户定义数据7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F805</td>
-<td align="center">DATA_N[7:0]</td>
-<td align="center">DATA补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F806</td>
-<td align="center">DATA[15:8]</td>
-<td align="center">用户定义数据15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F807</td>
-<td align="center">DATA_N[15:8]</td>
-<td align="center">DATA补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F808</td>
-<td align="center">WP[7:0]</td>
-<td align="center">页擦除/编程保护值的7到0位 <br>[0] : 保护生效<br>[1] : 未保护</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F809</td>
-<td align="center">WP_N[7:0]</td>
-<td align="center">WP补字节的7到0位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80A</td>
-<td align="center">WP[15:8]</td>
-<td align="center">页擦除/编程保护值的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80B</td>
-<td align="center">WP_N[15:8]</td>
-<td align="center">WP补字节的15到8位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80C</td>
-<td align="center">WP[23:16]</td>
-<td align="center">页擦除/编程保护值的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80D</td>
-<td align="center">WP_N[23:16]</td>
-<td align="center">WP补字节的23到16位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80E</td>
-<td align="center">WP[31:24]</td>
-<td align="center">页擦除/编程保护值的31到24位</td>
-</tr>
-<tr>
-<td align="center">0x1FFF_F80F</td>
-<td align="center">WP_N[31:24]</td>
-<td align="center">WP补字节的31到24位</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>安全防护：<br><strong>未保护状态</strong>：当将SPC字节和它的补字节设置为0x5AA5，系统复位后闪存将处于非安全保护状态，主存储器和选项字节可以被所有操作模式访问。<br><strong>保护等级低</strong>：当设置SPC字节为任何除0xA5或0xCC外的值，系统复位以后，低安全保护状态生效。需要注意的是，若修改过程中，MCU的调试模块依然和外部JTAG/SWD设备相连，需要用上电复位代替系统复位以使得修改后的保护状态生效。在低安全保护状态下，<strong>主存储闪存块仅能被用户代码访问且前8KB的闪存自动处于页擦除/编程保护状态下</strong>。在调试模式下，或从SRAM中启动时，以及从boot loader区启动时，这些模式下对主存储块的操作都被禁止。如果在这些模式下读主存储块，将产生总线错误。如果在这些模式下，对主存储块进行编程或擦除操作，FMC_STAT寄存器的WPERR位将被置1。但这些模式下都可以对选项字节进行操作，从而可以通过该方式失能安全保护功能。如果将SPC字节和它的补字节设置为0x5AA5，安全保护功能将失效，并自动触发一次整片擦除操作。<br><strong>保护等级高</strong>：当设置SPC字节为0xCC，激活高安全保护等级。当编程选择该保护等级时，调试模式，从SRAM中启动，或者从boot loader启动都被禁止。主存储闪存块可由用户代码的所有操作进行访问。SPC字节禁止再次编程。所以，如果高保护等级被激活，将不能再降回到低保护等级或无保护等级。 </p>
-<p><strong><font color=#FF3300>空芯片默认该值为0xFF？所以无法烧写程序？？蛋疼的设计！！</font></strong></p>
-</li>
-</ol>
-<h3 id="例程分析"><a href="#例程分析" class="headerlink" title="例程分析"></a>例程分析</h3><p>Examples/FMC中有三个例程；</p>
+                <p>2022年，疫情持续，缺芯的现况也持续，国产MCU如雨后春笋般应运而生，又发现了一国产神芯：<strong>MC3172</strong>，官网链接：<a href="http://www.gxchip.cn/" target="_blank" rel="noopener">http://www.gxchip.cn/</a> ， 芯片资源下载：<a href="https://gitee.com/gxchip" target="_blank" rel="noopener">https://gitee.com/gxchip</a></p>
+<h3 id="芯片简介"><a href="#芯片简介" class="headerlink" title="芯片简介"></a>芯片简介</h3><ul>
+<li>业内首个64线程同步并行运行，线程资源可按需配置，共享代码段空间与数据段空间，硬件级实时响应，无需中断服务程序，无需实时操作系统。</li>
+<li>基于RISC-V RV32IMC 指令集，100%单周期指令，最高200MHz主频，3.37coremark/MHz。</li>
+<li>数据段与代码段共享128K字节SRAM，可按需配置为96K代码空间加32K数据空间，或64K代码空间加64K数据空间，或32K代码空间加96K数据空间。</li>
+<li>丰富片内外设：12个可配置通信接口，可按需配置为UASRT或SPI或USB或CAN总线形式，</li>
+<li>6个双缓冲24位计数器，可提供高精度PWM与输入捕捉；</li>
+<li>最高 200MHz 系统主频</li>
+</ul>
+<p>看上去还是蛮有特色的：<strong>64线程同步并行运行</strong>，文档中是这样描述的：<br>“ 并行多线程是一种全新的CPU工作模式与软件开发模式，不同于单线程裸机编程，只能顺序执行，也不同于操作系统通过切换造成的多线程执行，并行多线程的各个线程是一直在并行运行的，彼此互不打扰，没有优先级的概念，也没有切换的随机性。每个线程的运行速度和自己的栈空间都是可以按需配置的…”</p>
+<p>虽然描述的是同步并行运行，不过单核MCU要实现此功能，还是有些怀疑，目前开放样板申请，于是赶紧申请了一块小板实测一下：</p>
+<p>  <img src="../../../../medias/boardPic/2022/diy/MC3172Board.jpg" alt="MC3172 Board Pic"></p>
+<p>收到demo板厚还是微微有些失望：板子看上去简单又复杂，简单的是连个led都没放，复杂的是排针都占满了，还是向上插的，想打个底板也只能扣上面了，而且左下角的排针还碍事… 不管怎样，先搞起来~</p>
+<h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><p>Mounriver Studio，嗯没错，沁恒的CH573、CH32V307等也都是用这个IDE搞开发的，国产芯，一家亲~<br>关于线程的配置，官方提供了一个图形化的配置工具，位于“MC3172资料合集_v1.12\MC3172_Template\MC3172 “ 目录下，运行即可配置。关于线程的描述如下：</p>
 <ol>
-<li>Erase_Program: 提供了fmc_erase_pages和fmc_program的操作例程。</li>
-<li>Security_protection: 设置Security和解unSecurity。</li>
-<li>Write_Protection: 设置写保护，参考意义不大。</li>
+<li>64个线程的运行速度，<strong>每个线程最高可以运行在主频的1/4</strong>，最低是主频的1/1024，不使用的线程可设置为空闲，空闲线程完全不运行，也不产生功耗。<strong>64个线程分属4个线程组，每个线程组的最高主频份额不能超过主频的1/4</strong>。</li>
+<li>64个线程的运行栈空间，每个线程都有自己独立的栈空间，且在数据空间允许的范围内随意分配，只要所有非空闲线程的栈空间总和不超过数据空间的大小即可（数据空间有192字节的保留区不可使用），栈空间大小需要是4字节的整数倍。</li>
+<li>代码空间和数据空间分配，MC3172拥有128K字节的存储器，可以按需分配为96K代码空间+32K数据空间，或64K代码空间+64K数据空间或32K代码空间+96K数据空间，客户根据自己的实际需要选择即可</li>
+<li>时钟源选择，MC3172拥有4个时钟源，可在界面按需选择。</li>
 </ol>
-<p>基于以上这三个例程，基本上对flash的操作就不是事了。</p>
+<p>配置完毕后，点击生成代码按钮即可得到thread_config.h和MC3172.lds两个文件。当运行配置工具尝试配置时：</p>
+<p>  <img src="../../../../medias/boardPic/2022/diy/task.png" alt="线程配置"></p>
+<p>大体上明白了：<strong>共4个线程组，每组最多占1/4主频，并且每组中线程加起来不得超过1/4主频。</strong></p>
+<p>  MCU硬件层实现了1/4轮询调度，应该是类似时间片轮询的方式实现的吧，所以没有优先级的概念，硬件实现了线程切换、入栈及压栈。</p>
+<p>装好MounRiver Studio后，双击MC3172.wvproj即可打开官方提供的例程：</p>
+<p>  <img src="../../../../medias/boardPic/2022/diy/SampleCode.png" alt="MC3172_Template"></p>
+<p>Ctrl + B可以编译之，程序也如板子一样简洁，连个点灯的参考程序都木的~ </p>
+<p>编译完成后会生成MC3172.hex文件，此时可以打开 “开发板程序下载_v1.1.exe” 选择该文件将其下载进去。连接USB线后会识别为HID的GX_LINK，连接设备然后下载即可。</p>
+<p>  <img src="../../../../medias/boardPic/2022/diy/MCDwn.png" alt="MCDwn"></p>
+<p>目前Mounriver Studio IDE还不支持配置该工具直接下载及单步调试，坐等官方更新~</p>
+<p>第一篇到此结束，接下来看看如何将其利用起来，比如可以搞上两个tft屏，两个线程分别用来刷屏~</p>
 
             </div>
             <hr/>
@@ -581,7 +445,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/">https://xarm.gitee.io/2021/04/12/GD32E50x04Flash/</a>
+                    <a href="https://xarm.gitee.io/2022/06/02/MC3172_C1/">https://xarm.gitee.io/2022/06/02/MC3172_C1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,12 +483,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/GD32E505/">
-                                    <span class="chip bg-color">GD32E505</span>
+                                <a href="/tags/MCU/">
+                                    <span class="chip bg-color">MCU</span>
                                 </a>
                             
-                                <a href="/tags/CortexM33/">
-                                    <span class="chip bg-color">CortexM33</span>
+                                <a href="/tags/RISC-V/">
+                                    <span class="chip bg-color">RISC-V</span>
                                 </a>
                             
                         </div>
@@ -1057,30 +921,31 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/12/GD32E50x05SpiFlash/">
+                <a href="/2022/06/25/PSoC4/PSoC4CH1/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="GD32E505 SPI Flash">
                         
-                        <span class="card-title">GD32E505 SPI Flash</span>
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="PSoC 4100S Plus Start1">
+                        
+                        <span class="card-title">PSoC 4100S Plus Start1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GD32E505 Flash操作
+                            CY8C4147AZI-S475、电容触摸、BLE
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-12
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-25
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MCU/" class="post-category">
-                                    MCU
+                            <a href="/categories/Infineon/" class="post-category">
+                                    Infineon
                                 </a>
                             
                             
@@ -1090,12 +955,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/GD32E505/">
-                        <span class="chip bg-color">GD32E505</span>
+                    <a href="/tags/MCU/">
+                        <span class="chip bg-color">MCU</span>
                     </a>
                     
-                    <a href="/tags/CortexM33/">
-                        <span class="chip bg-color">CortexM33</span>
+                    <a href="/tags/BLE/">
+                        <span class="chip bg-color">BLE</span>
+                    </a>
+                    
+                    <a href="/tags/PSoC/">
+                        <span class="chip bg-color">PSoC</span>
                     </a>
                     
                 </div>
@@ -1109,23 +978,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/03/23/GD32E50x03DMA/">
+                <a href="/2022/03/01/CH32F207&V307/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="GD32E505 USART and DMA">
                         
-                        <span class="card-title">GD32E505 USART and DMA</span>
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="CH32F207 & V307">
+                        
+                        <span class="card-title">CH32F207 & V307</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            GD32E505 USART DMA Send and receive
+                            高速USB+OTG FS、千M网(Mac)、内置10M以太网PHY、CANx2、...
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-01
                             </span>
                         <span class="publish-author">
                             
@@ -1142,12 +1012,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/GD32E505/">
-                        <span class="chip bg-color">GD32E505</span>
+                    <a href="/tags/DIY/">
+                        <span class="chip bg-color">DIY</span>
                     </a>
                     
-                    <a href="/tags/CortexM33/">
-                        <span class="chip bg-color">CortexM33</span>
+                    <a href="/tags/MCU/">
+                        <span class="chip bg-color">MCU</span>
                     </a>
                     
                 </div>
