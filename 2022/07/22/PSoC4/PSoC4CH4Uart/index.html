@@ -26,7 +26,7 @@
     
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 <body>
@@ -496,7 +496,7 @@
 <p>主要是串口收发中断的配置：使能Tx FIFO empty 和 RX FIFO not empty 中断，FIFO buffer设置为8，这样发送时一次可以填入8个字节以减小进中断的频次。<br>接收中断很遗憾不支持空闲中断，只能配合定时器中断实现超时成帧判断。<br>（如果支持空闲中断可以配合RX FIFO Level使用以降低进接收中断的频次，比如设置为4字节，如果接收缓冲区中有3个字节的话，就没法产生中断了..）</p>
 <p>完成配置后开始撸代码，老规矩，套我之前的串口收发处理 – 既然支持五个SCB自然不能写五套串口收发处理代码，那太啰嗦了。</p>
 <p>先定义UART的数据结构：</p>
-<pre class=" language-C++"><code class="language-C++">typedef void (func)(uint8_t);
+<pre class=" language-C"><code class="language-C">typedef void (func)(uint8_t);
 typedef uint8_t (funcRt)(void);
 
 typedef struct
@@ -681,7 +681,7 @@ void task_uartBtl_recv()
         uartBtl.rwr = 0;
     }
 }</code></pre>
-<p>打开串口调试助手，收发测试：（与仿真器串口相连的UART PIN： P7_0 - U_RX，P7_1 - T_RX）<br><img src="../../../../../medias/boardPic/2022/Infineon/UartCfg.png" alt="MCB UART配置"></p>
+<p>打开串口调试助手，收发测试：（与仿真器串口相连的UART PIN： P7_0 - U_RX，P7_1 - T_RX）<br><img src="../../../../../medias/boardPic/2022/Infineon/uartCom.png" alt="串口收发"></p>
 <p>程序中放了个一个uart、一个led、一个timer，编译后占用：<br>Flash used: 3510 of 131072 bytes (2.7%).<br>SRAM used: 3104 of 16384 bytes (18.9%). Stack: 2048 bytes. Heap: 128 bytes.<br>如果使用串口Bootloader，还需要精简代码才行，不能超过4KB，继续努力~</p>
 
             </div>
