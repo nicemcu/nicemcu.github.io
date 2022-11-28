@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Clone MiniProg4, ">
-    <meta name="description" content="移植KitProg3的代码 DIY MiniProg4">
+    <meta name="keywords" content="PSoC Hex Dump, ">
+    <meta name="description" content="Hex文件解析及dump CRC">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Clone MiniProg4 | </title>
+    <title>PSoC Hex Dump | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Clone MiniProg4</h1>
+                    <h1 class="description center-align post-title">PSoC Hex Dump</h1>
                 </div>
             </div>
         </div>
@@ -372,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-09-21
+                    2022-10-21
                 </div>
                 
 
@@ -389,202 +389,111 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="MiniProg4"><a href="#MiniProg4" class="headerlink" title="MiniProg4"></a>MiniProg4</h3><p>PSoC Creator不支持JLink，真是可惜！官方的MiniProg4相当mini精巧，可惜价格高昂，接口又很不友好，Infineon的Github上有KitProg3的开源代码，除了实现了DAPLink的功能，还有USB转IIC、SPI等外扩功能，于是就借助于它开始拼凑我的MiniProg4！</p>
-<p>MCU就选择之前申请的CH32V307/CH32F207剩余的样片吧，高速USB，性能不弱接口丰富，加上个TFT和SD、SPI Flash还可以实现离线烧录功能，PCB在上次307的基础上简单修改了下就完成了。</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/miniprog4.png" alt="miniprog4"></p>
-<p>首先实现设备的枚举：在CH32F207 HS USB CDC的例程上，按照MiniProg4的设备描述符上传所需的字符串即可。一番修改终于实现了：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/Prog4Device.png" alt="MiniProg4 Device"></p>
-<p>HID接口的DAP我不需要，直接删掉，只保留了WINUSB的DAP、Bridge和虚拟串口，设备枚举成功后，算是迈出了第一步，接下来就开始APP的移植操作。</p>
-<p>又一番操作后，终于可以在PSoC Programmer中下载程序了，通过IO控制对外电源的输出，实现了Power Cycle，对于未接XRES并且将SWD接口配置为GPIO的4014，使用Power Cycle模式也可以下载了，好开心~</p>
-<p>剩下的就是USB 2 IIC、SPI的移植了，日后再搞。</p>
-<p>附  -  官方MiniProg4的设备描述符：（欢迎一起交流）</p>
-<pre class=" language-C"><code class="language-C">Device Descriptor:
-bcdUSB:             0x0200
-bDeviceClass:         0xEF
-bDeviceSubClass:      0x02
-bDeviceProtocol:      0x01
-bMaxPacketSize0:      0x08 (8)
-idVendor:           0x04B4 (Cypress Semiconductor)
-idProduct:          0xF151
-bcdDevice:          0x0101
-iManufacturer:        0x01
-0x0409: "Cypress Semiconductor"
-iProduct:             0x09
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-iSerialNumber:        0x80
-0x0409: "0E23018800121400"
-bNumConfigurations:   0x01
-
-ConnectionStatus: DeviceConnected
-Current Config Value: 0x01
-Device Bus Speed:     Full
-Device Address:       0x14
-Open Pipes:              7
-
-Endpoint Descriptor:
-bEndpointAddress:     0x01  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x82  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x86  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x07  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x83  IN
-Transfer Type:   Interrupt
-wMaxPacketSize:     0x0008 (8)
-bInterval:            0x02
-
-Endpoint Descriptor:
-bEndpointAddress:     0x84  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x05  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Configuration Descriptor:
-wTotalLength:       0x0079
-bNumInterfaces:       0x04
-bConfigurationValue:  0x01
-iConfiguration:       0x09
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-bmAttributes:         0x80 (Bus Powered )
-MaxPower:             0xC8 (400 Ma)
-
-Interface Descriptor:
-bInterfaceNumber:     0x00
-bAlternateSetting:    0x00
-bNumEndpoints:        0x02
-bInterfaceClass:      0xFF
-bInterfaceSubClass:   0x00
-bInterfaceProtocol:   0x00
-iInterface:           0x09
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-0x0409: "Cypress MiniProg4 (CMSIS-DAP)"
-
-Endpoint Descriptor:
-bEndpointAddress:     0x01  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x82  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Interface Descriptor:
-bInterfaceNumber:     0x01
-bAlternateSetting:    0x00
-bNumEndpoints:        0x02
-bInterfaceClass:      0xFF
-bInterfaceSubClass:   0x00
-bInterfaceProtocol:   0x00
-iInterface:           0x11
-0x0409: "MiniProg4 bridge"
-
-Endpoint Descriptor:
-bEndpointAddress:     0x86  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x07  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Unknown Descriptor:
-bDescriptorType:      0x0B
-bLength:              0x08
-08 0B 02 02 02 02 00 00 
-
-Interface Descriptor:
-bInterfaceNumber:     0x02
-bAlternateSetting:    0x00
-bNumEndpoints:        0x01
-bInterfaceClass:      0x02
-bInterfaceSubClass:   0x02
-bInterfaceProtocol:   0x01
-iInterface:           0x0F
-0x0409: "KitProg3 USBUART"
-
-Unknown Descriptor:
-bDescriptorType:      0x24
-bLength:              0x05
-05 24 00 10 01 
-
-Unknown Descriptor:
-bDescriptorType:      0x24
-bLength:              0x04
-04 24 02 02 
-
-Unknown Descriptor:
-bDescriptorType:      0x24
-bLength:              0x05
-05 24 06 02 03 
-
-Unknown Descriptor:
-bDescriptorType:      0x24
-bLength:              0x05
-05 24 01 00 03 
-
-Endpoint Descriptor:
-bEndpointAddress:     0x83  IN
-Transfer Type:   Interrupt
-wMaxPacketSize:     0x0008 (8)
-bInterval:            0x02
-
-Interface Descriptor:
-bInterfaceNumber:     0x03
-bAlternateSetting:    0x00
-bNumEndpoints:        0x02
-bInterfaceClass:      0x0A
-bInterfaceSubClass:   0x00
-bInterfaceProtocol:   0x00
-iInterface:           0x04
-0x0409: "KitProg3 USBUART"
-
-Endpoint Descriptor:
-bEndpointAddress:     0x84  IN
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-
-Endpoint Descriptor:
-bEndpointAddress:     0x05  OUT
-Transfer Type:        Bulk
-wMaxPacketSize:     0x0040 (64)
-bInterval:            0x00
-</code></pre>
+                <h3 id="PSoC4-Programming-amp-Hex-file-Dump"><a href="#PSoC4-Programming-amp-Hex-file-Dump" class="headerlink" title="PSoC4 Programming &amp; Hex file Dump"></a>PSoC4 Programming &amp; Hex file Dump</h3><p>参考文档：Infineon-CY8C4xxx_CYBLxxxx_Programming_Specifications-Programming Specifications</p>
+<p>文档对于PSoC4通过SWD下载进行详尽的描述，此处仅整理相关笔记及分享从Hex中dump CRC值。</p>
+<ol>
+<li>表一中记录Programming Values：（ID等）Acquire Chip时需要</li>
+</ol>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/PSoCChip.png" alt="PSoC4 Chip"></p>
+<ol start="2">
+<li>Hex File记录：</li>
+</ol>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/HexFile.png" alt="Hex File"></p>
+<ul>
+<li><p>0x0000_0000 ：开始为User Flash，程序地址</p>
+</li>
+<li><p>0x9030_0000 ：CheckSum, CRC校验，2Byte，是整个user flash 的校验。</p>
+</li>
+<li><p>0x9040_0000 ：Flash Protection（of users rows），Protection Size = FlashSize/Row Size/8，如Flash 128KB，Flash Protection为128Byte</p>
+</li>
+<li><p><strong>0x9050_0000 ：MetaData - 12bytes</strong>，内容如下：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Data Type</th>
+<th>Length in bytes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x00</td>
+<td>Hex file version - “2”</td>
+<td>2 (big-endian)</td>
+</tr>
+<tr>
+<td>0x02</td>
+<td>Silicon ID</td>
+<td>4 (big-endian)</td>
+</tr>
+<tr>
+<td>0x06</td>
+<td>Reserved</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>Reserved</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>Internal use</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p>Silicon ID: 程序下载时，Acquired device与此ID相比较，必须相等才可以下载，Revision ID跳过。</p>
+<p>byte[0] : Silicon ID Hi</p>
+<p>byte[1] : Silicon ID Lo</p>
+<p>byte[2] : Revision ID</p>
+<p>byte[3] : Family ID</p>
+<ul>
+<li>0x9060_0000 ：Chip Level protection - 1bytes</li>
+</ul>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/chipLevelProtection.png" alt="chipLevelProtection"></p>
+<ol start="3">
+<li><strong>SWD下载流程</strong>：</li>
+</ol>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/program.png" alt="SWD program"></p>
+<p>第一步：Acquire Chip，如果对于未接XRES的MCU，并且SWD复用为IIC的4014等芯片来说，如果使用官方下载器可能没问题，如果要自制时就需要注意，尤其是power cycle的时序：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/testMode.png" alt="time of testMode"></p>
+<p>Power UP 后，需要在5ms~5.4mS之间访问！最小的SWD时钟频率为1.5MHz，满足400uS。</p>
+<ol start="4">
+<li><strong>Hex File:</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">Start Code</th>
+<th align="center">Byte Count</th>
+<th align="center">Address</th>
+<th align="center">Record Type</th>
+<th align="center">Data</th>
+<th align="center">Check Sum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>:</strong></td>
+<td align="center">1 byte</td>
+<td align="center">2 bytes</td>
+<td align="center">1 byte</td>
+<td align="center">N bytes</td>
+<td align="center">1 byte</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Start code , one character — an  ASCII colon ‘:’</li>
+<li>Byte count ,  two hex digits (1 byte) — specifies the  number of bytes in the data field. </li>
+<li>Address, four hex digits (2 bytes) — a 16-bit address of the beginning of the memory position for the data.</li>
+<li>Record type, two hex digits (00 to 05) — defines the type of the data field. The record types used in the hex file are as follows.<br>• 00 – Data record, which contains data and 16-bit address.<br>• 01 – End of file record, which is a file termination record and has no data. This must be the last line of the file; only one is allowed for every file.<br>• 04 – Extended linear address record,  which allows full 32-bit addressing.  Address field is 0000. Byte count is 02 . The two data bytes represent the upper 16 bits of the 32-bit address, when combined with the lower 16-bit address of the 00 type record.  </li>
+<li>Data, a sequence of ‘n’ bytes of the data, represented by 2n hex digits.</li>
+<li>Checksum, two hex digits (1 byte), which is  the least significant byte of the  two’s complement of  the sum of the values of all fields except fields 1 and 6 (start code ‘:’ byte and two hex digits of the checksum).</li>
+</ul>
+<p>如：PSoC Hex文件：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/Hex.png" alt="Hex"></p>
+<p>0x90300000地址的CRC：0xD097，可以使用notepad打开hex文件，拖到结尾直接查看crc校验。解析之：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/ihexParser.png" alt="ihexParser"></p>
 
             </div>
             <hr/>
@@ -610,7 +519,7 @@ bInterval:            0x00
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2022/09/21/PSoC4/CloneMiniProg4/">https://xarm.gitee.io/2022/09/21/PSoC4/CloneMiniProg4/</a>
+                    <a href="https://xarm.gitee.io/2022/10/21/PSoC4/PSoCHexDump/">https://xarm.gitee.io/2022/10/21/PSoC4/PSoCHexDump/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1082,9 +991,10 @@ bInterval:            0x00
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/10/21/PSoC4/PSoCHexDump/">
                     <div class="card-image">
@@ -1102,9 +1012,9 @@ bInterval:            0x00
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1117,6 +1027,7 @@ bInterval:            0x00
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1139,24 +1050,24 @@ bInterval:            0x00
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/21/PSoC4/PSoC4SoftUart/">
+                <a href="/2022/09/21/PSoC4/CloneMiniProg4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="PSoC4 SoftUart & CmbackTrace -- Hardfault">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Clone MiniProg4">
                         
-                        <span class="card-title">PSoC4 SoftUart & CmbackTrace -- Hardfault</span>
+                        <span class="card-title">Clone MiniProg4</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            PSoC4 Soft UART Hardfault
+                            移植KitProg3的代码 DIY MiniProg4
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-21
                             </span>
                         <span class="publish-author">
                             
