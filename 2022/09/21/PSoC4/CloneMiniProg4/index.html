@@ -390,6 +390,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="MiniProg4"><a href="#MiniProg4" class="headerlink" title="MiniProg4"></a>MiniProg4</h3><p>PSoC Creator不支持JLink，真是可惜！官方的MiniProg4相当mini精巧，可惜价格高昂，接口又很不友好，Infineon的Github上有KitProg3的开源代码，除了实现了DAPLink的功能，还有USB转IIC、SPI等外扩功能，于是就借助于它开始拼凑我的MiniProg4！</p>
+<p>参考文档：</p>
+<p>KitProg3：github.com/infineon/kitprog3</p>
+<p>Infineon-<strong>AN84858</strong>_PSoC4_Programming xxx</p>
+<p>Infineon-KitProg_Host_Protocol_Interface-UserManual</p>
 <p>MCU就选择之前申请的CH32V307/CH32F207剩余的样片吧，高速USB，性能不弱接口丰富，加上个TFT和SD、SPI Flash还可以实现离线烧录功能，PCB在上次307的基础上简单修改了下就完成了。</p>
 <p><img src="../../../../../medias/boardPic/2022/Infineon/miniprog4.png" alt="miniprog4"></p>
 <p>首先实现设备的枚举：在CH32F207 HS USB CDC的例程上，按照MiniProg4的设备描述符上传所需的字符串即可。一番修改终于实现了：</p>
@@ -397,6 +401,16 @@
 <p>HID接口的DAP我不需要，直接删掉，只保留了WINUSB的DAP、Bridge和虚拟串口，设备枚举成功后，算是迈出了第一步，接下来就开始APP的移植操作。</p>
 <p>又一番操作后，终于可以在PSoC Programmer中下载程序了，通过IO控制对外电源的输出，实现了Power Cycle，对于未接XRES并且将SWD接口配置为GPIO的4014，使用Power Cycle模式也可以下载了，好开心~</p>
 <p>剩下的就是USB 2 IIC、SPI的移植了，日后再搞。</p>
+<p>补一个离线下载：（目前在线和离线都已支持）</p>
+<p>参考AN84858，将HSSP代码添加进工程中，稍作修改即可。</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/offDL.png" alt="增加TFT显示及SD卡"></p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/offDlOK.png" alt="按键下载"></p>
+<p>目前CH32的SDIO还有bug，每次上电首次初始化sdio会卡死，复位一下即可重新运行。</p>
+<p>TODO List：</p>
+<ol>
+<li>USB Bridge to IIC。</li>
+<li>USB MSC 及bootloader。</li>
+</ol>
 <p>附  -  官方MiniProg4的设备描述符：（欢迎一起交流）</p>
 <pre class=" language-C"><code class="language-C">Device Descriptor:
 bcdUSB:             0x0200
