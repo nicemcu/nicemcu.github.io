@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PSoC Hex Dump, ">
-    <meta name="description" content="Hex文件解析及dump CRC">
+    <meta name="keywords" content="一起来DIY JLink XMC, ">
+    <meta name="description" content="Infineon公开原理图的JLink XMC，1KV隔离，帅帅帅~">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PSoC Hex Dump | </title>
+    <title>一起来DIY JLink XMC | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PSoC Hex Dump</h1>
+                    <h1 class="description center-align post-title">一起来DIY JLink XMC</h1>
                 </div>
             </div>
         </div>
@@ -347,8 +347,8 @@
                                 <span class="chip bg-color">MCU</span>
                             </a>
                         
-                            <a href="/tags/PSoC/">
-                                <span class="chip bg-color">PSoC</span>
+                            <a href="/tags/JLink/">
+                                <span class="chip bg-color">JLink</span>
                             </a>
                         
                     </div>
@@ -389,111 +389,19 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="PSoC4-Programming-amp-Hex-file-Dump"><a href="#PSoC4-Programming-amp-Hex-file-Dump" class="headerlink" title="PSoC4 Programming &amp; Hex file Dump"></a>PSoC4 Programming &amp; Hex file Dump</h3><p>参考文档：Infineon-CY8C4xxx_CYBLxxxx_Programming_Specifications-Programming Specifications</p>
-<p>文档对于PSoC4通过SWD下载进行详尽的描述，此处仅整理相关笔记及分享从Hex中dump CRC值。</p>
-<ol>
-<li>表一中记录Programming Values：（ID等）Acquire Chip时需要</li>
-</ol>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/PSoCChip.png" alt="PSoC4 Chip"></p>
-<ol start="2">
-<li>Hex File记录：</li>
-</ol>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/HexFile.png" alt="Hex File"></p>
-<ul>
-<li><p>0x0000_0000 ：开始为User Flash，程序地址</p>
-</li>
-<li><p>0x9030_0000 ：CheckSum, CRC校验，2Byte，是整个user flash 的校验。</p>
-</li>
-<li><p>0x9040_0000 ：Flash Protection（of users rows），Protection Size = FlashSize/Row Size/8，如Flash 128KB，Flash Protection为128Byte</p>
-</li>
-<li><p><strong>0x9050_0000 ：MetaData - 12bytes</strong>，内容如下：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Offset</th>
-<th>Data Type</th>
-<th>Length in bytes</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0x00</td>
-<td>Hex file version - “2”</td>
-<td>2 (big-endian)</td>
-</tr>
-<tr>
-<td>0x02</td>
-<td>Silicon ID</td>
-<td>4 (big-endian)</td>
-</tr>
-<tr>
-<td>0x06</td>
-<td>Reserved</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0x07</td>
-<td>Reserved</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0x08</td>
-<td>Internal use</td>
-<td>4</td>
-</tr>
-</tbody></table>
-<p>Silicon ID: 程序下载时，Acquired device与此ID相比较，必须相等才可以下载，Revision ID跳过。</p>
-<p>byte[0] : Silicon ID Hi</p>
-<p>byte[1] : Silicon ID Lo</p>
-<p>byte[2] : Revision ID</p>
-<p>byte[3] : Family ID</p>
-<ul>
-<li>0x9060_0000 ：Chip Level protection - 1bytes</li>
-</ul>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/chipLevelProtection.png" alt="chipLevelProtection"></p>
-<ol start="3">
-<li><strong>SWD下载流程</strong>：</li>
-</ol>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/program.png" alt="SWD program"></p>
-<p>第一步：Acquire Chip，如果对于未接XRES的MCU，并且SWD复用为IIC的4014等芯片来说，如果使用官方下载器可能没问题，如果要自制时就需要注意，尤其是power cycle的时序：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/testMode.png" alt="time of testMode"></p>
-<p>Power UP 后，需要在5ms~5.4mS之间访问！最小的SWD时钟频率为1.5MHz，满足400uS。</p>
-<ol start="4">
-<li><strong>Hex File:</strong></li>
-</ol>
-<table>
-<thead>
-<tr>
-<th align="center">Start Code</th>
-<th align="center">Byte Count</th>
-<th align="center">Address</th>
-<th align="center">Record Type</th>
-<th align="center">Data</th>
-<th align="center">Check Sum</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>:</strong></td>
-<td align="center">1 byte</td>
-<td align="center">2 bytes</td>
-<td align="center">1 byte</td>
-<td align="center">N bytes</td>
-<td align="center">1 byte</td>
-</tr>
-</tbody></table>
-<ul>
-<li>Start code , one character — an  ASCII colon ‘:’</li>
-<li>Byte count ,  two hex digits (1 byte) — specifies the  number of bytes in the data field. </li>
-<li>Address, four hex digits (2 bytes) — a 16-bit address of the beginning of the memory position for the data.</li>
-<li>Record type, two hex digits (00 to 05) — defines the type of the data field. The record types used in the hex file are as follows.<br>• 00 – Data record, which contains data and 16-bit address.<br>• 01 – End of file record, which is a file termination record and has no data. This must be the last line of the file; only one is allowed for every file.<br>• 04 – Extended linear address record,  which allows full 32-bit addressing.  Address field is 0000. Byte count is 02 . The two data bytes represent the upper 16 bits of the 32-bit address, when combined with the lower 16-bit address of the 00 type record.  </li>
-<li>Data, a sequence of ‘n’ bytes of the data, represented by 2n hex digits.</li>
-<li>Checksum, two hex digits (1 byte), which is  the least significant byte of the  two’s complement of  the sum of the values of all fields except fields 1 and 6 (start code ‘:’ byte and two hex digits of the checksum).</li>
-</ul>
-<p>如：PSoC Hex文件：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/Hex.png" alt="Hex"></p>
-<p>0x90300000地址的CRC：0xD097，可以使用notepad打开hex文件，拖到结尾直接查看crc校验。解析之：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/ihexParser.png" alt="ihexParser"></p>
+                <h3 id="JLink-XMC-4200"><a href="#JLink-XMC-4200" class="headerlink" title="JLink XMC 4200"></a>JLink XMC 4200</h3><p>偶得一块XMC4700 Kit板，板载JLink OB XMC，顺手将固件读出来先！由于今天的主角不是这板子，就不爆照了，先上一个JLink Commander：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/Cmder.png" alt="JLink XMC Commader"></p>
+<p>下面是主角登场：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/JLinkXMCISO.png" alt="JLink XMC ISO"></p>
+<p>带1KV隔离的官方原板，在其文档中惊喜的发现了原理图全开放！开心加意外啊，太良心了，于是就赶紧照猫画虎，赶出来了一翻版：（我的红也是很漂亮的红，不比它的差，照片拍的不好而已）</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/DIYMXC.png" alt="DIY JLink MXC"></p>
+<p>参考文档：</p>
+<p>Infineon-XMC_Link_Board_Users_Manual.pdf-UM-v01_00-EN.pdf</p>
+<p>板子做回来后才发现：隔离芯片<strong>SI8652BB-B-IS1</strong> 贵死了…  价格已经炒上天了，这波缺货炒货的行情啥时候才能回归正常啊！哎算了，囊中羞涩，直连起来先测试验证功能吧！就跟手术缝针似的对应的PIN一一连起来就完事了，然后先连个407试试看：结果~</p>
+<p>结果会弹框：巴拉巴拉意思是只可以连接Infineon的芯片什么的，嗯不能忍，老方法，直接对固件开刀（有固件，就可以任性为所欲为），轻松干掉这个限制，然后再加上全功能的License，Perfect~。</p>
+<p>再下个407的程序，一路顺畅的连接下载，debug也正常，再也不会弹什么框框了。只是看JTAG时钟貌似最高只有3000 KHz，应该是固件限制了，所谓了，隔离版应该也快不到哪去。搞定收工，坐等芯片降价后把缺的都加上~</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/Download.png" alt="JLink MXC Download 407"></p>
+<p>欢迎交流，莫要固件~</p>
 
             </div>
             <hr/>
@@ -519,7 +427,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2022/10/21/PSoC4/PSoCHexDump/">https://xarm.gitee.io/2022/10/21/PSoC4/PSoCHexDump/</a>
+                    <a href="https://xarm.gitee.io/2022/10/21/PSoC4/JLinkXMC/">https://xarm.gitee.io/2022/10/21/PSoC4/JLinkXMC/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -561,8 +469,8 @@
                                     <span class="chip bg-color">MCU</span>
                                 </a>
                             
-                                <a href="/tags/PSoC/">
-                                    <span class="chip bg-color">PSoC</span>
+                                <a href="/tags/JLink/">
+                                    <span class="chip bg-color">JLink</span>
                                 </a>
                             
                         </div>
@@ -991,9 +899,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/10/21/PSoC4/JLinkXMC/">
                     <div class="card-image">
@@ -1011,9 +920,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1026,6 +935,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1048,24 +958,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/09/21/PSoC4/CloneMiniProg4/">
+                <a href="/2022/10/21/PSoC4/PSoCHexDump/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Clone MiniProg4">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="PSoC Hex Dump">
                         
-                        <span class="card-title">Clone MiniProg4</span>
+                        <span class="card-title">PSoC Hex Dump</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            移植KitProg3的代码 DIY MiniProg4
+                            Hex文件解析及dump CRC
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-21
                             </span>
                         <span class="publish-author">
                             

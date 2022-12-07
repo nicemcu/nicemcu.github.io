@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>一起来DIY JLink XMC</title>
+      <link href="/2022/10/21/PSoC4/JLinkXMC/"/>
+      <url>/2022/10/21/PSoC4/JLinkXMC/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JLink-XMC-4200"><a href="#JLink-XMC-4200" class="headerlink" title="JLink XMC 4200"></a>JLink XMC 4200</h3><p>偶得一块XMC4700 Kit板，板载JLink OB XMC，顺手将固件读出来先！由于今天的主角不是这板子，就不爆照了，先上一个JLink Commander：</p><p><img src="../../../../../medias/boardPic/2022/Infineon/Cmder.png" alt="JLink XMC Commader"></p><p>下面是主角登场：</p><p><img src="../../../../../medias/boardPic/2022/Infineon/JLinkXMCISO.png" alt="JLink XMC ISO"></p><p>带1KV隔离的官方原板，在其文档中惊喜的发现了原理图全开放！开心加意外啊，太良心了，于是就赶紧照猫画虎，赶出来了一翻版：（我的红也是很漂亮的红，不比它的差，照片拍的不好而已）</p><p><img src="../../../../../medias/boardPic/2022/Infineon/DIYMXC.png" alt="DIY JLink MXC"></p><p>参考文档：</p><p>Infineon-XMC_Link_Board_Users_Manual.pdf-UM-v01_00-EN.pdf</p><p>板子做回来后才发现：隔离芯片<strong>SI8652BB-B-IS1</strong> 贵死了…  价格已经炒上天了，这波缺货炒货的行情啥时候才能回归正常啊！哎算了，囊中羞涩，直连起来先测试验证功能吧！就跟手术缝针似的对应的PIN一一连起来就完事了，然后先连个407试试看：结果~</p><p>结果会弹框：巴拉巴拉意思是只可以连接Infineon的芯片什么的，嗯不能忍，老方法，直接对固件开刀（有固件，就可以任性为所欲为），轻松干掉这个限制，然后再加上全功能的License，Perfect~。</p><p>再下个407的程序，一路顺畅的连接下载，debug也正常，再也不会弹什么框框了。只是看JTAG时钟貌似最高只有3000 KHz，应该是固件限制了，所谓了，隔离版应该也快不到哪去。搞定收工，坐等芯片降价后把缺的都加上~</p><p><img src="../../../../../medias/boardPic/2022/Infineon/Download.png" alt="JLink MXC Download 407"></p><p>欢迎交流，莫要固件~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Infineon </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> JLink </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PSoC Hex Dump</title>
       <link href="/2022/10/21/PSoC4/PSoCHexDump/"/>
       <url>/2022/10/21/PSoC4/PSoCHexDump/</url>
