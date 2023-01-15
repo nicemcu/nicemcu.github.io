@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="一起来DIY JLink XMC, ">
-    <meta name="description" content="Infineon公开原理图的JLink XMC，1KV隔离，帅帅帅~">
+    <meta name="keywords" content="PSoC4 Uart Bootloader, ">
+    <meta name="description" content="PSoC4 UART Bootloader">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>一起来DIY JLink XMC | </title>
+    <title>PSoC4 Uart Bootloader | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">一起来DIY JLink XMC</h1>
+                    <h1 class="description center-align post-title">PSoC4 Uart Bootloader</h1>
                 </div>
             </div>
         </div>
@@ -347,8 +347,8 @@
                                 <span class="chip bg-color">MCU</span>
                             </a>
                         
-                            <a href="/tags/JLink/">
-                                <span class="chip bg-color">JLink</span>
+                            <a href="/tags/PSoC/">
+                                <span class="chip bg-color">PSoC</span>
                             </a>
                         
                     </div>
@@ -372,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-21
+                    2022-11-20
                 </div>
                 
 
@@ -389,19 +389,194 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="JLink-XMC-4200"><a href="#JLink-XMC-4200" class="headerlink" title="JLink XMC 4200"></a>JLink XMC 4200</h3><p>偶得一块XMC4700 Kit板，板载JLink OB XMC，顺手将固件读出来先！由于今天的主角不是这板子，就不爆照了，先上一个JLink Commander：（干净的啥license都没）</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/Cmder.png" alt="JLink XMC Commader"></p>
-<p>下面是主角登场：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/JLinkXMCISO.png" alt="JLink XMC ISO"></p>
-<p>带1KV隔离的官方原板，在其文档中惊喜的发现了原理图全开放！开心加意外啊，太良心了，于是就赶紧照猫画虎，赶出来了一翻版：（我的红也是很漂亮的红，不比它的差，照片拍的不好而已）</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/DIYMXC.png" alt="DIY JLink MXC"></p>
-<p>参考文档：</p>
-<p>Infineon-XMC_Link_Board_Users_Manual.pdf-UM-v01_00-EN.pdf</p>
-<p>板子做回来后才发现：隔离芯片<strong>SI8652BB-B-IS1</strong> 贵死了…  价格已经炒上天了，这波缺货炒货的行情啥时候才能回归正常啊！哎算了，囊中羞涩，直连起来先测试验证功能吧！就跟手术缝针似的对应的PIN一一连起来就完事了，然后先连个407试试看：结果~</p>
-<p>结果会弹框：巴拉巴拉意思是只可以连接Infineon的芯片什么的，嗯不能忍，老方法，直接对固件开刀（有固件，就可以任性为所欲为），轻松干掉这个限制，然后再加上全功能的License，Perfect~。</p>
-<p>再下个407的程序，一路顺畅的连接下载，debug也正常，再也不会弹什么框框了。只是看JTAG时钟貌似最高只有3000 KHz，应该是固件限制了，所谓了，隔离版应该也快不到哪去。搞定收工，坐等芯片降价后把缺的都加上~</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/Download.png" alt="JLink MXC Download 407"></p>
-<p>欢迎交流，莫要固件~</p>
+                <h3 id="PSoC4-Bootloader-and-Bootloadable"><a href="#PSoC4-Bootloader-and-Bootloadable" class="headerlink" title="PSoC4 Bootloader and Bootloadable"></a>PSoC4 Bootloader and Bootloadable</h3><p>参考文档：Infineon-<strong>AN68272</strong> - PSoC_4…_UART_Bootloader-ApplicationNotes-v16_00-EN.pdf</p>
+<p>参考这篇文档很容易就可以实现PSoC uart的bootloader和bootloadable，So…这不是今天的主角，今天的主角是简单的、能看的懂的自实现的uart bootloader，并且可以引导运行bootloadable APP。</p>
+<p>一、先简单过一遍官方的Bootloader和Bootloadable：</p>
+<ol>
+<li>实现： 实现过程很简单，只要分别在各自的工程中加入Bootloader和Bootloadable控件即可。</li>
+<li>共享：Bootloader和Bootloadable共享变量：<strong>cyBtldrRunType</strong>。</li>
+<li>从Btl跳转至App … 这有点复杂，所有相关操作均在Bootloader.c中，2900+行，兼容各种PSoC 3、4、5，读起来晦涩难懂，这就是为什么要自己实现个BTL，稍后再记录它吧。</li>
+<li>从App跳转至Bootloader的实现：调用 Bootloadable_Load()  即可。</li>
+</ol>
+<pre class=" language-C"><code class="language-C">void Bootloadable_Load(void) 
+{
+    /* Schedule Bootloader to start after reset */
+    Bootloadable_SET_RUN_TYPE(Bootloadable_SCHEDULE_BTLDR);    //Set cyBtldrRunType
+
+    CySoftwareReset();    //软复位
+}
+
+#define Bootloadable_SET_RUN_TYPE(x)        (cyBtldrRunType = (x))
+
+#define Bootloadable_SCHEDULE_BTLDB             (0x80u)
+#define Bootloadable_SCHEDULE_BTLDR             (0x40u)
+#define Bootloadable_SCHEDULE_MASK              (0xC0u)
+
+// Set cyBtldrRunType = Bootloadable_SCHEDULE_BTLDR;
+</code></pre>
+<ol start="5">
+<li><p>Bootloadable生成的文件格式说明：参考<strong>AN68272</strong>  Append B，</p>
+<ul>
+<li><p>.elf ： 包含各种调试信息的文件。</p>
+</li>
+<li><p>.hex ：合并了bootloader、meta区的整个文件，可用于生产。</p>
+</li>
+<li><p>.cyacd：包含一个header line和诸多flash line，</p>
+</li>
+</ul>
+<p><strong>Header line</strong>:  [4 Bytes Silicon ID] + [1Byte Silicon rev] + [1Byte checksum type]</p>
+<p><strong>Flash line</strong>:  [1 Byte Array ID] + [2 Bytes row number] + [2Bytes data length] + [N Bytes data] + [1 Byte checksum] </p>
+<p><strong>checksum type</strong>: 0 - 和校验，1 - CRC-16</p>
+</li>
+<li><p>Metadata: 位于flash最后一行的最后64字节，PSoC4的格式如下：</p>
+</li>
+</ol>
+<pre class=" language-C"><code class="language-C">//metadata struct
+#pragma pack(1)                    //按字节对齐
+typedef struct
+{
+    uint8_t     appCheckSum;    //B0
+    uint32_t    appAddress;     //B1~B4
+    uint32_t    lastBtlRow;     //B5~B8
+    uint32_t    appLength;      //B9~B0C
+    uint8_t     NA1;            //B0D
+    uint8_t     NA2;            //B0E
+    uint8_t     NA3;            //B0F
+    uint8_t     appActive;      //B10
+    uint8_t     appVerified;    //B11
+    uint8_t     btlVersion;     //B12
+    uint16_t    appID;          //B13~B14
+    uint16_t    appVersion;     //B15~B16
+    uint16_t    appCustomID;    //B17~B18
+}strMetadata;       //__attribute__((aligned(1))) 
+#pragma pack ()     </code></pre>
+<ol start="7">
+<li>Bootloadable生成的.cyacd格式中，最后一行的flash data数据，就是如上的mata数据。其中：appLength、appCheckSum、appAddress等是bootloader用于校验app及跳转app的地址。</li>
+<li>PSoC工程有如下几种类型，通过CYDEV_PROJ_TYPE定义工程类型。</li>
+</ol>
+<pre class=" language-C"><code class="language-C">#define CYDEV_PROJ_TYPE_STANDARD 0
+#define CYDEV_PROJ_TYPE_BOOTLOADER 1
+#define CYDEV_PROJ_TYPE_LOADABLE 2
+#define CYDEV_PROJ_TYPE_MULTIAPPBOOTLOADER 3
+#define CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER 4
+#define CYDEV_PROJ_TYPE_LAUNCHER 5
+
+#define CYDEV_PROJ_TYPE 2</code></pre>
+<p>二、手写一个 Uart Bootloader：</p>
+<p>在之前的UART的工程上，增加协议、flash操作、跳转app前的校验及跳转函数即可。具体的请参考工程源码。下面是几点注意的地方：</p>
+<ol>
+<li><p>由于是普通工程（未包含Bootloader组件），所以CYDEV_PROJ_TYPE被定义为 CYDEV_PROJ_TYPE_STANDARD = 0。这个影响了cyBtldrRunType：普通工程中未定义该变量。如果CYDEV_PROJ_TYPE不为0，则会在Cm0plusStart.c中定义该变量。</p>
+</li>
+<li><p>App-Bootloadable的cm0plusgcc.ld连接文件中，将cyBtldrRunType链接至bootloaderruntype段：</p>
+<pre class=" language-C"><code class="language-C">// Bootloadable - cm0plusgcc.ld
+__attribute__ ((section(".bootloaderruntype")))
+    volatile uint32 cyBtldrRunType;
+
+    .ramvectors (NOLOAD) : ALIGN(8)
+    {
+      __cy_region_start_ram = .;
+      KEEP(*(.ramvectors))
+    }
+    .btldr_run (NOLOAD) : ALIGN(8)
+    {
+        KEEP(*(.bootloaderruntype))
+    }
+    .noinit (NOLOAD) : ALIGN(8)
+    {
+      KEEP(*(.noinit))
+    }</code></pre>
+<p>而普通工程中并没有 .btldr_run 段，ramvectors下接着就是noinit段。</p>
+<pre class=" language-C"><code class="language-C">// CYDEV_PROJ_TYPE = CYDEV_PROJ_TYPE_STANDARD  - cm0plusgcc.ld   
+    .ramvectors (NOLOAD) : ALIGN(8)
+    {
+      __cy_region_start_ram = .;
+      KEEP(*(.ramvectors))
+    }
+    .noinit (NOLOAD) : ALIGN(8)
+    {
+      KEEP(*(.noinit))
+    }</code></pre>
+<p>尝试过在cm0plusgcc.ld中手动插入btldr_run段，clean &amp; rebuild后又被清掉，此路不通。</p>
+<p>但是：可以定义一个变量cyBtldrRunTypeB放在noinit段中，查看并对比生成的map文件：</p>
+<pre class=" language-C"><code class="language-C">// CYDEV_PROJ_TYPE = CYDEV_PROJ_TYPE_STANDARD  - cm0plusgcc.ld   
+CY_NOINIT volatile uint32_t cyBtldrRunTypeB; //CY_NOINIT 段是和Bootloadable段地址一样
+
+.noinit         0x200000b0        0x4
+ *(.noinit)
+ .noinit        0x200000b0        0x4 .\CortexM0p\ARM_GCC_541\Debug\btl.o
+                0x200000b0                cyBtldrRunTypeB
+
+//Bootloadable    
+.btldr_run      0x200000b0        0x4
+ *(.bootloaderruntype)
+ .bootloaderruntype
+                0x200000b0        0x4 .\CortexM0p\ARM_GCC_541\Debug\Cm0plusStart.o
+                0x200000b0                cyBtldrRunType    </code></pre>
+<p>cyBtldrRunType 和 cyBtldrRunTypeB都位于0x200000b0地址。</p>
+<p>这样在APP中调用Bootloadable_Load() 函数，会设置cyBtldrRunType = Bootloadable_SCHEDULE_BTLDR，软复位后进入自定义的Bootloader，通过访问相同地址的cyBtldrRunTypeB并判断是否为Bootloadable_SCHEDULE_BTLDR即可。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>跳转：跳转参考官方Bootloader中实现：</p>
+<pre class=" language-C"><code class="language-C">/* Moves argument appAddr (RO) into PC, moving execution to appAddr */
+#if defined (__ARMCC_VERSION)
+    __asm static void CustomBootloader_LaunchBootloadable(uint32 appAddr)
+    {
+        BX  R0
+        ALIGN
+    }
+#elif defined(__GNUC__)
+    __attribute__((noinline)) /* Workaround for GCC toolchain bug with inlining */
+    __attribute__((naked))
+    static void CustomBootloader_LaunchBootloadable(uint32 appAddr)
+    {
+        __asm volatile("    BX  R0\n");
+    }
+#elif defined (__ICCARM__)
+    static void CustomBootloader_LaunchBootloadable(uint32 appAddr)
+    {
+        __asm volatile("    BX  R0\n");
+    }
+#endif  /* (__ARMCC_VERSION) */
+
+CustomBootloader_LaunchBootloadable(meta->appAddress);     //校验通过 直接跳到APP区</code></pre>
+<p>跳转地址需要注意：</p>
+<p>CustomBootloader_LaunchBootloadable(<strong>meta-&gt;appAddress</strong>);     //校验通过 直接跳到APP区</p>
+<p>跳转的地址不是设置的APP起始地址，而是meta区中存储的appAddress，比如在Bootloadable组件中，选择Manual application image placement: 0x00004000 , App从Flash 16KB地址开始，但是存储在<strong>meta-&gt;appAddress</strong>中的值并不是0x00004000 ，而是偏移了0x11个字节 - 0x4011，所以跳转必须要使用meta中存储的该地址。</p>
+</li>
+<li><p>跳转时需要使用<strong>meta-&gt;appAddress</strong>的值，但是校验APP的checksum时，需要从Manual application image placement地址开始，比如0x4000，长度为<strong>meta-&gt;appLength</strong>。</p>
+<pre class=" language-C"><code class="language-C">uint8_t sum = 0;    
+uint8_t * p = (uint8_t *)STARTAPP_ADDR;    
+for(uint32_t i=0;i < meta->appLength; i++)
+{
+    sum += p[i];
+}
+sum = ( uint8_t )1u + ( uint8_t )(~sum);
+
+if(sum != meta->appCheckSum)    return 6;</code></pre>
+</li>
+</ol>
+<p>三、    PC APP</p>
+<ol>
+<li>官方提供了Bootloader Host软件，位于D:\Cypress\PSoC Creator\4.4\PSoC Creator\bin目录下，测试使用官方的Bootloader和Bootloadable组件，可以使用该软件测试bootloader.</li>
+<li>同时也提供了相关的参考代码，位于： D:\Cypress\PSoC Creator\4.4\PSoC Creator\cybootloaderutils目录下。参考cybtldr_parse.c实现cyacd格式的解析。</li>
+<li>UART协议未使用官方协议，改成我之前用过的简单协议，上位机在之前的串口程序中修改了一个，用于读取并解析.cyacd格式的app文件，并支持将app存储为纯BIN文件，方便使用其他工具升级。</li>
+<li><strong>注：PC APP暂不支持中文路径。</strong></li>
+</ol>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/P4PC.png" alt="PSoC4 Uart BTL PC APP"></p>
+<p>可以看到如下信息：</p>
+<p>Silicon ID：0x257C1175，校验和为普通SUM校验。</p>
+<p>Flash Line信息：ROW Num64 ~ ROW Num72，为Flash Data。</p>
+<p>ROW Num 511 ： MetaData。</p>
+<p>串口调试信息：</p>
+<p><img src="../../../../../medias/boardPic/2022/Infineon/P4BtlDbg.png" alt="PSoC4 Uart BTL DebugInfor"></p>
+<ol>
+<li>首次烧录Boot时，运行Bootloader程序。</li>
+<li>通过PC更新过APP后，通过Reboot命令让Bootloader复位重启，运行APP程序。</li>
+<li>可以看出appAddress： 0x4011</li>
+<li>手动按下按键，从App中再跳到bootloader中，此时由于cyBtldrRunTypeB = 0x40，又留在了bootloader中。</li>
+</ol>
+<p>欢迎留言交流，上位机软件咱。</p>
 
             </div>
             <hr/>
@@ -427,7 +602,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2022/10/21/PSoC4/JLinkXMC/">https://xarm.gitee.io/2022/10/21/PSoC4/JLinkXMC/</a>
+                    <a href="https://xarm.gitee.io/2022/11/20/PSoC4/PSoC4Bootloader/">https://xarm.gitee.io/2022/11/20/PSoC4/PSoC4Bootloader/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -469,8 +644,8 @@
                                     <span class="chip bg-color">MCU</span>
                                 </a>
                             
-                                <a href="/tags/JLink/">
-                                    <span class="chip bg-color">JLink</span>
+                                <a href="/tags/PSoC/">
+                                    <span class="chip bg-color">PSoC</span>
                                 </a>
                             
                         </div>
@@ -899,9 +1074,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/11/20/PSoC4/PSoC4Bootloader/">
                     <div class="card-image">
@@ -919,9 +1095,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -934,6 +1110,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -956,19 +1133,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/21/PSoC4/PSoCHexDump/">
+                <a href="/2022/10/21/PSoC4/JLinkXMC/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="PSoC Hex Dump">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="一起来DIY JLink XMC">
                         
-                        <span class="card-title">PSoC Hex Dump</span>
+                        <span class="card-title">一起来DIY JLink XMC</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Hex文件解析及dump CRC
+                            Infineon公开原理图的JLink XMC，1KV隔离，帅帅帅~
                         
                     </div>
                     <div class="publish-info">
@@ -994,8 +1171,8 @@
                         <span class="chip bg-color">MCU</span>
                     </a>
                     
-                    <a href="/tags/PSoC/">
-                        <span class="chip bg-color">PSoC</span>
+                    <a href="/tags/JLink/">
+                        <span class="chip bg-color">JLink</span>
                     </a>
                     
                 </div>
