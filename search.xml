@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>OZone快速定位Hardfault</title>
+      <link href="/2023/02/12/PSoC4/Ozone/"/>
+      <url>/2023/02/12/PSoC4/Ozone/</url>
+      
+        <content type="html"><![CDATA[<h3 id="J-Link-Download-PSoC4-amp-RTT-amp-Ozone-Debug"><a href="#J-Link-Download-PSoC4-amp-RTT-amp-Ozone-Debug" class="headerlink" title="J-Link Download PSoC4 &amp; RTT &amp; Ozone Debug"></a>J-Link Download PSoC4 &amp; RTT &amp; Ozone Debug</h3><p>上一篇：一直遗憾于PSoC Creator不支持J-Link，摸索了一种方法可以曲线使用J-Link下载PSoC4，虽不是完美，但也还算优雅~</p><p>这次连调试也有了，下载、仿真、debug一条龙，终于不再有遗憾，顺便还带来了更强大的快速定位Hardfault的功能，从此CmbackTrace成为路人了！</p><ol><li><p><strong>OZone简介</strong>：<br>Segger的优秀产品，强大的debug工具，详情见：<br><a href="https://www.segger.com/products/development-tools/ozone-j-link-debugger/" target="_blank" rel="noopener">https://www.segger.com/products/development-tools/ozone-j-link-debugger/</a></p></li><li><p><strong>Creator工程将hex、elf文件copy至指定目录</strong></p><p>工程选项 / Build Settings / ARM GCC5.4… / User Command  / post build中写入： .\copyHex.bat</p><p>然后在工程目录文件下创建copyHex.bat，内容为：</p><pre class=" language-bat"><code class="language-bat">copy .\CortexM0p\ARM_GCC_541\Debug\P4RTT.hex ..\JlinkDLPSoC4\P4RTT.hexcopy .\CortexM0p\ARM_GCC_541\Debug\P4RTT.elf ..\JlinkDLPSoC4\P4RTT.elf</code></pre><p> 这样每次编译完成后会自动将生成的hex、elf文件copy至JlinkDLPSoC4目录下。</p></li><li><p><strong>打开Ozone新建工程，导入elf文件，然后，然后还是见下图吧：</strong></p><p><img src="../../../../../medias/boardPic/2022/Infineon/ozoneDebugHardfault.png" alt="OZone"></p><p>写一条异常访问的语句，然后调用它，然后就会进入Hardfault中断，在Call Statack中可以看到，进入Hardfault前的调用函数关系以及所在文件，甚至连第几行都显示出来了，强大的简直不要不要的！</p></li><li><p>OZone调试所需要的仅仅一个elf文件即可，程序中不需要额外的增加代码。<br> License：With a J-Link PLUS, PRO, ULTRA+, or with a J-Trace, Ozone is available for free.</p><p>Enjoy it~</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Infineon </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> PSoC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>J-Link Download PSoC4 &amp; RTT printf</title>
       <link href="/2023/01/22/PSoC4/JLinkDLP4/"/>
       <url>/2023/01/22/PSoC4/JLinkDLP4/</url>
