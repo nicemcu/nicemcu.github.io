@@ -407,11 +407,12 @@
 <li>支持PSoC Creator下载、仿真调试、debug等等。</li>
 <li>支持PSoC Programmer下载，读取固件，校验等。</li>
 <li>支持Bridge Control Panel.</li>
+<li>输出电压限流300mA.</li>
 <li>它像普通daplink一样，支持其他家的MCU，比如stm32…</li>
 </ol>
 <p>同时，我MiniProg4 Plus的<strong>Plus</strong>也绝非浪得虚名，借助iTuner上位机软件，它还支持：</p>
 <ol>
-<li><p>支持通过SWD直接读取target 内存数据：<br>调过Cypress触摸的小伙伴们都晓得Tunner软件，通过它可以方便的查看波形曲线调试触摸参数，可惜可惜：它使用I2C接口！而用户的板子一般都会留出SWD接口用于下载、调试，但不会再多留出一路I2C用于触摸调试，每次遇到没外接I2C而需要飞线来调触摸的板子时，心中总会有一万只动物跑过，客户不改那CY咋就不能支持通过SWD读呢？？官方不作为我来做！<br><img src="../../../../../medias/boardPic/2022/Infineon/data.png" alt="MiniProg4 SwD读数据"><br>通过SWD接口直接读取内存中的buffer，解析Baseline和RawCount数据，计算信号量大小等，数据有了，波形自然也不会缺席：<br><img src="../../../../../medias/boardPic/2022/Infineon/plot.png" alt="MiniProg4 SwD画波形"><br>波形支持鼠标滚轮放大缩小，支持拖动查看历史曲线，支持单次读取，也支持连续读取（默认100mS读一次)，同时还支持点一下<strong>CapPicture</strong>按钮就可以将该Frame存储为png文件，方便出报告、后期查询。还支持Mi4的I2C读取，这样方便某些4014的板子，SWD和I2C复用并且SWD配置成了I2C接口。贴心吧？还是电工更懂电工~。</p>
+<li><p>支持通过SWD直接读取target 内存数据：<br>调过Cypress触摸的小伙伴们都晓得Tunner软件，通过它可以方便的查看波形曲线调试触摸参数，可惜可惜：它使用I2C接口！而用户的板子一般都会留出SWD接口用于下载、调试，但不会再多留出一路I2C用于触摸调试，每次遇到没外接I2C而需要飞线来调触摸的板子时，心中总会有一万只动物跑过…<br><img src="../../../../../medias/boardPic/2022/Infineon/data.png" alt="MiniProg4 SwD读数据"><br>通过SWD接口直接读取内存中的buffer，解析Baseline和RawCount数据，计算信号量大小等，数据有了，波形自然也不会缺席：<br><img src="../../../../../medias/boardPic/2022/Infineon/plot.png" alt="MiniProg4 SwD画波形"><br>波形支持鼠标滚轮放大缩小，支持拖动查看历史曲线，支持单次读取，也支持连续读取（默认100mS读一次)，同时还支持点一下<strong>CapPicture</strong>按钮就可以将该Frame存储为png文件，方便出报告、后期查询。还支持Mi4的I2C读取，这样方便某些4014的板子，SWD和I2C复用并且SWD配置成了I2C接口。贴心吧？还是电工更懂电工~。</p>
 </li>
 <li><p>支持通过SWD读取target CPU寄存器：<br>有了它，当Hardfault时，就可以实现目标芯片一行代码都不加而读取寄存器解析定位发生Hardfault的地址了，从此CmBackTrace成路人了~ 示例如下：<br><img src="../../../../../medias/boardPic/2022/Infineon/commands.png" alt="MiniProg4 commands"><br><img src="../../../../../medias/boardPic/2022/Infineon/hardfalt.png" alt="MiniProg4 hardfalt">    </p>
 <p>尤其某些bug隐藏的很深，运行很长时间后才会偶然产生，仿真器又不可能一直连着，当进入hardfault时往往傻眼，有了它，就可以轻松加愉快的来解决它了：仿真器连接时，只连接，然后halt，不要reset。实现方式依然参考Cmbacktrace实现的，当hardfault时，通过swd读取cpu寄存器，读出栈地址，然后读取栈内容，然后通过add2line工具解析，并获取add2line输出的数据，就可以了。<br>站在巨人的肩膀上，感谢巨人~</p>
@@ -419,6 +420,8 @@
 <li><p>支持elf文件解析，方便查询变量、数组等在内存中的地址，需要在ini配置文件中指定elf文件。<br><img src="../../../../../medias/boardPic/2022/Infineon/elf.png" alt="ELF"></p>
 </li>
 <li><p>支持USB MSC Bootloader，硬件固件支持拖曳更新，并且可以查看Boot和APP的版本信息，注此功能是用于更新调试器的固件，并非用于更新目标芯片的固件，<br><img src="../../../../../medias/boardPic/2022/Infineon/usbMscBoot.png" alt="usbMscBoot"></p>
+</li>
+<li><p>目前只是初版，日后慢慢埋bug~</p>
 </li>
 </ol>
 <p><strong>某些问题</strong>：<br>参考MiniProg4，USB设备为复合设备，端点共使用了7个：DAP使用了2个，CDC使用了3个，Bridge使用了2个，usb驱动使用winusb模式，win10下都是免驱的，但是在某些电脑或者win7系统下可能无法识别，可参考文档 KitProg3 User Guide.pdf 第七章 TroubleShooting 章节，里面有一些 driver 问题的解决方法。</p>
