@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>CH569 USB3.0 Speed Test</title>
+      <link href="/2023/06/21/CH569_03_USB3/"/>
+      <url>/2023/06/21/CH569_03_USB3/</url>
+      
+        <content type="html"><![CDATA[<h3 id="第二篇：USB3-0-SpeedTest"><a href="#第二篇：USB3-0-SpeedTest" class="headerlink" title="第二篇：USB3.0 SpeedTest"></a>第二篇：USB3.0 SpeedTest</h3><p>再看灌篮高手，依然被那个永不言弃的少年所感动 – “对了，我是三井寿，是个永不放弃的男人！”</p><p>一直心心念念我ch569 usb3.0+千M以太网的小板子，由于没有画上句号而遗憾。于是周末翻出了这个小板子，继续搞起，也不放弃！</p><p>想想当时放弃的理由也是简单：</p><ol><li><p>错用了JLCxx的USB3封装，焊盘搞成了过孔，还赛了油，</p></li><li><p>芯片是QFN封装，还是.4间距的，对我来说手焊难度太挑战了</p></li></ol><p>三井给了我勇气，自己打的板，含着泪也要焊完~</p><p>  <img src="../../../../medias/boardPic/2022/diy/MyCH569W.png" alt="MyCH569W Pic"></p><p>记录下这些年头一次遇到的这坑，真是日了狗，焊盘居然没有top solder层！！ 不过我更想知道它是咋做到的~ 以后一定要注意~</p><p>  <img src="../../../../medias/boardPic/2022/diy/USB3.png" alt="USB3 座子"></p><p>然后下载ch569 EVT的测试工程CH372Device，使用wch提供的usb测试软件USB3.0Test_V1.2 测试读写，这速度真是惊到我了~</p><p>  <img src="../../../../medias/boardPic/2022/diy/CH569USB3SpeedTest.png" alt="CH569USB3SpeedTest"></p><ol><li><p>平均下传速度：282.37 MB/S</p></li><li><p>平均上传速度：283.96 MB/S</p></li></ol><p>虽说这速度相比USB3.0 <strong>5.0Gbps</strong>的理论速度来说还有不少差距，但是足以满足大部分的需求了，比如用它搞个xx Link，那速度还不得飞起来啦…</p><p>就怕像没有充值的百度网盘…</p><p>改天再把千M以太网部分焊起来，测试下千M以太网的速度.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> RiscV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CH569 </tag>
+            
+            <tag> Risc-V </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Miniprog4 Plus</title>
       <link href="/2023/05/21/PSoC4/miniprog4plus/"/>
       <url>/2023/05/21/PSoC4/miniprog4plus/</url>
