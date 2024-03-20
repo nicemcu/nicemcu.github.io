@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>隔离版 J-Link &amp; MiniProg4</title>
+      <link href="/2024/02/21/JLinkISO/"/>
+      <url>/2024/02/21/JLinkISO/</url>
+      
+        <content type="html"><![CDATA[<h3 id="隔离版-J-Link-amp-MiniProg4"><a href="#隔离版-J-Link-amp-MiniProg4" class="headerlink" title="隔离版 J-Link &amp; MiniProg4"></a>隔离版 J-Link &amp; MiniProg4</h3><p>最近准备调试电机驱动，打算给我的小工具加层防护，于是就找到了一款良心的国产芯片：（π）XXXX，避免广告嫌疑就不写名了，看的懂的 都懂~</p><p>看描述如下：</p><p>增加ESD功能、3.0KV/5.0KV rms隔离电压、<strong>200Mbps</strong> 、六通道数字隔离器</p><p>重点是：<strong>200Mbps，</strong>至于参数是否有水分，暂且不提~</p><p>于是一口气给我的J-Link V9、J-Link V12和MiniProg4 都配上了它：</p><p><img src="../../../../../medias/boardPic/2022/diy/JLinkISO.jpg" alt="JLink ISO"></p><p>六通道，刚好一路 SWD + ReSet + 串口，可以满足我目前大部分需求啦</p><p>实测JLink-V12可以满速（15Mbps），JLink V9最高6Mbps（降了一倍），MiniProg4无感，依然快的飞起~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Infineon </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> TOOL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PSoC4离线烧录工具</title>
       <link href="/2024/01/21/PSoC4/offlineTool/"/>
       <url>/2024/01/21/PSoC4/offlineTool/</url>
@@ -22,9 +49,9 @@
             
             <tag> MCU </tag>
             
-            <tag> PSoC </tag>
-            
             <tag> TOOL </tag>
+            
+            <tag> PSoC </tag>
             
         </tags>
       

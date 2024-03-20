@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PSoC4离线烧录工具, ">
-    <meta name="description" content="PSoC4 offline">
+    <meta name="keywords" content="隔离版 J-Link &amp; MiniProg4, ">
+    <meta name="description" content="J-Link &amp; MiniProg4 ISO">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PSoC4离线烧录工具 | </title>
+    <title>隔离版 J-Link &amp; MiniProg4 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PSoC4离线烧录工具</h1>
+                    <h1 class="description center-align post-title">隔离版 J-Link &amp; MiniProg4</h1>
                 </div>
             </div>
         </div>
@@ -351,10 +351,6 @@
                                 <span class="chip bg-color">TOOL</span>
                             </a>
                         
-                            <a href="/tags/PSoC/">
-                                <span class="chip bg-color">PSoC</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -376,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-01-21
+                    2024-02-21
                 </div>
                 
 
@@ -393,62 +389,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="PSoC离线烧录工具"><a href="#PSoC离线烧录工具" class="headerlink" title="PSoC离线烧录工具"></a>PSoC离线烧录工具</h3><p>Infineon提供了PSoC4完整的离线烧录的源码，参考文档 Infineon-AN84858-ApplicationNotes，可以很容易的实现，于是就做了一个PSoC4的离线烧录工具，并做了稍许优化：</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/offlineTool.jpg" alt="PSoC4 offlineTool"></p>
-<p>目前支持如下功能：</p>
-<ol>
-<li>主控MCU使用CY8C4148AZI-S453，256KB Flash，32KB SRAM，所以支持的目标芯片的flash不会大于256KB。</li>
-<li>TypeC USB，支持cc线，通过usb转串口，最高支持2000000波特率，通过USB完成离线固件的下载。</li>
-<li>支持蜂鸣器，当触摸按键按下及烧录成功后会beep提示，如果烧录失败也会通过beep的不同响声提示。</li>
-<li>支持两个WS2812的全彩LED，用于指示烧录状态。</li>
-<li>支持两个LED，其中一个做呼吸灯效果，另一个通过闪烁指示烧录过程中。</li>
-<li>支持两个TouchPad，一个接近感应。</li>
-<li>支持对外供电的输出控制，支持Power Cycle模式。</li>
-<li>支持接口buffer…</li>
-</ol>
-<p>Infineon提供的上位机软件C#开发的，针对每种芯片生成相应的HexImage.c及HexImage.h文件，然后参与编译后方可使用，而且如果实际目标程序很小，但是hex文件中却包含了大量的无效的0数据，于是就用QT做了个小工具来解决这问题：（基于之前开源的P4UartBtl的小工具上修改过来的）</p>
-<p><img src="../../../../../medias/boardPic/2022/Infineon/OfflinePCApp.png" alt="PCApp offlineTool"></p>
-<ol>
-<li>根据USB转串口芯片的VID和PID，自动识别USB的插入及断开，连接后自动打开串口。</li>
-<li>串口波特率默认配置为2000000，支持常见的几种波特率配置。</li>
-<li>支持目标芯片的选取，目前支持CY4104、CY4025、CY4126、CY4127、CY4148等芯片，其他芯片未测试。</li>
-<li>支持程序版本号的配置，支持读取。</li>
-<li>支持Power Cycle模式的配置，不勾选默认为Pin Reset。</li>
-<li>打开Hex文件，处理Hex数据，移除无效的0数据，减小烧录的代码，所以使用4148也可以烧录4148。</li>
-<li>支持另存为Bin文件，bin文件可同时存储为纯bin文件及添加了配置头的bin文件，方便后期导入miniprog4 plu中离线下载。</li>
-<li>支持查询命令，可查询目前存储于芯片中的固件信息。</li>
-<li>支持ping、reset等命令，后期可增加bootloader，支持更新App功能。</li>
-</ol>
-<p>离线烧录操作：</p>
-<ol>
-<li><p>上电后，呼吸灯会呼吸，说明板卡正常工作。</p>
-</li>
-<li><p>左边小鲨鱼图标的touch pad，单击会打开对外供电，再次单击会关闭对外输出的供电。</p>
-</li>
-<li><p>需要离线烧录目标芯片时，先关闭对外供电，连接好接线，然后双击右边的触摸按键。1秒钟内需要连点两下才会对外烧录。避免误触误烧。</p>
-</li>
-<li><p>离线烧录时需要经过如下完整的步骤：</p>
-<p><strong>Device Acquire</strong></p>
-<p><strong>Verify Silicon ID</strong></p>
-<p><strong>Erase all Flash</strong></p>
-<p><strong>Checksum Privileged Calculation</strong></p>
-<p><strong>Program Flash</strong></p>
-<p><strong>Verify Flash</strong></p>
-<p><strong>Program Protection Settings</strong></p>
-<p><strong>Verify Protection Settings</strong></p>
-<p><strong>Verify Checksum</strong></p>
-<p><strong>Exit HSSP Programming mode</strong></p>
-<p>每一步操作都会由左边的WS2812显示一种颜色指示当前的烧录状态，操作完成后会变为绿色，如果烧录失败后，右边的那颗2812会显示红色。如果待烧录的目标芯片教大时，DispLed会闪烁指示当前仍在正常烧录。</p>
-<p>注：Program Flash和Verify Flash时间有时会较长，其中需增加喂狗操作，否则很容易重启。</p>
-</li>
-<li><p>支持Power Cycle模式，尤其是对于无Reset脚引出的CY8C4014等芯片，同时SWD又被复用为GPIO或IIC功能时，Power Cycle模式特别有用。</p>
-</li>
-<li><p>TFT功能，为尽可能的缩小app的flash占用，暂时先不上tft了。</p>
-</li>
-<li><p>上位机软件下载地址： <a href="https://gitee.com/xarm/iTuner" target="_blank" rel="noopener">https://gitee.com/xarm/iTuner</a> ，OffLineTools.exe即是。</p>
-</li>
-</ol>
-<p>也欢迎留言提出其他功能，只有电工才更懂电工的需求，感谢~</p>
+                <h3 id="隔离版-J-Link-amp-MiniProg4"><a href="#隔离版-J-Link-amp-MiniProg4" class="headerlink" title="隔离版 J-Link &amp; MiniProg4"></a>隔离版 J-Link &amp; MiniProg4</h3><p>最近准备调试电机驱动，打算给我的小工具加层防护，于是就找到了一款良心的国产芯片：（π）XXXX，避免广告嫌疑就不写名了，看的懂的 都懂~</p>
+<p>看描述如下：</p>
+<p>增加ESD功能、3.0KV/5.0KV rms隔离电压、<strong>200Mbps</strong> 、六通道数字隔离器</p>
+<p>重点是：<strong>200Mbps，</strong>至于参数是否有水分，暂且不提~</p>
+<p>于是一口气给我的J-Link V9、J-Link V12和MiniProg4 都配上了它：</p>
+<p><img src="../../../../../medias/boardPic/2022/diy/JLinkISO.jpg" alt="JLink ISO"></p>
+<p>六通道，刚好一路 SWD + ReSet + 串口，可以满足我目前大部分需求啦</p>
+<p>实测JLink-V12可以满速（15Mbps），JLink V9最高6Mbps（降了一倍），MiniProg4无感，依然快的飞起~</p>
 
             </div>
             <hr/>
@@ -474,7 +422,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xarm.gitee.io/2024/01/21/PSoC4/offlineTool/">https://xarm.gitee.io/2024/01/21/PSoC4/offlineTool/</a>
+                    <a href="https://xarm.gitee.io/2024/02/21/JLinkISO/">https://xarm.gitee.io/2024/02/21/JLinkISO/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -518,10 +466,6 @@
                             
                                 <a href="/tags/TOOL/">
                                     <span class="chip bg-color">TOOL</span>
-                                </a>
-                            
-                                <a href="/tags/PSoC/">
-                                    <span class="chip bg-color">PSoC</span>
                                 </a>
                             
                         </div>
@@ -950,9 +894,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2024/02/21/JLinkISO/">
                     <div class="card-image">
@@ -970,9 +915,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-02-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-02-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -985,6 +930,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1007,24 +953,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/21/PSoC4/BuildAtLinux/">
+                <a href="/2024/01/21/PSoC4/offlineTool/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Build PSoC4 at Linux">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PSoC4离线烧录工具">
                         
-                        <span class="card-title">Build PSoC4 at Linux</span>
+                        <span class="card-title">PSoC4离线烧录工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在Linux下编译PSoC4
+                            PSoC4 offline
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-01-21
                             </span>
                         <span class="publish-author">
                             
@@ -1043,6 +989,10 @@
                     
                     <a href="/tags/MCU/">
                         <span class="chip bg-color">MCU</span>
+                    </a>
+                    
+                    <a href="/tags/TOOL/">
+                        <span class="chip bg-color">TOOL</span>
                     </a>
                     
                     <a href="/tags/PSoC/">
