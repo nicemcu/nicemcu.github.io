@@ -510,7 +510,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2023-03","2023-04","2023-05","2023-06","2023-07","2023-08","2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03"]
+            data: ["2023-05","2023-06","2023-07","2023-08","2023-09","2023-10","2023-11","2023-12","2024-01","2024-02","2024-03","2024-04","2024-05"]
         },
         yAxis: {
             type: 'value',
@@ -520,7 +520,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,1,1,0,0,0,1,0,1,1,1,0],
+                data: [1,1,0,0,0,1,0,1,1,1,0,0,0],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -562,7 +562,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"MCU","value":12},{"name":"RiscV","value":3},{"name":"DIY","value":3},{"name":"STM32","value":1},{"name":"GIT","value":2},{"name":"TOOL","value":4},{"name":"Infineon","value":16},{"name":"ARM","value":1},{"name":"PCB","value":1},{"name":"QT","value":1}],
+                data: [{"name":"MCU","value":12},{"name":"RiscV","value":3},{"name":"STM32","value":1},{"name":"DIY","value":3},{"name":"GIT","value":2},{"name":"TOOL","value":4},{"name":"Infineon","value":16},{"name":"ARM","value":1},{"name":"PCB","value":1},{"name":"QT","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -586,7 +586,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["MCU","PSoC","BLE","tools","GD32E505","CortexM33","DIY","JLink","CH569","Risc-V"]
+                data: ["MCU","PSoC","BLE","GD32E505","CortexM33","tools","DIY","JLink","CH569","Risc-V"]
             }
         ],
         yAxis: [
@@ -803,12 +803,6 @@
             
             
             
-            <a href="/tags/tools/">
-                <span class="chip center-align waves-effect waves-light chip-default">tools</span>
-            </a>
-            
-            
-            
             <a href="/tags/STM32/">
                 <span class="chip center-align waves-effect waves-light chip-default">STM32</span>
             </a>
@@ -835,6 +829,12 @@
             
             <a href="/tags/CortexM33/">
                 <span class="chip center-align waves-effect waves-light chip-default">CortexM33</span>
+            </a>
+            
+            
+            
+            <a href="/tags/tools/">
+                <span class="chip center-align waves-effect waves-light chip-default">tools</span>
             </a>
             
             
@@ -917,12 +917,6 @@
             
             
             
-            <a href="/tags/Motor/">
-                <span class="chip center-align waves-effect waves-light chip-default">Motor</span>
-            </a>
-            
-            
-            
             <a href="/tags/QT/">
                 <span class="chip center-align waves-effect waves-light chip-default">QT</span>
             </a>
@@ -931,6 +925,12 @@
             
             <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
                 <span class="chip center-align waves-effect waves-light chip-default">数据库</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Motor/">
+                <span class="chip center-align waves-effect waves-light chip-default">Motor</span>
             </a>
             
             
@@ -1115,7 +1115,7 @@
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
-            <a href="https://xarm.gitee.io" target="_blank">xarm</a>
+            <a href="https://nicemcu.github.com" target="_blank">xarm</a>
             |&nbsp;Powered by&nbsp;Hexo
             |&nbsp;Theme&nbsp; Matery 
             <br>
