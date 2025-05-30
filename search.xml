@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>CH32V305+CH394Q</title>
+      <link href="/2025/05/30/CH349Q/"/>
+      <url>/2025/05/30/CH349Q/</url>
+      
+        <content type="html"><![CDATA[<h3 id="CH32V305-amp-CH394Q"><a href="#CH32V305-amp-CH394Q" class="headerlink" title="CH32V305 &amp; CH394Q"></a>CH32V305 &amp; CH394Q</h3><p>2025年5月30日，端午节前一天 ~</p><p>应朋友之约，完成了CH394Q以太网的测试，测试结果超出我的预期，安利大家一起玩~</p><p>我的测试硬件：</p><p><img src="../../../../medias/boardPic/2025/CH394Qboard.png" alt="CH32V305 + CH394Q Board"></p><p><strong>CH32V305</strong>：    144M的RSIC-V核，64KB SRAM，256KB FLash，高速USB，优点一大堆，可惜今天的主角是CH394Q。先看CH394Q的简单介绍：</p><p><img src="../../../../medias/boardPic/2025/CH394chipSelc.png" alt="CH394 以太网 选型"></p><p><strong>CH394Q特点：</strong></p><ul><li>内部自带以太网介质传输层MAC和物理层收发器PHY</li><li>支持10/100M，全双工/半双工自适应，兼容IEEE802.3协议</li><li><strong>支持MDI/MDIX线路自动转换</strong></li><li>I/O口支持3.3V、2.5V、1.8V、1.2V供电，兼容多种电压标准的单片机</li><li><strong>内置50Ω阻抗匹配电阻，内置25MHz晶体振荡器所需电容</strong>，外围电路精简</li><li>内置TCP/IP协议簇，支持<strong>IPv4、ARP、ICMP、IGMP、UDP、TCP</strong>协议</li><li><strong>CH394Q支持8个Socket</strong>，CH394L支持4个Socket，可以同时进行数据收发</li><li>支持MACRAW模式和IPRAW模式（IPRAW模式仅CH394L支持）</li><li>提供最高<strong>40MHz</strong>速度的SPI设备接口（SPI模式0或3），高位在前</li><li>支持网络唤醒模式（WOL）和掉电模式</li><li>内置32K RAM，可用于以太网数据收发，每个Socket收发缓冲区可以自由配置</li><li>提供LQFP48无铅封装</li></ul><p>很明显，这是一颗对标Wiznet W5500的芯片，同样的8个Socket，同样的LQFP-48封装，CH394Q原理图及PCB Layout相比来说要轻松的多：</p><p><img src="../../../../medias/boardPic/2025/sch.png" alt="CH394Q 原理图"></p><p>对比下w5500的sch：省去了50R的匹配电阻，连晶振的负载电容都省了~</p><p><img src="../../../../medias/boardPic/2025/w5500Sch.png" alt="W5500 原理图"></p><p>唯一不爽的是：有<strong>16个PIN</strong>是NC，这如果删掉这些NC脚，换成LQFP32封装，就完美了~</p><p>当然，也可能是为了更好的散热，使用了大封装，这颗芯片全速运行了半个小时左右（收发测试），手摸上去几乎感觉不到热，功耗控制的应该很不错的。</p><p>再来看参考例程：</p><p>可能是芯片刚推出来的原因，参考例程并不多，并且主控MCU使用的是STM32F103ZE，这让人有点摸不着头脑了，WCH的MCU那么多，居然选择了最通用的STM32F103，相当OPEN！好在WCH的FAE非常给力，也提供了基于CH32V305的例程，稍作修改就可以运行。CH394Q目前官网提供的例程有5个：</p><ul><li>CH394Q_MACRAW</li><li>CH394Q_TCP_CLIENT</li><li>CH394Q_TCP_SERVER</li><li>CH394Q_UDP</li><li>CH394Q_UDP_MULTI</li></ul><p>参考例程方面可以说W5500完胜：</p><p><img src="../../../../medias/boardPic/2025/W5500SampleCode.png" alt="W5500 Sample Code"></p><p>当然，他山之石，可以攻玉，这些应用，都是可以相互移植的，相信WCH日后会提供更多更完善的参考例程。</p><p>网络测速：</p><p>目前使用参考例程，很容易即可实现TCP Client和UDP通信，iperf测试结果：</p><p><img src="../../../../medias/boardPic/2025/tcpClientSpeed.png" alt="TCP Client test Speed"></p><p>TCP Client的测试结果：<strong>12616</strong> Kbits/S ~= <strong>1.57</strong>MB/S</p><p><img src="../../../../medias/boardPic/2025/UDPSpeed.png" alt="UDP test Speed"></p><p>UDP的测试结果：<strong>28566</strong> Kbits/S ~= <strong>3.57</strong>MB/S</p><p>目前测试速度是基于36M SPI时钟，程序还有不少可以优化的空间，后续争取找项目使用上这颗芯片，整体运行下来还是很不错的。</p><p>最后非常感谢WCH的Bayern、刘工、卞工，提供了巨大的支持，提供了各种CH394Q的测试模块、工具、开发板，以及提供了测试样片，在此表示衷心的感谢~</p><p>国产芯更强！</p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> USB </tag>
+            
+            <tag> Ethernet </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flasher V5 &amp; JLink Pro V6</title>
       <link href="/2025/03/29/PSoC4/FlasherV5/"/>
       <url>/2025/03/29/PSoC4/FlasherV5/</url>
