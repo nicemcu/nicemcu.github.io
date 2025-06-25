@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>JLink RTT CapSense Tunner</title>
+      <link href="/2025/06/30/JlinkCapSenseTunner/"/>
+      <url>/2025/06/30/JlinkCapSenseTunner/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JLink-RTT-CapSense-Tunner"><a href="#JLink-RTT-CapSense-Tunner" class="headerlink" title="JLink RTT CapSense Tunner"></a>JLink RTT CapSense Tunner</h3><p><strong>背景</strong>：</p><p>​    在MTB下，可以使用RTT Tunner调试CapSense，这样可以解放串口或I2C仅使用SWD即可，但是在上一代PSoC4 Creator下，却并不支持RTT Tunner，也不支持JLink，意难平~  于是就动手做一个，勉强能用</p><p><strong>一、</strong> <strong>PSoC4 RTT移植：</strong></p><ol><li>Segger安装目录下提供了RTT的源码，以V816版本为例，在如下路径：</li></ol><p>D:\Program Files (x86)\SEGGER\JLink_V816\Samples\RTT\SEGGER_RTT_V816</p><p>将源码Copy至工程中，只需要添加如下图示三个文件即可，</p><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/RTTCopy.png" alt="Creator Add RTT Code"></p><ol start="2"><li><p>添加完成后在main.c中增加_write的重定向以及调用SEGGER_RTT_Init()初始化即可。</p></li><li><p>编译下载，然后连接JLink，打开J-Link RTT Viewer, 选择好芯片即可看到输出的Hello信息。</p></li><li><p>注意一点：如果运行不成功，可将Heap Size改大一些，比如0x200。</p></li></ol><p><strong>二、</strong> <strong>JLink RTT Tunner</strong></p><ol><li>目前的Creator Tunner支持串口、I2C、SPI等方式，接下来我们需要做的就是通过虚拟串口，将JLink RTT读取到的数据，转发给虚拟串口，以串口方式来Tunner，首先需要安装虚拟串口程序：com0com-3.0.0.0-i386-and-x64-signed.zip，安装成功后在设备管理器中就会虚拟出一对串口。 通过下图也可以看到两个com0com port。</li></ol><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/comcon.png" alt="com0com"></p><ol start="2"><li><strong>com0com的简单介绍</strong>： com0com是windows内核模式下的虚拟串口驱动程序。可以创建虚拟串口对来连接两个COM端口。它是一个开源项目，地址是<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fcom0com%2F&objectId=1030914&objectType=1&isNewArticle=undefined">http://sourceforge.net/projects/com0com/</a></li></ol><p>​        打开两个串口调试工具，相互之间发数据可简单测试其如何工作（不受波特率影响）(图片丢失了~)</p><ol start="3"><li>借助于<strong>com0com</strong>，我们可以通过RTT将读取到的CapSense数据，转发到一个虚拟串口上，然后在Creator Tunner下打开另一个配对串口，然后就可以愉快的Tunner了。</li><li>先看下CapSense 串口Tunner的协议：</li></ol><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/code.png" alt="Serial Tunner"></p><p>在CapSense_dsRam结构体前后加一个0x0D，0x0A的头以及0x00，0xFF，0xFF的尾即可，very very easy，于是照葫芦画瓢，在移植了RTT的工程上增加如下代码：</p><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/rttTunner.png" alt="RTT Tunner"></p><ol start="5"><li>运行RTT2Serial4Tunner的小工具，连接JLink，选择一个com0com的串口，然后点RTT Start即可。</li></ol><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/RTT2Serial.png" alt="RTT Tunner"></p><ol start="6"><li>然后打开Creator Tunner，串口选择com0com的另一个串口，然后就可以仅使用SWD接口即可tunner了。</li></ol><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/comtunner.png" alt="RTT Tunner"></p><p>三、<strong>更优雅的RTT Tunner</strong>：</p><p>是的，还有更优雅的RTT Tunner方式，参考KK大神的方案，将RTT移植到MiniProg4上，通过任意串口调试工具输入 <strong>RTTView.start(0x20000000,4096)</strong> 即可打开RTT2Serial，将RTT的读写转到虚拟串口上即可，目前已在我的MiniProg4Pro上实现：</p><p><img src="../../../../medias/boardPic/2025/picRtt2Serial/MiniProg4Pro.png" alt="RTT 2 Serial Tunner"></p><p>文中提到的RTT2Serial及com0com下载链接如下：</p><p><a href="https://wwte.lanzouu.com/b0138xzmrg" target="_blank" rel="noopener">https://wwte.lanzouu.com/b0138xzmrg</a><br>密码:haqp</p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MCU </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> JLink </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CH32V305+CH394Q</title>
       <link href="/2025/05/30/CH349Q/"/>
       <url>/2025/05/30/CH349Q/</url>
