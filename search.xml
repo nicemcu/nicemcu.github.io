@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>JLink Wifi V2 来啦</title>
+      <link href="/2025/08/09/PSoC4/JLinkWifiV2/"/>
+      <url>/2025/08/09/PSoC4/JLinkWifiV2/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JLink-Wifi-V2-来啦"><a href="#JLink-Wifi-V2-来啦" class="headerlink" title="JLink-Wifi-V2 来啦"></a>JLink-Wifi-V2 来啦</h3><p>有幸目睹了朋友的JLink-Wifi-V2的真容，于是赶忙也做了个试试，一番鼓捣后终于跑起来了，趁热打铁就做了个mini的JLink-Wifi-V2，以后主要就用它了~~</p><p><img src="../../../../../medias/boardPic/2025/JLinkWifi.png" alt="JLink Wifi v1 &amp; V2"></p><p>上图分别是一代和二代的mini JLink Wifi，可能一代的wifi模块停产了吧，更换了模组，MCU依然是LPC43xx。这次使用的Wifi模组是Microchip 的ATWILC1000-MR110PB，在Segger的官网上提供了该模组的原理图：（如果能使用ESP32多好~）</p><p><a href="https://www.segger.com/products/connectivity/emnet/add-ons/wifi-support/wifi-modules/" target="_blank" rel="noopener">https://www.segger.com/products/connectivity/emnet/add-ons/wifi-support/wifi-modules/</a></p><p>JLink Wifi V2的固件处理也和JLink V11/V12/V13一样的，APP比较大些。使用起来是真香，接个充电宝就可以摆脱线束的烦恼了。</p><p><img src="../../../../../medias/boardPic/2025/jlinkwifiv2.png" alt="jlinkwifiv2"></p><p>可惜这个SN了，从8.42版本开始被加到了Segger的黑名单里，解决方法也很Easy，从dll里把它移除掉就OK了。目前Segger的SN黑名单如下：（喜欢折腾的小伙伴避免这些SN就行了）。</p><p><img src="../../../../../medias/boardPic/2025/snBlackList.png" alt="Segger SN 黑名单"></p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> TOOL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> TOOL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JLink RTT CapSense Tunner</title>
       <link href="/2025/06/30/JlinkCapSenseTunner/"/>
       <url>/2025/06/30/JlinkCapSenseTunner/</url>
