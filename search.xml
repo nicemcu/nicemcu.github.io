@@ -4,9 +4,36 @@
   
     
     <entry>
+      <title>JLink V13 珊珊而来</title>
+      <link href="/2025/11/29/jlink/JLinkV13/"/>
+      <url>/2025/11/29/jlink/JLinkV13/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JLink-V13-珊珊而来"><a href="#JLink-V13-珊珊而来" class="headerlink" title="JLink V13 珊珊而来"></a>JLink V13 珊珊而来</h3><p>最近偶从朋友那儿借到正版JV13一枚，激动坏了-&gt;喜出望外-&gt;喜极而泣~~</p><p>第一件事自然是扒了衣服咔嚓咔嚓，先上靓照：</p><p><img src="../../../../../medias/boardPic/2025/jlink/V11vsV13.jpg" alt="JLink V11 vs V13"></p><p>相比上上一代，还是有不少修改，首先是ADC少了，其次TDO加了换向控制，reset增加了1T45等等…</p><p>Segger为此还发了PCN声明：</p><p><img src="../../../../../medias/boardPic/2025/jlink/PCN.png" alt="PCN"></p><p>一把万用表，然后就把v13给量出来了，其实改动也不是很大。于是就趁热打铁的做了v13及修改后的v13，顺便尝试了JLC的3D打印，打了个外壳。对于我这样的3D小白来说，JLC的3D是真香~</p><p><img src="../../../../../medias/boardPic/2025/jlink/MyJV13All.jpg" alt="JLink V13 All"></p><p>再来张特写：（3D打印的上盖，螺丝一拧螺丝柱就碎了~ 还是使用PCB板来做上盖吧，完美~）</p><p><img src="../../../../../medias/boardPic/2025/jlink/JV13.jpg" alt="JLink V13 All"></p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> TOOL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> TOOL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JLink Wifi V2 来啦</title>
-      <link href="/2025/08/09/PSoC4/JLinkWifiV2/"/>
-      <url>/2025/08/09/PSoC4/JLinkWifiV2/</url>
+      <link href="/2025/08/09/jlink/JLinkWifiV2/"/>
+      <url>/2025/08/09/jlink/JLinkWifiV2/</url>
       
         <content type="html"><![CDATA[<h3 id="JLink-Wifi-V2-来啦"><a href="#JLink-Wifi-V2-来啦" class="headerlink" title="JLink-Wifi-V2 来啦"></a>JLink-Wifi-V2 来啦</h3><p>有幸目睹了朋友的JLink-Wifi-V2的真容，于是赶忙也做了个试试，一番鼓捣后终于跑起来了，趁热打铁就做了个mini的JLink-Wifi-V2，以后主要就用它了~~</p><p><img src="../../../../../medias/boardPic/2025/JLinkWifi.png" alt="JLink Wifi v1 &amp; V2"></p><p>上图分别是一代和二代的mini JLink Wifi，可能一代的wifi模块停产了吧，更换了模组，MCU依然是LPC43xx。这次使用的Wifi模组是Microchip 的ATWILC1000-MR110PB，在Segger的官网上提供了该模组的原理图：（如果能使用ESP32多好~）</p><p><a href="https://www.segger.com/products/connectivity/emnet/add-ons/wifi-support/wifi-modules/" target="_blank" rel="noopener">https://www.segger.com/products/connectivity/emnet/add-ons/wifi-support/wifi-modules/</a></p><p>JLink Wifi V2的固件处理也和JLink V11/V12/V13一样的，APP比较大些。使用起来是真香，接个充电宝就可以摆脱线束的烦恼了。</p><p><img src="../../../../../medias/boardPic/2025/jlinkwifiv2.png" alt="jlinkwifiv2"></p><p>可惜这个SN了，从8.42版本开始被加到了Segger的黑名单里，解决方法也很Easy，从dll里把它移除掉就OK了。目前Segger的SN黑名单如下：（喜欢折腾的小伙伴避免这些SN就行了）。</p><p><img src="../../../../../medias/boardPic/2025/snBlackList.png" alt="Segger SN 黑名单"></p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
       
@@ -74,11 +101,11 @@
       
         <tags>
             
-            <tag> MCU </tag>
-            
             <tag> USB </tag>
             
             <tag> Ethernet </tag>
+            
+            <tag> MCU </tag>
             
         </tags>
       
@@ -88,8 +115,8 @@
     
     <entry>
       <title>Flasher V5 &amp; JLink Pro V6</title>
-      <link href="/2025/03/29/PSoC4/FlasherV5/"/>
-      <url>/2025/03/29/PSoC4/FlasherV5/</url>
+      <link href="/2025/03/29/jlink/FlasherV5/"/>
+      <url>/2025/03/29/jlink/FlasherV5/</url>
       
         <content type="html"><![CDATA[<h3 id="Flasher-V5-amp-JLink-Pro-V6"><a href="#Flasher-V5-amp-JLink-Pro-V6" class="headerlink" title="Flasher V5 &amp; JLink Pro V6"></a>Flasher V5 &amp; JLink Pro V6</h3><p>2025年3月29日，神变月最后一天，我们参加了放生~</p><p>在这个特殊的日子里，我完成了Flasher V5和JLink Pro V6的crack，难掩内心的喜悦与激动，记录下这一时刻。</p><p>前不久小黄鱼上收了一枚Flasher ARM，硬件版本V5.0A （200403），背面SPI Flasher，型号IS25LP128-JBLE-TR，封装SOIC-8，这种大封装的SPI Flash的好处就是可以方便飞线（新版本的Flasher 和 Pro都将此flash更换为小封装的，不易折腾），于是就飞了八根线，接到了一个扩展小板上，这样就可以猥琐欲为了~~果照奉上先。</p><p><img src="../../../../../medias/boardPic/2025/FlasherV5.jpg" alt="Flasher V5"></p><p>简单记录下折腾的过程吧：</p><ol><li>读取固件，通过软件读取（0xFE）指令依然有效，也可以直接通过JLink读取SPI Flash，后来的反复写入验证工作都是通过JLink V13写入的。使用JLink SPI Flasher工具，可以很方便的读写~</li></ol><p><img src="../../../../../medias/boardPic/2025/JLinkSPI_Flash.png" alt="JLink SPI Flash Tools"></p><ol start="2"><li><p>BOOT字符串替换：将ARM修改为PRO，于是Flasher ARM就变成了成功变成了Flasher PRO，至于PRO相比ARM有哪些优势，可以参考官网介绍。</p></li><li><p>固件分析，JLink PRO V6的固件很早之前就提取过，对比发现有很大的相似性。本来想将Boot、APP、SN、Sign的地址列上来的，暂时先不放了，感兴趣的可以私下交流。相比来说，先从JLink Pro V6的固件分析入手比较简单些，Flasher的就要复杂的多了。</p></li><li><p>JLink Pro V6的固件可以在在Flasher上运行（Boot需要使用JLink Pro的boot，两者的App Start地址不同），两者后端电路应该是一样的，下载调试时也是可以的，并且支持Power On，控制5V输出的功能也是OK的。</p></li><li><p>我是先实现的Pro的固件成功的运行（相比Flasher要简单些），实现方式也简单，首先patch掉boot对app的校验，然后patch App对UID和SN的签名验证，尤其是App的验证，看上去一大坨牛X的验证，验证这验证那的，patch也很简单，进来后就return 1出去了，然后就可以欢快的跑起来了。</p></li><li><p>按照楼上的方式实现是最简单的，并且SN可以随意设置，但是会弹出defective的框框，这样还得patch jlinkarm.dll，不够完美。则对我来说无法忍受，于是继续折腾，还是老方法，将母板的UID放在固定位置，读取UID时替换之。于是，JLink Pro V6可以成功的在Flasher V5的载体上运行起来了，并且不弹框框，Debug MCU也可以正常Debug，不会断链。顺便改一下App的date code，避开升级提示。</p><p><img src="../../../../../medias/boardPic/2025/JLinkProV6.png" alt="JLink Pro V6"></p></li><li><p>Pro之后就搞Flasher V5了，Flashser根据字符串，很容易找到boot对App校验的地方，一一patch掉即可。</p><p><img src="../../../../../medias/boardPic/2025/bootCheck.png" alt="Btl Check"></p><p>App对SN和UID的校验与楼上的方法相同：</p><p><img src="../../../../../medias/boardPic/2025/FlasherV5.png" alt="Flasher Pro V5"></p></li><li><p>目前还不能实现自动升级，对ZYNQ的编程一头雾水，算了，到此为止不再折腾了~</p><p>欢迎大佬们一起交流学习，共同进步~</p></li></ol>]]></content>
       
@@ -360,8 +387,8 @@
     
     <entry>
       <title>一起来DIY JLink XMC</title>
-      <link href="/2022/10/21/PSoC4/JLinkXMC/"/>
-      <url>/2022/10/21/PSoC4/JLinkXMC/</url>
+      <link href="/2022/10/21/jlink/JLinkXMC/"/>
+      <url>/2022/10/21/jlink/JLinkXMC/</url>
       
         <content type="html"><![CDATA[<h3 id="JLink-XMC-4200"><a href="#JLink-XMC-4200" class="headerlink" title="JLink XMC 4200"></a>JLink XMC 4200</h3><p>偶得一块XMC4700 Kit板，板载JLink OB XMC，顺手将固件读出来先！由于今天的主角不是这板子，就不爆照了，先上一个JLink Commander：（干净的啥license都没）</p><p><img src="../../../../../medias/boardPic/2022/Infineon/Cmder.png" alt="JLink XMC Commader"></p><p>下面是主角登场：</p><p><img src="../../../../../medias/boardPic/2022/Infineon/JLinkXMCISO.png" alt="JLink XMC ISO"></p><p>带1KV隔离的官方原板，在其文档中惊喜的发现了原理图全开放！开心加意外啊，太良心了，于是就赶紧照猫画虎，赶出来了一翻版：（我的红也是很漂亮的红，不比它的差，照片拍的不好而已）</p><p><img src="../../../../../medias/boardPic/2022/Infineon/DIYMXC.png" alt="DIY JLink MXC"></p><p>参考文档：</p><p>Infineon-XMC_Link_Board_Users_Manual.pdf-UM-v01_00-EN.pdf</p><p>板子做回来后才发现：隔离芯片<strong>SI8652BB-B-IS1</strong> 贵死了…  价格已经炒上天了，这波缺货炒货的行情啥时候才能回归正常啊！哎算了，囊中羞涩，直连起来先测试验证功能吧！就跟手术缝针似的对应的PIN一一连起来就完事了，然后先连个407试试看：结果~</p><p>结果会弹框：巴拉巴拉意思是只可以连接Infineon的芯片什么的，嗯不能忍，老方法，直接对固件开刀（有固件，就可以任性为所欲为），轻松干掉这个限制，然后再加上全功能的License，Perfect~。</p><p>再下个407的程序，一路顺畅的连接下载，debug也正常，再也不会弹什么框框了。只是看JTAG时钟貌似最高只有3000 KHz，应该是固件限制了，所谓了，隔离版应该也快不到哪去。搞定收工，坐等芯片降价后把缺的都加上~</p><p><img src="../../../../../medias/boardPic/2022/Infineon/Download.png" alt="JLink MXC Download 407"></p><p>欢迎交流，莫要固件~</p>]]></content>
       
@@ -651,9 +678,9 @@
       
         <tags>
             
-            <tag> DIY </tag>
-            
             <tag> MCU </tag>
+            
+            <tag> DIY </tag>
             
         </tags>
       
@@ -759,9 +786,9 @@
       
         <tags>
             
-            <tag> DIY </tag>
-            
             <tag> MCU </tag>
+            
+            <tag> DIY </tag>
             
         </tags>
       
