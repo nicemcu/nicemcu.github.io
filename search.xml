@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>J-Link OB STM32F4</title>
+      <link href="/2026/01/28/jlink/JLinkOBSTM32F4/"/>
+      <url>/2026/01/28/jlink/JLinkOBSTM32F4/</url>
+      
+        <content type="html"><![CDATA[<h3 id="J-Link-OB-STM32F4-Arduino"><a href="#J-Link-OB-STM32F4-Arduino" class="headerlink" title="J-Link OB STM32F4-Arduino"></a>J-Link OB STM32F4-Arduino</h3><p> J-Link OB STM32F4-Arduino 固件早就出来了，只是一直未见其板卡，最近得空，顺便沿着前辈们的足迹，反推了下它的管脚，分享给敢兴趣的小伙伴。</p><ul><li>晶振：12M</li><li><strong>SWDIO-TMS：PC0</strong></li><li><strong>SWCLK-TCK：PC8</strong></li><li><strong>ReSet：PC5， 低复位，高释放</strong></li><li>或许支持JTAG模式，TDI：PC3，TDO：PC2 ？ 未尝试</li><li>App起始地址：0x08010000</li><li>SN配置区：0x08008000</li><li>JTAG时钟：4M</li><li>不支持CoreSight SoC-600，Infineon的PSoC C3不支持，但是处理下JLinkArm.dll便可支持。</li><li>支持CDC，</li></ul><p>目前问题：License貌似设置后，下次上电会被清掉，解决办法就是每次使用时bat加一下即可。</p><p>附一张烧录STM32F4的图：</p><p><img src="../../../../../medias/boardPic/2025/jlink/OBStm32F4.png" alt=" J-Link OB STM32F4-Arduino"></p><p>欢迎大佬们一起交流学习，共同进步~</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> TOOL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> MCU </tag>
+            
+            <tag> TOOL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JLink V13 珊珊而来</title>
       <link href="/2025/11/29/jlink/JLinkV13/"/>
       <url>/2025/11/29/jlink/JLinkV13/</url>
@@ -101,11 +128,11 @@
       
         <tags>
             
+            <tag> MCU </tag>
+            
             <tag> USB </tag>
             
             <tag> Ethernet </tag>
-            
-            <tag> MCU </tag>
             
         </tags>
       
@@ -678,9 +705,9 @@
       
         <tags>
             
-            <tag> MCU </tag>
-            
             <tag> DIY </tag>
+            
+            <tag> MCU </tag>
             
         </tags>
       
@@ -786,9 +813,9 @@
       
         <tags>
             
-            <tag> MCU </tag>
-            
             <tag> DIY </tag>
+            
+            <tag> MCU </tag>
             
         </tags>
       
@@ -816,33 +843,6 @@
             <tag> MCU </tag>
             
             <tag> CortexM4 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>IDA JLink OBF4-Arduino</title>
-      <link href="/2021/10/21/IDAJlinkOBF4/"/>
-      <url>/2021/10/21/IDAJlinkOBF4/</url>
-      
-        <content type="html"><![CDATA[<p>在7.56a版本的 Jlink dll里发现多了一个新的OB：J-Link_OB-STM32F4-Arduino_V1，到西哥网上浏了一圈也没找到相关信息，于是搞出来塞进IDA里分析了一下，发现初始化和F4的初始化函数：void SystemInit(void) 神似，Just LooK:<br><img src="../../../../medias/boardPic/2021/tools/IDAF4.png" alt="IDAF4 Pic"></p><p>注释是对照着函数、寄存器添加上的，IDA还没有那么智能<del>~</del></p><p>标黄部分为时钟配置，看上去貌似是6M晶振 - 84M主频，不管3721找个407的板子怂上一试先。</p><p>插上USB后听到了叮咚声却无法识别的USB设备，应该是时钟配置不正确，不是6M也是6的倍数，换个12M的试试，果然识别出JLink了~</p><p>接下来就是常归操作：设置序列号及add licenses：</p><p><img src="../../../../medias/boardPic/2021/tools/JOBF4.png" alt="IDAF4 Pic"></p><p>好开心，又成全功能版啦，尝试vcom enable命令，查看设备管理器，JLink的USB虚拟串口也出来了，剩下的管脚配置就不是事了，暂时不折腾了，估计比OB072性能强些吧。</p><p>或者某天就会遇到开源的STM32F4 Arduino的板子上载了这个OB。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> TOOL </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> tools </tag>
-            
-            <tag> JLink </tag>
             
         </tags>
       

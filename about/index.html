@@ -510,7 +510,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2024-11","2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11"]
+            data: ["2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02"]
         },
         yAxis: {
             type: 'value',
@@ -520,7 +520,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,1,0,1,1,0,1,0,0,1],
+                data: [0,1,0,1,1,0,1,0,0,1,0,1,0],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -562,7 +562,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"MCU","value":14},{"name":"RiscV","value":3},{"name":"STM32","value":1},{"name":"DIY","value":3},{"name":"GIT","value":2},{"name":"TOOL","value":7},{"name":"Infineon","value":16},{"name":"ARM","value":1},{"name":"PCB","value":1},{"name":"QT","value":1}],
+                data: [{"name":"MCU","value":14},{"name":"RiscV","value":3},{"name":"STM32","value":1},{"name":"DIY","value":3},{"name":"GIT","value":2},{"name":"TOOL","value":7},{"name":"Infineon","value":16},{"name":"ARM","value":1},{"name":"QT","value":1},{"name":"PCB","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -586,7 +586,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["MCU","PSoC","BLE","tools","GD32E505","CortexM33","JLink","TOOL","DIY","CH569"]
+                data: ["MCU","PSoC","TOOL","BLE","GD32E505","CortexM33","DIY","tools","JLink","CH569"]
             }
         ],
         yAxis: [
@@ -599,7 +599,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [25,14,5,5,5,5,5,5,4,3],
+                data: [26,14,6,5,5,5,4,4,4,3],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -767,14 +767,8 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/USB/">
-                <span class="chip center-align waves-effect waves-light chip-default">USB</span>
-            </a>
-            
-            
-            
-            <a href="/tags/Ethernet/">
-                <span class="chip center-align waves-effect waves-light chip-default">Ethernet</span>
+            <a href="/tags/DIY/">
+                <span class="chip center-align waves-effect waves-light chip-default">DIY</span>
             </a>
             
             
@@ -785,8 +779,14 @@
             
             
             
-            <a href="/tags/DIY/">
-                <span class="chip center-align waves-effect waves-light chip-default">DIY</span>
+            <a href="/tags/USB/">
+                <span class="chip center-align waves-effect waves-light chip-default">USB</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Ethernet/">
+                <span class="chip center-align waves-effect waves-light chip-default">Ethernet</span>
             </a>
             
             
@@ -923,12 +923,6 @@
             
             
             
-            <a href="/tags/PCB/">
-                <span class="chip center-align waves-effect waves-light chip-default">PCB</span>
-            </a>
-            
-            
-            
             <a href="/tags/QT/">
                 <span class="chip center-align waves-effect waves-light chip-default">QT</span>
             </a>
@@ -943,6 +937,12 @@
             
             <a href="/tags/Motor/">
                 <span class="chip center-align waves-effect waves-light chip-default">Motor</span>
+            </a>
+            
+            
+            
+            <a href="/tags/PCB/">
+                <span class="chip center-align waves-effect waves-light chip-default">PCB</span>
             </a>
             
             

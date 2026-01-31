@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="IDA JLink OBF4-Arduino, ">
-    <meta name="description" content="IDA浅尝J-Link_OB_STM32F4_Arduino">
+    <meta name="keywords" content="J-Link OB STM32F4, ">
+    <meta name="description" content="J-Link OB-STM32F4-Arduino V1 ...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>IDA JLink OBF4-Arduino | </title>
+    <title>J-Link OB STM32F4 | </title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -316,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">IDA JLink OBF4-Arduino</h1>
+                    <h1 class="description center-align post-title">J-Link OB STM32F4</h1>
                 </div>
             </div>
         </div>
@@ -343,12 +343,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/tools/">
-                                <span class="chip bg-color">tools</span>
+                            <a href="/tags/MCU/">
+                                <span class="chip bg-color">MCU</span>
                             </a>
                         
-                            <a href="/tags/JLink/">
-                                <span class="chip bg-color">JLink</span>
+                            <a href="/tags/TOOL/">
+                                <span class="chip bg-color">TOOL</span>
                             </a>
                         
                     </div>
@@ -372,7 +372,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-21
+                    2026-01-28
                 </div>
                 
 
@@ -389,14 +389,23 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在7.56a版本的 Jlink dll里发现多了一个新的OB：J-Link_OB-STM32F4-Arduino_V1，到西哥网上浏了一圈也没找到相关信息，于是搞出来塞进IDA里分析了一下，发现初始化和F4的初始化函数：void SystemInit(void) 神似，Just LooK:<br><img src="../../../../medias/boardPic/2021/tools/IDAF4.png" alt="IDAF4 Pic"></p>
-<p>注释是对照着函数、寄存器添加上的，IDA还没有那么智能<del>~</del></p>
-<p>标黄部分为时钟配置，看上去貌似是6M晶振 - 84M主频，不管3721找个407的板子怂上一试先。</p>
-<p>插上USB后听到了叮咚声却无法识别的USB设备，应该是时钟配置不正确，不是6M也是6的倍数，换个12M的试试，果然识别出JLink了~</p>
-<p>接下来就是常归操作：设置序列号及add licenses：</p>
-<p><img src="../../../../medias/boardPic/2021/tools/JOBF4.png" alt="IDAF4 Pic"></p>
-<p>好开心，又成全功能版啦，尝试vcom enable命令，查看设备管理器，JLink的USB虚拟串口也出来了，剩下的管脚配置就不是事了，暂时不折腾了，估计比OB072性能强些吧。</p>
-<p>或者某天就会遇到开源的STM32F4 Arduino的板子上载了这个OB。</p>
+                <h3 id="J-Link-OB-STM32F4-Arduino"><a href="#J-Link-OB-STM32F4-Arduino" class="headerlink" title="J-Link OB STM32F4-Arduino"></a>J-Link OB STM32F4-Arduino</h3><p> J-Link OB STM32F4-Arduino 固件早就出来了，只是一直未见其板卡，最近得空，顺便沿着前辈们的足迹，反推了下它的管脚，分享给敢兴趣的小伙伴。</p>
+<ul>
+<li>晶振：12M</li>
+<li><strong>SWDIO-TMS：PC0</strong></li>
+<li><strong>SWCLK-TCK：PC8</strong></li>
+<li><strong>ReSet：PC5， 低复位，高释放</strong></li>
+<li>或许支持JTAG模式，TDI：PC3，TDO：PC2 ？ 未尝试</li>
+<li>App起始地址：0x08010000</li>
+<li>SN配置区：0x08008000</li>
+<li>JTAG时钟：4M</li>
+<li>不支持CoreSight SoC-600，Infineon的PSoC C3不支持，但是处理下JLinkArm.dll便可支持。</li>
+<li>支持CDC，</li>
+</ul>
+<p>目前问题：License貌似设置后，下次上电会被清掉，解决办法就是每次使用时bat加一下即可。</p>
+<p>附一张烧录STM32F4的图：</p>
+<p><img src="../../../../../medias/boardPic/2025/jlink/OBStm32F4.png" alt=" J-Link OB STM32F4-Arduino"></p>
+<p>欢迎大佬们一起交流学习，共同进步~</p>
 
             </div>
             <hr/>
@@ -422,7 +431,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://nicemcu.github.io/2021/10/21/IDAJlinkOBF4/">https://nicemcu.github.io/2021/10/21/IDAJlinkOBF4/</a>
+                    <a href="https://nicemcu.github.io/2026/01/28/jlink/JLinkOBSTM32F4/">https://nicemcu.github.io/2026/01/28/jlink/JLinkOBSTM32F4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -460,12 +469,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/tools/">
-                                    <span class="chip bg-color">tools</span>
+                                <a href="/tags/MCU/">
+                                    <span class="chip bg-color">MCU</span>
                                 </a>
                             
-                                <a href="/tags/JLink/">
-                                    <span class="chip bg-color">JLink</span>
+                                <a href="/tags/TOOL/">
+                                    <span class="chip bg-color">TOOL</span>
                                 </a>
                             
                         </div>
@@ -894,41 +903,43 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/11/02/LPC4370/">
+                <a href="/2026/01/28/jlink/JLinkOBSTM32F4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="重开一篇LPC4370">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="J-Link OB STM32F4">
                         
-                        <span class="card-title">重开一篇LPC4370</span>
+                        <span class="card-title">J-Link OB STM32F4</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            扒一个老板子:LPC4370,曾经的王者~
+                            J-Link OB-STM32F4-Arduino V1 ...
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-01-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MCU/" class="post-category">
-                                    MCU
+                            <a href="/categories/TOOL/" class="post-category">
+                                    TOOL
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -936,8 +947,8 @@
                         <span class="chip bg-color">MCU</span>
                     </a>
                     
-                    <a href="/tags/CortexM4/">
-                        <span class="chip bg-color">CortexM4</span>
+                    <a href="/tags/TOOL/">
+                        <span class="chip bg-color">TOOL</span>
                     </a>
                     
                 </div>
@@ -951,31 +962,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/02/NUC980Note/">
+                <a href="/2025/11/29/jlink/JLinkV13/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="NUC980 Linux 笔记">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="JLink V13 珊珊而来">
                         
-                        <span class="card-title">NUC980 Linux 笔记</span>
+                        <span class="card-title">JLink V13 珊珊而来</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            300M ARM9，64M SDRAM，QSPI Nand启动，双以太网，CAN，lqfp128封装...
+                            JLink V13 ...
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MCU/" class="post-category">
-                                    MCU
+                            <a href="/categories/TOOL/" class="post-category">
+                                    TOOL
                                 </a>
                             
                             
@@ -985,16 +996,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Nuvoton/">
-                        <span class="chip bg-color">Nuvoton</span>
+                    <a href="/tags/MCU/">
+                        <span class="chip bg-color">MCU</span>
                     </a>
                     
-                    <a href="/tags/ARM9/">
-                        <span class="chip bg-color">ARM9</span>
-                    </a>
-                    
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/TOOL/">
+                        <span class="chip bg-color">TOOL</span>
                     </a>
                     
                 </div>
